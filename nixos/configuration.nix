@@ -164,14 +164,11 @@
   };
 
   # Install pkgs to system
-  environment.systemPackages = with pkgs; [
-    nano
-    vim
-    docker
-    docker-compose
-    zsh
-    python3
-  ];
+  #environment.systemPackages = with pkgs; [
+  #  nano
+  #  vim
+  #  wget
+  #];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

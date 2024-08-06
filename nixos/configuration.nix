@@ -91,9 +91,14 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # services.displayManager.sddm.enable = false;
+  # services.desktopManager.plasma6.enable = false;
   #Enable the Hyprland Desktop Environment
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+  
   #programs.hyprland.enable = false;
   #programs.hyprland.xwayland.enable = false;
 
@@ -143,32 +148,35 @@
 
   # Enable pkgs
   programs = {
-    git = {
-      enable = true;
-    };
+    git.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true; # $EDTOR=nvim
       viAlias = true;
       vimAlias = true;
     };
-    starship ={
-      enable = true;
-    };
-    zsh = {
-      enable = true;
-    };
-    firefox = {
-      enable = true;
-    };
+    starship.enable = true;
+    zsh.enable = true;
+    firefox.enable = true;
+    #hyprland
+    thunar.enable = true;
   };
 
   # Install pkgs to system
-  #environment.systemPackages = with pkgs; [
-  #  nano
-  #  vim
-  #  wget
-  #];
+  environment.systemPackages = with pkgs; [
+    #hyprland
+    waybar
+    wofi
+    hyprpaper
+    wlogout
+    gtk-session-lock
+    #global install
+    nano
+    vim
+    alacritty
+    google-chrome
+    wget
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -196,5 +204,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }

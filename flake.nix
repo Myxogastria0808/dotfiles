@@ -19,7 +19,7 @@
          inherit inputs;
        };
        modules = [
-         ./home.nix
+         ./home/home.nix
        ];
      };
    }; 

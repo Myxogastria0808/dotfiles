@@ -1,4 +1,7 @@
 {
+  imports = [
+    ./apps.nix  
+  ];
   home = rec {
     username="hello";
     homeDirectory = "/home/${username}";

@@ -1,7 +1,4 @@
-{
-  imports = [
-    ./apps.nix  
-  ];
+{ pkgs, ... }: {
   home = rec {
     username="hello";
     homeDirectory = "/home/${username}";
@@ -9,4 +6,34 @@
   };
   # Enable home-manager
   programs.home-manager.enable = true;
+  # Enable pkgs
+  programs = {
+    git.enable = true;
+    # Editor
+    neovim = {
+      enable = true;
+      defaultEditor = true; # $EDTOR=nvim
+      viAlias = true;
+      vimAlias = true;
+    };
+    starship.enable = true;
+    zsh.enable = true;
+    firefox.enable = true;
+  };
+  # Install pkgs
+  home.packages = with pkgs; [
+    discord
+    # Editor
+    nano
+    vscode
+    zed
+    # Emulator
+    alacritty
+    # Browser
+    google-chrome
+    # Command
+    wget
+    neofetch
+    tree
+  ];
 }

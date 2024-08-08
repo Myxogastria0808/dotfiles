@@ -5,10 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # In clude the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # In clude the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -17,6 +16,9 @@
   nix = {
     settings = {
       auto-optimise-store = true; # optimise Nix store
+      # Enable flakes
+      # nix-command ... flakes requires nix-command
+      #nix-command is a new CLI of Nix.
       experimental-features = ["nix-command" "flakes"];
     };
     #Automate GC
@@ -103,15 +105,21 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Bluetooth
+  hardware.bluetooth = {
+    enable = true; # enables support for Bluetooth
+    powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  };
+
   # Audio
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false; #change to pipewire
-  security.rtkit.enable = true; #require pipewire
+  hardware.pulseaudio.enable = false; # change to pipewire
+  security.rtkit.enable = true; # require pipewire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
+    pulse.enable = true; 
     jack.enable = true;
   };
   # Reduce noise application 
@@ -122,16 +130,14 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  users.defaultUserShell = "/run/current-system/sw/bin/zsh";
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hello = {
     isNormalUser = true;
     description = "hello";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    ];
     #default terminal
-    shell = pkgs.zsh;
+    shell = "/run/current-system/sw/bin/zsh";
   };
 
   # Enable flatpak
@@ -140,11 +146,17 @@
 
   # Enable pkgs
   programs = {
+    # Flakes clones its dependencies through the git command,
+    # so git must be installed first
     git.enable = true;
     zsh.enable = true;
   };
   # Install pkgs to system
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [
+    nano
+    wget
+    curl
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

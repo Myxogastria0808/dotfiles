@@ -26,14 +26,19 @@
     # Editor
     nano
     vscode
-    zed
-    # Emulator
+    zed-editor
+    # Terminal emulator
     alacritty
     # Browser
     google-chrome
     # Command
+    curl
     wget
     neofetch
     tree
+    lolcat
+    sl
+    # language
+    python3
   ];
 }

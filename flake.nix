@@ -8,24 +8,29 @@
   };
 
   outputs = inputs: {
-   homeConfigurations = {
-          myHome = inputs.home-manager.lib.homeManagerConfiguration {
-       pkgs = import inputs.nixpkgs {
-         system = "x86_64-linux";
-         # Enable unfee pkgs
-         config.allowUnfree = true;
-       };
-       extraSpecialArgs = {
-         inherit inputs;
-       };
-       modules = [
-         ./home/home.nix
-       ];
-     };
-   }; 
-   nixosConfigurations = {
+    ## home-manager ##
+    homeConfigurations = {
+      myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = import inputs.nixpkgs {
+          system = "x86_64-linux";
+          # Enable unfee pkgs
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./home/home.nix
+        ];
+      };
+    };
+    ## configuration.nix ##
+    # nixosConfigurations.hostname
+    # Replace nixos with your hostname
+    nixosConfigurations = {
       nixos = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        system = "x86_64-linux"; #sysytem arch param
+        # NixOSシステム構成が定義されているモジュールのリスト
         modules = [
           ./nixos/configuration.nix
         ];

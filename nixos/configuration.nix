@@ -156,7 +156,18 @@
     nano
     wget
     curl
+    fprintd-tod # require fingerprint
   ];
+
+  # Enable fingerprint
+  services.fprintd = {
+    enable = true;
+    package = pkgs.fprintd-tod;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-vfs0090;
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

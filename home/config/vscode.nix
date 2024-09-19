@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
@@ -40,6 +41,7 @@
       styled-components.vscode-styled-components
       wakatime.vscode-wakatime
       jnoortheen.nix-ide
+      ms-vscode-remote.remote-ssh
     ];
     userSettings = {
       "editor.formatOnSave" = "true";

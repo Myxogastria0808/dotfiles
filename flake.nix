@@ -7,6 +7,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # nix-vscode-extentions
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # rust
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: {
@@ -17,6 +27,9 @@
           system = "x86_64-linux";
           # Enable unfee pkgs
           config.allowUnfree = true;
+          overlays = [
+            inputs.rust-overlay.overlays.default
+          ];
         };
         extraSpecialArgs = {
           inherit inputs;

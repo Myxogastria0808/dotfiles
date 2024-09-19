@@ -10,6 +10,7 @@
     ./config/commands.nix
     ./config/docker.nix
     ./config/vscode.nix
+    ./config/mpv.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [
@@ -32,7 +33,6 @@
     zoom-us
     postman
     bitwarden-desktop
-    mpv
 
     # TeXLive full install
     texlive.combined.scheme-full
@@ -41,5 +41,6 @@
 
     # Font
     _0xproto
+    nerdfonts
   ];
 }

@@ -5,7 +5,7 @@
     settings = {
       "$schema" = "https://starship.rs/config-schema.json";
       format = ''
-        [┌──''\\(](bold green)''$username❄️ ''$hostname[''\\)-''\\[](bold green)''$directory[''\\]](bold green) ''$os ''$git_branch''$git_status''$aws''$azure''$buf''$bun''$c''$cmake''$cobol''$conda''$container''$crystal''$daml''$dart''$deno''$docker_context''$dotnet''$elixir''$elm''$erlang''$fennel''$fossil_branch''$fossil_metrics''$gcloud''$gleam''$go''$guix_shell''$gradle''$haskell''$haxe''$helm''$java''$julia''$kotlin''$kubernetes''$lua''$meson''$hg_branch''$nats''$nim''$nix_shell''$nodejs''$ocaml''$odin''$opa''$openstack''$perl''$php''$pijul_channel''$pulumi''$purescript''$python''$quarto''$rlang''$raku''$red''$ruby''$rust''$scala''$shell''$shlvl''$singularity''$solidity''$spack''$swift''$terraform''$typst''$vagrant''$vlang''$vcsh''$zig''$cmd_duration
+        [┌──''\\(](bold green)''$username❄ ''$hostname[''\\)-''\\[](bold green)''$directory[''\\]](bold green) ''$os ''$git_branch''$git_status''$aws''$azure''$buf''$bun''$c''$cmake''$cobol''$conda''$container''$crystal''$daml''$dart''$deno''$docker_context''$dotnet''$elixir''$elm''$erlang''$fennel''$fossil_branch''$fossil_metrics''$gcloud''$gleam''$go''$guix_shell''$gradle''$haskell''$haxe''$helm''$java''$julia''$kotlin''$kubernetes''$lua''$meson''$hg_branch''$nats''$nim''$nix_shell''$nodejs''$ocaml''$odin''$opa''$openstack''$perl''$php''$pijul_channel''$pulumi''$purescript''$python''$quarto''$rlang''$raku''$red''$ruby''$rust''$scala''$shell''$shlvl''$singularity''$solidity''$spack''$swift''$terraform''$typst''$vagrant''$vlang''$vcsh''$zig''$cmd_duration
         [└─](bold green)''$character
       '';
       username = {
@@ -17,7 +17,7 @@
       };
       hostname = {
         ssh_only = false;
-        ssh_symbol = " ";
+        ssh_symbol = "";
         trim_at = "";
         format = "[$ssh_symbol$hostname]($style)";
         style = "bold blue";

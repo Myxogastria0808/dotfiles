@@ -15,8 +15,4 @@
       allowUnfree = true;
     };
   };
-  home.packages = with pkgs; [
-    #test
-    rust-bin.stable.latest.default
-  ];
 }

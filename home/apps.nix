@@ -33,6 +33,7 @@
     zoom-us
     postman
     bitwarden-desktop
+    discord
 
     # TeXLive full install
     texlive.combined.scheme-full
@@ -42,5 +43,8 @@
     # Font
     _0xproto
     nerdfonts
+
+    #Web API
+    httpie
   ];
 }

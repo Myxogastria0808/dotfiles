@@ -6,4 +6,4 @@ sudo chmod 777 /etc/nixos/home/config/nvim/astronvim
 sudo ln -s /etc/nixos/home/config/nvim/astronvim $HOME/.config/nvim
 sudo ln -s /etc/nixos/home/config/zsh/oh-my-zsh $HOME/.config/oh-my-zsh
 nix run home-manager switch
-rustup default stable
+

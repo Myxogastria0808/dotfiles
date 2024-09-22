@@ -5,9 +5,6 @@
     extensions = with pkgs.vscode-extensions; [
       astro-build.astro-vscode
       aaron-bond.better-comments
-      ms-vscode.cpptools
-      ms-vscode.cpptools-extension-pack
-      hars.cppsnippets
       vadimcn.vscode-lldb
       ms-azuretools.vscode-docker
       tamasfe.even-better-toml

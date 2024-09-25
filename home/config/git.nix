@@ -1,8 +1,8 @@
 {
   programs.git = {
     enable = true;
-    userName = "Myxogastria0808";
-    userEmail = "r.rstudio.c@gmail.com";
+    userName = "";
+    userEmail = "";
     extraConfig = {
       init.defaultBranch = "main";
     };

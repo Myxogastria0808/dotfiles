@@ -29,6 +29,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ...                     | `cd ../../`                                         |
 | ....                    | `cd ../../../`                                      |
 | ls                      | `eza`                                               |
+| ll                      | `eza -l`                                            |
 | tree                    | `eza --tree`                                        |
 | cat                     | `bat`                                               |
 | find                    | `fd`                                                |
@@ -179,15 +180,7 @@ rm ./nixos/nixos/hardware-configuration.nix
 mv hardware-configuration.nix ./nixos/nixos/
 ```
 
-Generate user password
-
-```shell
-mkpasswd -m sha-512
-Password: <set your password>
-<hashed password>
-```
-
-Edit `configuration.nix` to change user password
+Edit `configuration.nix` to change initial user password
 
 This dotfiles's user name is admin.
 
@@ -200,8 +193,8 @@ editing `configuration.nix` following
 ```
 users.users.admin = {
   ...
-  # Genarate following command: mkpasswd -m sha-512
-  hashedPassword = "<hashed password>";
+  # Genarate following commacnd: mkpasswd -m sha-512
+  initialHashedPassword="<hashed password>";
   ...
 };
 ```

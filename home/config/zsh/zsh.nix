@@ -28,6 +28,7 @@
       "..." = "cd ../../";
       "...." = "cd ../../../";
       "ls" = "eza";
+      "ll" = "eza -l";
       "tree" = "eza --tree";
       "cat" = "bat";
       "find" = "fd";

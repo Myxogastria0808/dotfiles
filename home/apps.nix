@@ -33,7 +33,6 @@
     zoom-us
     postman
     bitwarden-desktop
-    discord
 
     # TeXLive full install
     texlive.combined.scheme-full
@@ -44,7 +43,10 @@
     _0xproto
     nerdfonts
 
-    #Web API
+    # Web API
     httpie
+
+    # Graph DB
+    neo4j-desktop
   ];
 }

@@ -6,6 +6,7 @@
     ./config/zsh/zsh.nix
     ./config/firefox.nix
     ./config/nvim/nvim.nix
+    ./config/nvim/nixvim.nix
     ./config/language.nix
     ./config/commands.nix
     ./config/docker.nix
@@ -38,6 +39,8 @@
     texlive.combined.scheme-full
     # Typst
     typst
+    #Quarto
+    quarto
 
     # Font
     _0xproto

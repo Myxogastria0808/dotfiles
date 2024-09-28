@@ -214,6 +214,19 @@ reboot now
 
 ### 4. Setup about home-manager
 
+set github usrname and email
+
+```
+{
+  programs.git = {
+    enable = true;
+    userName = "<GitHub username>";
+    userEmail = "<GitHub user email>";
+    ...
+  };
+}
+```
+
 if your environment have ~/.zshrc, you have to remove this file before run folowing commands.
 
 ```shell

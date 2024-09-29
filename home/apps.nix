@@ -5,11 +5,9 @@
     ./config/git.nix
     ./config/zsh/zsh.nix
     ./config/firefox.nix
-    ./config/nvim/nvim.nix
     ./config/nvim/nixvim.nix
     ./config/language.nix
     ./config/commands.nix
-    ./config/docker.nix
     ./config/vscode.nix
     ./config/mpv.nix
   ];
@@ -51,5 +49,10 @@
 
     # Graph DB
     neo4j-desktop
+
+    #docker
+    docker
+    docker-compose
+    devenv
   ];
 }

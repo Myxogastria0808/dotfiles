@@ -12,6 +12,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | Window Manager    | KDE Plasma 6           |
 | Terminal Emulator | Alacritty              |
 | Shell             | zsh                    |
+| Vim               | NixVim                 |
 | Prompt            | starship               |
 | Fingerprint       | Disable                |
 | Bluetooth         | Enable                 |

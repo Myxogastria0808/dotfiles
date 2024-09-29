@@ -36,7 +36,7 @@
       "man" = "tldr";
       "diff" = "delta --side-by-side";
       "neofetch" = "fastfetch";
-      "hn" = "nix run home-manager switch";
+      "hn" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig";
       "hm" = "home-manager switch";
       "nr" = "sudo nixos-rebuild switch";
       "hs" = "firefox https://home-manager-options.extranix.com";

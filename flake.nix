@@ -38,6 +38,7 @@
         };
         extraSpecialArgs = {
           inherit inputs;
+          # extensions = inputs.nix-vscode-extensions.extensions.x86_64-linux;
         };
         modules = [
           ./home/home.nix

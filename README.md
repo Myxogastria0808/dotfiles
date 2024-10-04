@@ -26,24 +26,26 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 
 | command alius           | execute comand                                      |
 | ----------------------- | --------------------------------------------------- |
-| ..                      | `cd ../`                                            |
-| ...                     | `cd ../../`                                         |
-| ....                    | `cd ../../../`                                      |
-| ls                      | `eza`                                               |
-| ll                      | `eza -l`                                            |
-| tree                    | `eza --tree`                                        |
-| cat                     | `bat`                                               |
-| find                    | `fd`                                                |
-| ps                      | `procs`                                             |
-| man                     | `tldr`                                              |
-| diff                    | `delta --side-by-side`                              |
-| neofetch                | `fastfetch`                                         |
-| hn (for NixOS user)     | `nix run home-manager switch`                       |
-| hm (for not NixOs user) | `home-manager switch`                               |
-| nr (for NixOs user)     | `sudo nixos-rebuild switch`                         |
-| hs                      | `firefox https://home-manager-options.extranix.com` |
-| ns                      | `firefox https://search.nixos.org`                  |
-| gc                      | `nix-collect-garbage`                               |
+| ..                      | `cd ../`                                                                 |
+| ...                     | `cd ../../`                                                              |
+| ....                    | `cd ../../../`                                                           |
+| ls                      | `eza`                                                                    |
+| ll                      | `eza -l`                                                                 |
+| tree                    | `eza --tree`                                                             |
+| cat                     | `bat`                                                                    |
+| find                    | `fd`                                                                     |
+| ps                      | `procs`                                                                  |
+| man                     | `tldr`                                                                   |
+| diff                    | `delta --side-by-side`                                                   |
+| neofetch                | `fastfetch`                                                              |
+| hn (for NixOS user)     | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
+| hm (for not NixOs user) | `home-manager switch`                                                    |
+| nr (for NixOs user)     | `sudo nixos-rebuild switch`                                              |
+| hs                      | `firefox https://home-manager-options.extranix.com`                      |
+| ns                      | `firefox https://search.nixos.org`                                       |
+| gc                      | `nix-collect-garbage`                                                    |
+| R                       | `R | lolcat`                                                             |
+| t                       | `typst compile`                                                          |
 
 # How to setup
 

@@ -2,44 +2,6 @@
 {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      astro-build.astro-vscode
-      aaron-bond.better-comments
-      vadimcn.vscode-lldb
-      ms-azuretools.vscode-docker
-      tamasfe.even-better-toml
-      grapecity.gc-excelviewer
-      github.copilot
-      github.copilot-chat
-      golang.go
-      vincaslt.highlight-matching-tag
-      ecmel.vscode-html-css
-      oderwat.indent-rainbow
-      ms-python.isort
-      julialang.language-julia
-      james-yu.latex-workshop
-      ritwickdey.liveserver
-      bierner.markdown-mermaid
-      pkief.material-icon-theme
-      phind.phind
-      esbenp.prettier-vscode
-      prisma.prisma
-      ms-python.vscode-pylance
-      ms-python.python
-      ms-python.debugpy
-      mechatroner.rainbow-csv
-      rust-lang.rust-analyzer
-      bradlc.vscode-tailwindcss
-      ms-vscode.test-adapter-converter
-      hbenl.vscode-test-explorer
-      shardulm94.trailing-spaces
-      nvarner.typst-lsp
-      tomoki1207.pdf
-      styled-components.vscode-styled-components
-      wakatime.vscode-wakatime
-      jnoortheen.nix-ide
-      ms-vscode-remote.remote-ssh
-    ];
     userSettings = {
       "editor.formatOnSave" = "true";
       "editor.defaultFormatter" = "esbenp.prettier-vscode";

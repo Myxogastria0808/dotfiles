@@ -42,6 +42,8 @@
       "hs" = "firefox https://home-manager-options.extranix.com";
       "ns" = "firefox https://search.nixos.org";
       "gc" = "nix-collect-garbage";
+      "R" = "R | lolcat";
+      "t" = "typst compile";
     };
     # .zshrc
     initExtra = ''

@@ -32,6 +32,7 @@
     zoom-us
     postman
     bitwarden-desktop
+    libreoffice
 
     # TeXLive full install
     texlive.combined.scheme-full
@@ -54,5 +55,8 @@
     docker
     docker-compose
     devenv
+
+    #Arduino IDE
+    arduino-ide
   ];
 }

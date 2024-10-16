@@ -10,7 +10,6 @@
     ./config/commands.nix
     ./config/vscode.nix
     ./config/mpv.nix
-    ./config/wezterm.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [

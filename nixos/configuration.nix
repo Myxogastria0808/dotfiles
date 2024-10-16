@@ -155,12 +155,20 @@
     git.enable = true;
     zsh.enable = true;
   };
+  # Enable OpenGL
+  hardware.opengl.enable = true;
 
   # Enable TailScale
   services.tailscale.enable = true;
 
-  # Enable docker
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    # Enable docker
+    docker.enable = true;
+    #Enable vmware
+    vmware.host.enable = true;
+    #Enable waydroid
+    waydroid.enable = true;
+  };
 
   # Install pkgs to system
   environment.systemPackages = with pkgs; [
@@ -168,6 +176,7 @@
     tailscale # VPN
     fprintd-tod # require fingerprint
     kdePackages.kdeconnect-kde # KDE connect
+    appimage-run #require appimage
   ];
 
   # Enable fingerprint

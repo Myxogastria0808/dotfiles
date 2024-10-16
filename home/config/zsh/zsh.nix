@@ -44,6 +44,7 @@
       "gc" = "nix-collect-garbage";
       "R" = "R | lolcat";
       "t" = "typst compile";
+      "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
     };
     # .zshrc
     initExtra = ''

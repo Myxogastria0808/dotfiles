@@ -10,6 +10,7 @@
     ./config/commands.nix
     ./config/vscode.nix
     ./config/mpv.nix
+    ./config/wezterm.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [
@@ -33,6 +34,7 @@
     postman
     bitwarden-desktop
     libreoffice
+    obs-studio
 
     # TeXLive full install
     texlive.combined.scheme-full
@@ -58,5 +60,14 @@
 
     #Arduino IDE
     arduino-ide
+
+    #for nix-shell
+    direnv
+
+    #VM
+    vmware-workstation
+
+    #make
+    gnumake
   ];
 }

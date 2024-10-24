@@ -10,6 +10,7 @@
     ./config/commands.nix
     ./config/vscode.nix
     ./config/mpv.nix
+    ./config/playwright.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [
@@ -34,6 +35,7 @@
     bitwarden-desktop
     libreoffice
     obs-studio
+    yt-dlp
 
     # TeXLive full install
     texlive.combined.scheme-full

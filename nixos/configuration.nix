@@ -140,9 +140,11 @@
     initialHashedPassword="$6$DEgxVwM7CWGRVNK6$f/ATlexID21R3DJ7NfQEbnvZ3dakf1Ejro5yPimllGLg2zUqJ5aCjuBxF4QaXOLnXoPc46n.7WLXZmBnuInZ81";
     # Add users (this user name: hello) to the docker group
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    #default terminal
+    # default terminal
     shell = "/run/current-system/sw/bin/zsh";
   };
+  # Add users to vboxusers group
+  users.extraGroups.vboxusers.members = [ "hello" ];
 
   # Enable flatpak
   services.flatpak.enable = true;
@@ -164,10 +166,15 @@
   virtualisation = {
     # Enable docker
     docker.enable = true;
-    #Enable vmware
+    # Enable vmware
     vmware.host.enable = true;
-    #Enable waydroid
+    # Enable waydroid
     waydroid.enable = true;
+    # Enable virtualbox
+    virtualbox.host.enable = true;
+    # Enable virtualbox guest additions
+    virtualbox.guest.enable = true;
+    virtualbox.guest.dragAndDrop = true;
   };
 
   # Install pkgs to system
@@ -176,7 +183,7 @@
     tailscale # VPN
     fprintd-tod # require fingerprint
     kdePackages.kdeconnect-kde # KDE connect
-    appimage-run #require appimage
+    appimage-run # require appimage
   ];
 
   # Enable fingerprint
@@ -196,8 +203,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
 
   # Enable openssh.
   services.openssh.enable = true;

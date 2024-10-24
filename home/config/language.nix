@@ -8,9 +8,11 @@
     nodejs_22
     corepack_latest
     bun
-    #python
+    # Wrangler
+    nodePackages.wrangler
+    # python
     python3
-    #R
+    # R
     R
     # Rust
     rustup

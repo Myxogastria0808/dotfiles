@@ -8,10 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nix-vscode-extentions
-    # nix-vscode-extensions = {
-    #   url = "github:nix-community/nix-vscode-extensions";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     # rust
     # rust-overlay = {
     #   url = "github:oxalica/rust-overlay";
@@ -38,7 +35,6 @@
         };
         extraSpecialArgs = {
           inherit inputs;
-          # extensions = inputs.nix-vscode-extensions.extensions.x86_64-linux;
         };
         modules = [
           ./home/home.nix

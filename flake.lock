@@ -167,6 +167,27 @@
         "type": "github"
       }
     },
+    "home-manager_3": {
+      "inputs": {
+        "nixpkgs": [
+          "plasma-manager",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1729716953,
+        "narHash": "sha256-FbRKGRRd0amsk/WS/UV9ukJ8jT1dZ2pJBISxkX+uq6A=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "a4353cc43d1b4dd6bdeacea90eb92a8b7b78a9d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -256,9 +277,7 @@
     },
     "plasma-manager": {
       "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
+        "home-manager": "home-manager_3",
         "nixpkgs": [
           "nixpkgs"
         ]

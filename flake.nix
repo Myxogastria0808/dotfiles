@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nix-vscode-extentions
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     # rust
     # rust-overlay = {
     #   url = "github:oxalica/rust-overlay";
@@ -38,7 +38,7 @@
         };
         modules = [
           ./home/home.nix
-          inputs.nixvim.homeManagerModules.nixvim
+          # inputs.nixvim.homeManagerModules.nixvim
         ];
       };
     };

@@ -2,53 +2,53 @@
 {
   programs.vscode = {
     enable = true;
-    extensions = with inputs.nix-vscode-extensions.extensions."x86_64-linux".vscode-marketplace; [
-      # Astro
-      astro-build.astro-vscode
-      # AI
-      phind.phind
-      github.copilot
-      # Docker
-      ms-azuretools.vscode-docker
-      # Nix
-      jnoortheen.nix-ide
-      mkhl.direnv
-      arrterian.nix-env-selector
-      # C C++ Makefile
-      # ms-vscode.cpptools <- cannot install from nix
-      ms-vscode.cpptools-themes
-      ms-vscode.cmake-tools
-      ms-vscode.makefile-tools
-      twxs.cmake
-      # Rust
-      tamasfe.even-better-toml
-      rust-lang.rust-analyzer
-      # python
-      ms-python.python
-      ms-python.debugpy
-      kevinrose.vsc-python-indent
-      visualstudioexptteam.vscodeintellicode
-      visualstudioexptteam.intellicode-api-usage-examples
-      # JavaScript Typscript
-      esbenp.prettier-vscode
-      # mermaid
-      bierner.markdown-mermaid
-      bpruitt-goddard.mermaid-markdown-syntax-highlighting
-      # mdx
-      unifiedjs.vscode-mdx
-      # pdf
-      tomoki1207.pdf
-      # Quarto
-      quarto.quarto
-      # Jupyter
-      ms-toolsai.jupyter
-      # csv
-      mechatroner.rainbow-csv
-      # typst
-      nvarner.typst-lsp
-      # others
-      oderwat.indent-rainbow
-    ] ;
+    # extensions = with inputs.nix-vscode-extensions.extensions."x86_64-linux".vscode-marketplace; [
+    #   # Astro
+    #   astro-build.astro-vscode
+    #   # AI
+    #   phind.phind
+    #   github.copilot
+    #   # Docker
+    #   ms-azuretools.vscode-docker
+    #   # Nix
+    #   jnoortheen.nix-ide
+    #   mkhl.direnv
+    #   arrterian.nix-env-selector
+    #   # C C++ Makefile
+    #   # ms-vscode.cpptools <- cannot install from nix
+    #   ms-vscode.cpptools-themes
+    #   ms-vscode.cmake-tools
+    #   ms-vscode.makefile-tools
+    #   twxs.cmake
+    #   # Rust
+    #   tamasfe.even-better-toml
+    #   rust-lang.rust-analyzer
+    #   # python
+    #   ms-python.python
+    #   ms-python.debugpy
+    #   kevinrose.vsc-python-indent
+    #   visualstudioexptteam.vscodeintellicode
+    #   visualstudioexptteam.intellicode-api-usage-examples
+    #   # JavaScript Typscript
+    #   esbenp.prettier-vscode
+    #   # mermaid
+    #   bierner.markdown-mermaid
+    #   bpruitt-goddard.mermaid-markdown-syntax-highlighting
+    #   # mdx
+    #   unifiedjs.vscode-mdx
+    #   # pdf
+    #   tomoki1207.pdf
+    #   # Quarto
+    #   quarto.quarto
+    #   # Jupyter
+    #   ms-toolsai.jupyter
+    #   # csv
+    #   mechatroner.rainbow-csv
+    #   # typst
+    #   nvarner.typst-lsp
+    #   # others
+    #   oderwat.indent-rainbow
+    # ] ;
     userSettings = {
       "editor.formatOnSave" = "true";
       "editor.defaultFormatter" = "esbenp.prettier-vscode";

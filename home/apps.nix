@@ -10,7 +10,7 @@
     ./config/commands.nix
     ./config/vscode.nix
     ./config/mpv.nix
-    ./config/kde.nix
+    # ./config/kde.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [

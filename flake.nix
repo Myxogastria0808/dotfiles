@@ -19,6 +19,12 @@
         url = "github:nix-community/nixvim";
         inputs.nixpkgs.follows = "nixpkgs";
     };
+    #plasma-manager
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = inputs: {
@@ -39,6 +45,7 @@
         modules = [
           ./home/home.nix
           inputs.nixvim.homeManagerModules.nixvim
+          inputs.plasma-manager.homeManagerModules.plasma-manager
         ];
       };
     };

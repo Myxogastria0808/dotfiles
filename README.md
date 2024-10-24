@@ -25,7 +25,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 ## Alius
 
 | command alius           | execute comand                                                           |
-| ----------------------- | ------------------------------------------------------------------------ | ------- |
+| ----------------------- | ------------------------------------------------------------------------ |
 | ..                      | `cd ../`                                                                 |
 | ...                     | `cd ../../`                                                              |
 | ....                    | `cd ../../../`                                                           |
@@ -44,7 +44,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | hs                      | `firefox https://home-manager-options.extranix.com`                      |
 | ns                      | `firefox https://search.nixos.org`                                       |
 | gc                      | `nix-collect-garbage`                                                    |
-| R                       | `R                                                                       | lolcat` |
+| R                       | `R \| lolcat`                                                            |
 | t                       | `typst compile`                                                          |
 
 # How to setup

@@ -130,8 +130,8 @@
   # services.xserver.libinput.enable = true;
 
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
-  # Disable chnage password from command.
-  users.mutableUsers = false;
+  # Disable change password from command.
+  users.mutableUsers = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hello = {
     isNormalUser = true;

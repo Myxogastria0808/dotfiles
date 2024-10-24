@@ -24,8 +24,8 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 
 ## Alius
 
-| command alius           | execute comand                                      |
-| ----------------------- | --------------------------------------------------- |
+| command alius           | execute comand                                                           |
+| ----------------------- | ------------------------------------------------------------------------ | ------- |
 | ..                      | `cd ../`                                                                 |
 | ...                     | `cd ../../`                                                              |
 | ....                    | `cd ../../../`                                                           |
@@ -44,7 +44,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | hs                      | `firefox https://home-manager-options.extranix.com`                      |
 | ns                      | `firefox https://search.nixos.org`                                       |
 | gc                      | `nix-collect-garbage`                                                    |
-| R                       | `R | lolcat`                                                             |
+| R                       | `R                                                                       | lolcat` |
 | t                       | `typst compile`                                                          |
 
 # How to setup
@@ -169,23 +169,18 @@ Setup dotfiles
 
 ```shell
 nix-env -i git
-cd /mnt/etc/nixos
-# You have to swap hardware-configuration.nix from dotfiles/nixos/hardware-configuration.nix to /mnt/etc/nixos/hardware-configuration.nix.
-# Therefore, I am temporarily copying hardware-configuration.nix to /mnt/etc.
-cp ./hardware-configuration.nix ../
-cd ..
+cd /mnt/etc
 git clone https://github.com/Myxogastria0808/dotfiles.git
 # Delete the original nixos directory.
 rm -rf /etc/nixos
-mv dotfiles/ nixos/
-rm ./nixos/nixos/hardware-configuration.nix
-# Swap hardware-configuration.nix
-mv hardware-configuration.nix ./nixos/nixos/
+ln -s dotfiles/ nixos/
 ```
 
-Edit `configuration.nix` to change initial user password
+Edit `configuration.nix` if you change initial user password or user name
 
-This dotfiles's user name is admin.
+cf: This dotfiles's initial user password is `sakura`
+
+cf: This dotfiles's user name is `hello`
 
 ```shell
 nano /mnt/etc/nixos/nixos/configuration.nix
@@ -194,7 +189,7 @@ nano /mnt/etc/nixos/nixos/configuration.nix
 editing `configuration.nix` following
 
 ```
-users.users.admin = {
+users.users.<username> = {
   ...
   # Genarate following commacnd: mkpasswd -m sha-512
   initialHashedPassword="<hashed password>";
@@ -217,7 +212,7 @@ reboot now
 
 ### 4. Setup about home-manager
 
-set github usrname and email
+set github username and email
 
 ```
 {

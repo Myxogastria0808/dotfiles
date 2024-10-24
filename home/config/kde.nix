@@ -1,10 +1,10 @@
 {
-  programs.plasma-manager ={
+  programs.plasma = {
     enable = true;
-    # commands."launch-konsole" = {
-    #   name = "Launch Konsole";
-    #   key = "Meta+Alt+K";
-    #   command = "konsole";
-    # };
+    hotkeys.commands."launch-konsole" = {
+      name = "Launch Konsole";
+      key = "Meta+Alt+K";
+      command = "konsole";
+    };
   };
 }

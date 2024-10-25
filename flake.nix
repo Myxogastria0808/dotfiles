@@ -7,11 +7,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # default nixvim
+    # nixvim = {
+    #   url = "github:nix-community/nixvim";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     # nixvim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # GitHub:https://github.com/dc-tec/nixvim
+    nixvim.url = "github:dc-tec/nixvim";
     # nix-vscode-extentions
     # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     # rust
@@ -44,7 +47,7 @@
         };
         modules = [
           ./home/home.nix
-          inputs.nixvim.homeManagerModules.nixvim
+          # inputs.nixvim.homeManagerModules.nixvim
           # inputs.plasma-manager.homeManagerModules.plasma-manager
         ];
       };

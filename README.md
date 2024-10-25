@@ -39,8 +39,8 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | diff                    | `delta --side-by-side`                                                   |
 | neofetch                | `fastfetch`                                                              |
 | hn (for NixOS user)     | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
-| hm (for not NixOs user) | `home-manager switch`                                                    |
-| nr (for NixOs user)     | `sudo nixos-rebuild switch`                                              |
+| hm (for not NixOS user) | `home-manager switch`                                                    |
+| nr (for NixOS user)     | `sudo nixos-rebuild switch`                                              |
 | hs                      | `firefox https://home-manager-options.extranix.com`                      |
 | ns                      | `firefox https://search.nixos.org`                                       |
 | gc                      | `nix-collect-garbage`                                                    |
@@ -215,18 +215,22 @@ nano /mnt/etc/nixos/home/home.nix
 
 ```
 { pkgs, ... }: {
-  ...
-  (omitted)
-  ...
+  imports = [
+    ./apps.nix
+  ];
   home = rec {
     username="<username>";
-    ...services.resolved.enable = true;
-    (omitted)
-    ...
+    homeDirectory = "/home/${username}";
+    stateVersion = "24.05";
   };
-  ...
-  (omitted)
-  ...
+  # Enable home-manager
+  programs.home-manager.enable = true;
+  nixpkgs = {
+    config = {
+      # Enable install unfree pkgs
+      allowUnfree = true;
+    };
+  };
 }
 ```
 

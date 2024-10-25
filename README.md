@@ -106,6 +106,8 @@ OK
 OK
 > enable_network 0
 OK
+...
+(omitted)
 > quit
 ```
 
@@ -182,19 +184,50 @@ cf: This dotfiles's initial user password is `sakura`
 
 cf: This dotfiles's user name is `hello`
 
+editing `configuration.nix` following
+
 ```shell
 nano /mnt/etc/nixos/nixos/configuration.nix
 ```
 
-editing `configuration.nix` following
+```
+(omitted)
+...
+  users.users.<username> = {
+    ...
+    (omitted)
+    ...
+    # Genarate following commacnd: mkpasswd -m sha-512
+    initialHashedPassword="<hashed password>";
+    ...
+    (omitted)
+    ...
+  };
+...
+(omitted)
+```
+
+editing `home.nix` following
+
+```shell
+nano /mnt/etc/nixos/home/home.nix
+```
 
 ```
-users.users.<username> = {
+{ pkgs, ... }: {
   ...
-  # Genarate following commacnd: mkpasswd -m sha-512
-  initialHashedPassword="<hashed password>";
+  (omitted)
   ...
-};
+  home = rec {
+    username="<username>";
+    ...
+    (omitted)
+    ...
+  };
+  ...
+  (omitted)
+  ...
+}
 ```
 
 Install NixOS
@@ -212,7 +245,39 @@ reboot now
 
 ### 4. Setup about home-manager
 
-set github username and email
+run folowing commands
+
+```shell
+cd /etc/nixos
+nix run home-manager -- switch --flake .#myHomeConfig
+```
+
+move dotfiles (entity of dotfiles)
+
+```shell
+sudo mv /etc/dotfiles ~/
+```
+
+repost symbolic link of /etc/nixos
+
+```shell
+cd etc
+sudo rm nixos
+sudo ln -s nixos ~/dotfiles
+```
+
+set other symbolic link
+
+```shell
+sudo ln -s /etc/nixos/home $HOME/.config/home-manager
+sudo ln -s /etc/nixos/home/config/zsh/oh-my-zsh $HOME/.config/oh-my-zsh
+```
+
+editing `git.nix` following
+
+```shell
+nano /mnt/etc/nixos/home/config/git.nix
+```
 
 ```
 {
@@ -221,14 +286,22 @@ set github username and email
     userName = "<GitHub username>";
     userEmail = "<GitHub user email>";
     ...
+    (omitted)
+    ...
   };
 }
 ```
 
-if your environment have ~/.zshrc, you have to remove this file before run folowing commands.
+run folowing command
 
 ```shell
-sh /etc/nixos/home/scripts/install-hm-nixos.sh
+hn
+```
+
+reboot
+
+```shell
+sudo reboot now
 ```
 
 ### 5. Finish!

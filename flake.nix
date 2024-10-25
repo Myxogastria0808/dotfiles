@@ -14,12 +14,12 @@
     #   url = "github:oxalica/rust-overlay";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    #nixvim
+    # nixvim
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #plasma-manager
+    # plasma-manager
     # plasma-manager = {
     #   url = "github:pjones/plasma-manager";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +45,7 @@
         modules = [
           ./home/home.nix
           inputs.nixvim.homeManagerModules.nixvim
-          inputs.plasma-manager.homeManagerModules.plasma-manager
+          # inputs.plasma-manager.homeManagerModules.plasma-manager
         ];
       };
     };

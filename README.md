@@ -172,7 +172,7 @@ Setup dotfiles
 ```shell
 nix-env -i git
 cd /mnt/etc
-git clone https://github.com/Myxogastria0808/dotfiles.git
+git clone --recursive https://github.com/Myxogastria0808/dotfiles.git
 # Delete the original nixos directory.
 rm -rf /etc/nixos
 ln -s dotfiles/ nixos/
@@ -252,6 +252,12 @@ cd /etc/nixos
 nix run home-manager -- switch --flake .#myHomeConfig
 ```
 
+reboot
+
+```shell
+sudo reboot now
+```
+
 move dotfiles (entity of dotfiles)
 
 ```shell
@@ -271,6 +277,12 @@ set other symbolic link
 ```shell
 sudo ln -s /etc/nixos/home $HOME/.config/home-manager
 sudo ln -s /etc/nixos/home/config/zsh/oh-my-zsh $HOME/.config/oh-my-zsh
+```
+
+login github
+
+```shell
+gh auth login
 ```
 
 editing `git.nix` following

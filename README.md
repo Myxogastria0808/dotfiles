@@ -292,14 +292,18 @@ nano /mnt/etc/nixos/home/config/git.nix
 ```
 
 ```
-{
+{ pkgs, ... }: {
+  home.packages = with pkgs; [
+    gh
+  ];
   programs.git = {
     enable = true;
-    userName = "<GitHub username>";
-    userEmail = "<GitHub user email>";
-    ...
-    (omitted)
-    ...
+    userName = "<github username>";
+    userEmail = "<github email>";
+    extraConfig = {
+      init.defaultBranch = "main";
+      credential."https://github.com".helper = "!gh auth git-credential";
+    };
   };
 }
 ```

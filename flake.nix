@@ -7,6 +7,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # nixvim
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nix-vscode-extentions
     # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     # rust
@@ -14,11 +19,6 @@
     #   url = "github:oxalica/rust-overlay";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    # nixvim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # plasma-manager
     # plasma-manager = {
     #   url = "github:pjones/plasma-manager";

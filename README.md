@@ -220,7 +220,7 @@ nano /mnt/etc/nixos/home/home.nix
   ...
   home = rec {
     username="<username>";
-    ...
+    ...services.resolved.enable = true;
     (omitted)
     ...
   };
@@ -290,6 +290,15 @@ nano /mnt/etc/nixos/home/config/git.nix
     ...
   };
 }
+```
+
+run `tailscale up`
+
+> [!WARNING]
+> If you are not tailscale user, you have to comment out `services.tailscale.enable = true;` (`configuration.nix`)
+
+```shell
+sudo tailscale up
 ```
 
 run folowing command

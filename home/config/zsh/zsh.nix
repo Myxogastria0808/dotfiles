@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   #参考サイト: https://blog.ryota-ka.me/posts/2021/12/31/home-manager
   programs.zsh = {
     enable = true;
@@ -40,6 +41,7 @@
       "hm" = "home-manager switch";
       "nr" = "sudo nixos-rebuild switch";
       "hs" = "firefox https://home-manager-options.extranix.com";
+      "hg" = "home-manager generations";
       "ns" = "firefox https://search.nixos.org";
       "gc" = "nix-collect-garbage";
       "R" = "R | lolcat";

@@ -176,7 +176,7 @@ cd /mnt/etc
 git clone --recursive https://github.com/Myxogastria0808/dotfiles.git
 # Delete the original nixos directory.
 rm -rf /etc/nixos
-ln -s dotfiles/ nixos/
+ln -s dotfiles nixos
 ```
 
 Edit `configuration.nix` if you change initial user password or user name

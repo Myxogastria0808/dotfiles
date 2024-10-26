@@ -15,6 +15,9 @@
     # nixvim
     # GitHub:https://github.com/dc-tec/nixvim
     nixvim.url = "github:dc-tec/nixvim";
+    # nixvim
+    # GitHub:https://github.com/fred-drake/neovim
+    # nixvim.url = "github:fred-drake/neovim#";
     # nix-vscode-extentions
     # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     # rust
@@ -23,11 +26,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
     # plasma-manager
-    # plasma-manager = {
-    #   url = "github:pjones/plasma-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.home-manager.follows = "home-manager";
-    # };
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = inputs: {
@@ -48,7 +51,7 @@
         modules = [
           ./home/home.nix
           # inputs.nixvim.homeManagerModules.nixvim
-          # inputs.plasma-manager.homeManagerModules.plasma-manager
+          inputs.plasma-manager.homeManagerModules.plasma-manager
         ];
       };
     };

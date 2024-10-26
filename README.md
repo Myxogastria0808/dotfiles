@@ -40,6 +40,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | neofetch                | `fastfetch`                                                              |
 | hn (for NixOS user)     | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
 | hm (for not NixOS user) | `home-manager switch`                                                    |
+| hg                      | `home-manager generations`                                               |
 | nr (for NixOS user)     | `sudo nixos-rebuild switch`                                              |
 | hs                      | `firefox https://home-manager-options.extranix.com`                      |
 | ns                      | `firefox https://search.nixos.org`                                       |

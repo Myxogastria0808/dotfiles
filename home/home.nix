@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{
   imports = [
     ./apps.nix
   ];
   home = rec {
-    username="hello";
+    username = "hello";
     homeDirectory = "/home/${username}";
     stateVersion = "24.05";
   };

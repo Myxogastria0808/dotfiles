@@ -70,5 +70,8 @@
 
     #make
     gnumake
+
+    # font patch
+    fontconfig
   ];
 }

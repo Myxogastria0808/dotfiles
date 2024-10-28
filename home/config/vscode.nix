@@ -88,7 +88,7 @@
         "rust" = "html";
       };
       #astroの設定
-      "prettier.documentSelectors" = ["**/*.astro"];
+      "prettier.documentSelectors" = [ "**/*.astro" ];
       "[astro]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
@@ -101,15 +101,21 @@
         "editor.defaultFormatter" = "Prisma.prisma";
       };
       "workbench.iconTheme" = "material-icon-theme";
-      "terminal.integrated.commandsToSkipShell" = ["language-julia.interrupt"];
+      "terminal.integrated.commandsToSkipShell" = [ "language-julia.interrupt" ];
       "julia.symbolCacheDownload" = "true";
-      "julia.enableTelemetry" =  "true";
+      "julia.enableTelemetry" = "true";
       "editor.minimap.enabled" = "false";
       "prisma.showPrismaDataPlatformNotification" = "false";
       "material-ui-snippets.showNotesOnStartup" = "false";
       "github.copilot.enable" = {
         "*" = "true";
       };
+      "typst-lsp.experimentalFormatterMode" = "on";
+      "typst-lsp.exportPdf" = "onSave";
+      "typst-lsp.rootPath" = null;
+      "typst-lsp.semanticTokens" = "enable";
+      "typst-lsp.serverPath" = null;
+      "typst-lsp.trace.server" = "on";
     };
   };
 }

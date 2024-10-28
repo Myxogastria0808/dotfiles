@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     curl
     wget
@@ -13,6 +14,7 @@
     delta
     parted
     gparted
+    zip
     # ネタコマンド
     lolcat
     sl

@@ -12,7 +12,6 @@
     nodePackages.wrangler
     # python
     python3
-    python312Packages.pyopengl
     # R
     R
     # Rust

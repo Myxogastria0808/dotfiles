@@ -2,8 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }: {
-  imports = [ # In clude the results of the hardware scan.
+{ config, pkgs, ... }:
+{
+  imports = [
+    # In clude the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -17,7 +19,10 @@
       # Enable flakes
       # nix-command ... flakes requires nix-command
       #nix-command is a new CLI of Nix.
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
     #Automate GC
     gc = {
@@ -36,7 +41,6 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
 
   services.resolved.enable = true;
 
@@ -67,7 +71,7 @@
   # Enable fcitx5-mozc
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = [pkgs.fcitx5-mozc];
+    fcitx5.addons = [ pkgs.fcitx5-mozc ];
   };
 
   # Fonts
@@ -80,11 +84,20 @@
     ];
     fontDir.enable = true;
     fontconfig = {
-    defaultFonts = {
-        serif = ["Noto Serif CJK JP" "Noto Color Emoji"];
-        sansSerif = ["Noto Sans CJK JP" "Noto Color Emoji"];
-        monospace = ["JetBrainsMono Nerd Font" "Noto Color Emoji"];
-        emoji = ["Noto Color Emoji"];
+      defaultFonts = {
+        serif = [
+          "Noto Serif CJK JP"
+          "Noto Color Emoji"
+        ];
+        sansSerif = [
+          "Noto Sans CJK JP"
+          "Noto Color Emoji"
+        ];
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "Noto Color Emoji"
+        ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
@@ -140,9 +153,13 @@
     isNormalUser = true;
     description = "hello";
     # Genarate following commacnd: mkpasswd -m sha-512
-    initialHashedPassword="$6$DEgxVwM7CWGRVNK6$f/ATlexID21R3DJ7NfQEbnvZ3dakf1Ejro5yPimllGLg2zUqJ5aCjuBxF4QaXOLnXoPc46n.7WLXZmBnuInZ81";
+    initialHashedPassword = "$6$DEgxVwM7CWGRVNK6$f/ATlexID21R3DJ7NfQEbnvZ3dakf1Ejro5yPimllGLg2zUqJ5aCjuBxF4QaXOLnXoPc46n.7WLXZmBnuInZ81";
     # Add users (this user name: hello) to the docker group
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     # default terminal
     shell = "/run/current-system/sw/bin/zsh";
   };
@@ -161,8 +178,15 @@
     zsh.enable = true;
   };
   # Enable OpenGL
-  hardware.opengl.enable = true;
-
+  hardware.opengl = {
+    enable = true;
+    # require DaVinci Resolve
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      intel-compute-runtime
+      rocmPackages.clr.icd
+    ];
+  };
   # Enable TailScale
   services.tailscale.enable = true;
 
@@ -215,12 +239,18 @@
     enable = true;
     # trust virtual NIC od TailScale
     trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [config.services.tailscale.port];
+    allowedUDPPorts = [ config.services.tailscale.port ];
     allowedTCPPortRanges = [
-      { from = 1714; to = 1764; } # require KDE connect
+      {
+        from = 1714;
+        to = 1764;
+      } # require KDE connect
     ];
     allowedUDPPortRanges = [
-      { from = 1714; to = 1764; } # require KDE connect
+      {
+        from = 1714;
+        to = 1764;
+      } # require KDE connect
     ];
   };
 

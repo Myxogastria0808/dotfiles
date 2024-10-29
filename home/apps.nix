@@ -35,7 +35,8 @@
     bitwarden-desktop
     libreoffice
     obs-studio
-    yt-dlp
+    davinci-resolve
+    ffmpeg
 
     # TeXLive full install
     texlive.combined.scheme-full
@@ -70,8 +71,5 @@
 
     #make
     gnumake
-
-    # font patch
-    fontconfig
   ];
 }

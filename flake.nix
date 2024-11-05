@@ -31,6 +31,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    #NUR
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = inputs: {
@@ -41,9 +43,10 @@
           system = "x86_64-linux";
           # Enable unfee pkgs
           config.allowUnfree = true;
-          # overlays = [
-          #   inputs.rust-overlay.overlays.default
-          # ];
+          overlays = [
+            inputs.nur.overlay
+            #   inputs.rust-overlay.overlays.default
+          ];
         };
         extraSpecialArgs = {
           inherit inputs;
@@ -60,7 +63,7 @@
     # Replace nixos with your hostname
     nixosConfigurations = {
       nixos = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; #sysytem arch param
+        system = "x86_64-linux"; # sysytem arch param
         # NixOSシステム構成が定義されているモジュールのリスト
         modules = [
           ./nixos/configuration.nix

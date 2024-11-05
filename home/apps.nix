@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./config/alacritty.nix
     ./config/starship.nix
@@ -14,6 +15,9 @@
   ];
   # Install pkgs
   home.packages = with pkgs; [
+    #NUR
+    nur.repos.nikpkgs.simulide
+
     # Chat
     vesktop # instead of Discord
     slack

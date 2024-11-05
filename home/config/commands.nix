@@ -15,6 +15,7 @@
     parted
     gparted
     zip
+    rename
     # ネタコマンド
     lolcat
     sl

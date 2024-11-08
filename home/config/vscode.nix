@@ -116,6 +116,9 @@
       "typst-lsp.semanticTokens" = "enable";
       "typst-lsp.serverPath" = null;
       "typst-lsp.trace.server" = "on";
+      "[nix]" = {
+        "editor.defaultFormatter" = "jnoortheen.nix-ide";
+      };
     };
   };
 }

@@ -33,6 +33,12 @@
     };
     #NUR
     nur.url = "github:nix-community/NUR";
+    #Zen Browser
+    #GitHub:https://github.com/MarceColl/zen-browser-flake
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
+    #nix-gaming
+    #GitHub:https://github.com/fufexan/nix-gaming?tab=readme-ov-file
+    # nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
   outputs = inputs: {
@@ -50,6 +56,7 @@
         };
         extraSpecialArgs = {
           inherit inputs;
+          username = "hello";
         };
         modules = [
           ./home/home.nix
@@ -67,7 +74,12 @@
         # NixOSシステム構成が定義されているモジュールのリスト
         modules = [
           ./nixos/configuration.nix
+          inputs.nur.nixosModules.nur
         ];
+      };
+      extraSpecialArgs = {
+        inherit inputs;
+        username = "hello";
       };
     };
   };

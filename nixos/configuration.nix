@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  username,
+  ...
+}:
 {
   imports = [
     # In clude the results of the hardware scan.
@@ -149,12 +154,12 @@
   # Disable change password from command.
   users.mutableUsers = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.hello = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "hello";
+    description = "${username}";
     # Genarate following commacnd: mkpasswd -m sha-512
     initialHashedPassword = "$6$DEgxVwM7CWGRVNK6$f/ATlexID21R3DJ7NfQEbnvZ3dakf1Ejro5yPimllGLg2zUqJ5aCjuBxF4QaXOLnXoPc46n.7WLXZmBnuInZ81";
-    # Add users (this user name: hello) to the docker group
+    # Add users (this user name: ${username}) to the docker group
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -164,7 +169,7 @@
     shell = "/run/current-system/sw/bin/zsh";
   };
   # Add users to vboxusers group
-  users.extraGroups.vboxusers.members = [ "hello" ];
+  users.extraGroups.vboxusers.members = [ "${username}" ];
 
   # Enable flatpak
   services.flatpak.enable = true;

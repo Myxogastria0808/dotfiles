@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./config/alacritty.nix
@@ -15,8 +15,14 @@
   ];
   # Install pkgs
   home.packages = with pkgs; [
+    #nix-gaming
+    # inputs.nix-gaming.packages.${pkgs.system}.wine-ge
+
     #NUR
-    nur.repos.nikpkgs.simulide
+    #e.g. nur.repos.nikpkgs.simulide
+
+    #terminal
+    tabby
 
     # Chat
     vesktop # instead of Discord
@@ -29,6 +35,7 @@
 
     # Browser
     google-chrome
+    inputs.zen-browser.packages."x86_64-linux".default
 
     # Other Apps
     teams-for-linux
@@ -59,10 +66,11 @@
     # Graph DB
     neo4j-desktop
 
-    #docker
+    #container
     docker
     docker-compose
     devenv
+    distrobox
 
     #Arduino IDE
     arduino-ide

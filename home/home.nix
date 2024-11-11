@@ -1,9 +1,10 @@
+{ username, ... }:
 {
   imports = [
     ./apps.nix
   ];
-  home = rec {
-    username = "hello";
+  home = {
+    username = "${username}";
     homeDirectory = "/home/${username}";
     stateVersion = "24.05";
   };

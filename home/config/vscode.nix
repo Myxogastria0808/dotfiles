@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  username,
+  ...
+}:
 {
   programs.vscode = {
     enable = true;
@@ -100,6 +105,10 @@
       "[prisma]" = {
         "editor.defaultFormatter" = "Prisma.prisma";
       };
+      #nixの設定
+      "[nix]" = {
+        "editor.defaultFormatter" = "jnoortheen.nix-ide";
+      };
       "workbench.iconTheme" = "material-icon-theme";
       "terminal.integrated.commandsToSkipShell" = [ "language-julia.interrupt" ];
       "julia.symbolCacheDownload" = "true";
@@ -114,8 +123,8 @@
       "typst-lsp.exportPdf" = "onSave";
       "typst-lsp.rootPath" = null;
       "typst-lsp.semanticTokens" = "enable";
-      "typst-lsp.serverPath" = null;
       "typst-lsp.trace.server" = "on";
+      "typst-lsp.serverPath" = "/home/${username}/.nix-profile/bin/typst-lsp";
     };
   };
 }

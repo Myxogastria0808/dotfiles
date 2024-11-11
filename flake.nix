@@ -7,6 +7,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # plasma-manager
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+    #NUR
+    nur.url = "github:nix-community/NUR";
+    #Zen Browser
+    #GitHub:https://github.com/MarceColl/zen-browser-flake
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
     # default nixvim
     # nixvim = {
     #   url = "github:nix-community/nixvim";
@@ -25,17 +36,6 @@
     #   url = "github:oxalica/rust-overlay";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    # plasma-manager
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-    #NUR
-    nur.url = "github:nix-community/NUR";
-    #Zen Browser
-    #GitHub:https://github.com/MarceColl/zen-browser-flake
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
     #nix-gaming
     #GitHub:https://github.com/fufexan/nix-gaming?tab=readme-ov-file
     # nix-gaming.url = "github:fufexan/nix-gaming";

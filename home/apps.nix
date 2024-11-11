@@ -21,9 +21,6 @@
     #NUR
     #e.g. nur.repos.nikpkgs.simulide
 
-    #terminal
-    tabby
-
     # Chat
     vesktop # instead of Discord
     slack

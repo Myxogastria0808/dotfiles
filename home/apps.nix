@@ -45,6 +45,7 @@
     obs-studio
     davinci-resolve
     ffmpeg
+    krita
 
     # TeXLive full install
     texlive.combined.scheme-full

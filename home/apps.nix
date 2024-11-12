@@ -32,7 +32,7 @@
 
     # Browser
     google-chrome
-    inputs.zen-browser.packages."x86_64-linux".default
+    inputs.zen-browser.packages."${pkgs.system}".default
 
     # Other Apps
     teams-for-linux

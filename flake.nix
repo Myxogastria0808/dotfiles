@@ -77,10 +77,6 @@
           inputs.nur.nixosModules.nur
         ];
       };
-      extraSpecialArgs = {
-        inherit inputs;
-        username = "hello";
-      };
     };
   };
 }

@@ -5,7 +5,6 @@
 {
   config,
   pkgs,
-  username,
   ...
 }:
 {
@@ -154,9 +153,9 @@
   # Disable change password from command.
   users.mutableUsers = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${username} = {
+  users.users.hello = {
     isNormalUser = true;
-    description = "${username}";
+    description = "hello";
     # Genarate following commacnd: mkpasswd -m sha-512
     initialHashedPassword = "$6$DEgxVwM7CWGRVNK6$f/ATlexID21R3DJ7NfQEbnvZ3dakf1Ejro5yPimllGLg2zUqJ5aCjuBxF4QaXOLnXoPc46n.7WLXZmBnuInZ81";
     # Add users (this user name: ${username}) to the docker group
@@ -169,7 +168,7 @@
     shell = "/run/current-system/sw/bin/zsh";
   };
   # Add users to vboxusers group
-  users.extraGroups.vboxusers.members = [ "${username}" ];
+  users.extraGroups.vboxusers.members = [ "hello" ];
 
   # Enable flatpak
   services.flatpak.enable = true;

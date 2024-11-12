@@ -1,8 +1,9 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }:
+{
   home.packages = with pkgs; [
     # nixvim
     # GitHub:https://github.com/dc-tec/nixvim
-    inputs.nixvim.packages.x86_64-linux.default
+    inputs.nixvim.packages.${pkgs.system}.default
   ];
   # default nixvim
   # programs.nixvim = {

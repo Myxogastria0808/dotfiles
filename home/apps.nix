@@ -39,7 +39,6 @@
     drawio
     figma-linux
     zoom-us
-    postman
     bitwarden-desktop
     libreoffice
     obs-studio
@@ -58,11 +57,9 @@
     _0xproto
     nerdfonts
 
-    # Web API
+    # http client
     httpie
-
-    # Graph DB
-    neo4j-desktop
+    postman
 
     #container
     docker

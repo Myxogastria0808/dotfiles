@@ -65,6 +65,7 @@
       "R" = "R | lolcat";
       "t" = "typst compile";
       "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
+      "open" = "dolphin";
     };
     # .zshrc
     initExtra = ''

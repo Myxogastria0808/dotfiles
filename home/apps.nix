@@ -45,6 +45,7 @@
     davinci-resolve
     ffmpeg
     krita
+    blender
 
     # TeXLive full install
     texlive.combined.scheme-full

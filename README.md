@@ -173,7 +173,7 @@ Setup dotfiles
 
 ```shell
 nix-env -i git
-cd /mnt/etc
+cd /etc
 git clone --recursive https://github.com/Myxogastria0808/dotfiles.git
 # Delete the original nixos directory.
 rm -rf /etc/nixos
@@ -209,31 +209,41 @@ nano /mnt/etc/nixos/nixos/configuration.nix
 (omitted)
 ```
 
-editing `home.nix` following
+editing `flake.nix` following
 
 ```shell
-nano /mnt/etc/nixos/home/home.nix
+nano /mnt/etc/nixos/flake.nix
 ```
 
 ```
-{ pkgs, ... }: {
-  imports = [
-    ./apps.nix
-  ];
-  home = rec {
-    username="<username>";
-    homeDirectory = "/home/${username}";
-    stateVersion = "24.05";
-  };
-  # Enable home-manager
-  programs.home-manager.enable = true;
-  nixpkgs = {
-    config = {
-      # Enable install unfree pkgs
-      allowUnfree = true;
+(omitted)
+...
+  outputs = inputs: {
+    ## home-manager ##
+    homeConfigurations = {
+      myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = import inputs.nixpkgs {
+          system = "x86_64-linux";
+          # Enable unfee pkgs
+          config.allowUnfree = true;
+          overlays = [
+            inputs.nur.overlay
+            #   inputs.rust-overlay.overlays.default
+          ];
+        };
+        extraSpecialArgs = {
+          inherit inputs;
+          username = "<username>";
+        };
+        modules = [
+          ./home/home.nix
+          # inputs.nixvim.homeManagerModules.nixvim
+          inputs.plasma-manager.homeManagerModules.plasma-manager
+        ];
+      };
     };
-  };
-}
+  ...
+  (omitted)
 ```
 
 Install NixOS

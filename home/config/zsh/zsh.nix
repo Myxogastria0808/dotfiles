@@ -49,7 +49,6 @@
       "ls" = "eza";
       "ll" = "eza -l";
       "tree" = "eza --tree";
-      "cat" = "bat";
       "find" = "fd";
       "ps" = "procs";
       "man" = "tldr";
@@ -62,10 +61,11 @@
       "hg" = "home-manager generations";
       "ns" = "firefox https://search.nixos.org";
       "gc" = "nix-collect-garbage";
-      "R" = "R | lolcat";
       "t" = "typst compile";
       "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
       "open" = "dolphin";
+      "pg" = "speedtest";
+      "mobile" = "scrcpy -d";
     };
     # .zshrc
     initExtra = ''
@@ -73,9 +73,6 @@
       eval "$(zoxide init zsh)"
       #oh-my-zsh
       ZSH_CUSTOM=$HOME/.config/oh-my-zsh
-      #playwright
-      export PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}
-      export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
     '';
     # .zenv
     envExtra = '''';

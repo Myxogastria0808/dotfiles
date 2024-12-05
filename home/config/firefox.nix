@@ -1,6 +1,7 @@
 {
   #参考サイト: https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265
   #参考サイト: https://stackoverflow.com/questions/55496793/how-to-get-the-link-to-the-latest-version-of-firefox-addon
+  #Extension ID: about:debugging#/runtime/this-firefox
   programs.firefox = {
     enable = true;
     policies = {
@@ -82,6 +83,12 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-comment-translate/addon-17706105-latest.xpi";
           installation_mode = "force_installed";
         };
+        #Keepa
+        "amptra@keepa.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepa/addon-5824618-latest.xpi";
+          installation_mode = "force_installed";
+        };
+
       };
       #about:config
       Preferences = {

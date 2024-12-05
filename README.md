@@ -32,7 +32,6 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ls                      | `eza`                                                                    |
 | ll                      | `eza -l`                                                                 |
 | tree                    | `eza --tree`                                                             |
-| cat                     | `bat`                                                                    |
 | find                    | `fd`                                                                     |
 | ps                      | `procs`                                                                  |
 | man                     | `tldr`                                                                   |
@@ -45,8 +44,10 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | hs                      | `firefox https://home-manager-options.extranix.com`                      |
 | ns                      | `firefox https://search.nixos.org`                                       |
 | gc                      | `nix-collect-garbage`                                                    |
-| R                       | `R \| lolcat`                                                            |
 | t                       | `typst compile`                                                          |
+| open                    | `dolphin`                                                                |
+| pg                      | `speedtest`                                                              |
+| mobile                  | `scrcpy -d`                                                              |
 
 # How to setup
 

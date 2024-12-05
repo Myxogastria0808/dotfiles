@@ -9,9 +9,9 @@
     ./config/nvim/nixvim.nix
     ./config/language.nix
     ./config/commands.nix
-    ./config/vscode.nix
     ./config/mpv.nix
     ./config/kde.nix
+    # ./config/vscode.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [
@@ -29,6 +29,7 @@
     # Editor
     nano
     zed-editor
+    vscode
 
     # Browser
     google-chrome
@@ -45,7 +46,9 @@
     davinci-resolve
     ffmpeg
     krita
+    inkscape
     blender
+    kdePackages.kcolorchooser
 
     # TeXLive full install
     texlive.combined.scheme-full
@@ -79,5 +82,9 @@
 
     #make
     gnumake
+
+    #Display and control Android devices over USB or TCP/IP
+    #https://github.com/Genymobile/scrcpy/
+    scrcpy
   ];
 }

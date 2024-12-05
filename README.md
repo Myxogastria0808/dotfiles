@@ -291,14 +291,7 @@ sudo ln -s nixos ~/dotfiles
 set other symbolic link
 
 ```shell
-sudo ln -s /etc/nixos/home $HOME/.config/home-manager
 sudo ln -s /etc/nixos/home/config/zsh/oh-my-zsh $HOME/.config/oh-my-zsh
-```
-
-login github
-
-```shell
-gh auth login
 ```
 
 editing `git.nix` following
@@ -322,6 +315,12 @@ nano /mnt/etc/nixos/home/config/git.nix
     };
   };
 }
+```
+
+login github
+
+```shell
+gh auth login
 ```
 
 run `tailscale up`

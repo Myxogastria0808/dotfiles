@@ -264,7 +264,10 @@ reboot now
 run folowing commands
 
 ```shell
-cd /etc/nixos
+cd /home/<username>
+git clone https://github.com/Myxogastria0808/dotfiles.git
+cd dotfiles
+ln -s /etc/nixos /home/hello/dotfiles
 nix run home-manager -- switch --flake .#myHomeConfig
 ```
 
@@ -272,20 +275,6 @@ reboot
 
 ```shell
 sudo reboot now
-```
-
-move dotfiles (entity of dotfiles)
-
-```shell
-sudo mv /etc/dotfiles ~/
-```
-
-repost symbolic link of /etc/nixos
-
-```shell
-cd etc
-sudo rm nixos
-sudo ln -s nixos ~/dotfiles
 ```
 
 set other symbolic link
@@ -297,7 +286,7 @@ sudo ln -s /etc/nixos/home/config/zsh/oh-my-zsh $HOME/.config/oh-my-zsh
 editing `git.nix` following
 
 ```shell
-nano /mnt/etc/nixos/home/config/git.nix
+nano /home/<usernmae>/dotfiles/home/config/git.nix
 ```
 
 ```

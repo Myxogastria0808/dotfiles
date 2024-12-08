@@ -31,6 +31,9 @@
     zed-editor
     vscode
 
+    #skk
+    skktools
+
     # Browser
     google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default

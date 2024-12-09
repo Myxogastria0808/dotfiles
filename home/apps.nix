@@ -52,6 +52,7 @@
     inkscape
     blender
     kdePackages.kcolorchooser
+    freecad
 
     # TeXLive full install
     texlive.combined.scheme-full

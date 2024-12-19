@@ -80,16 +80,22 @@
       fcitx5-mozc
       fcitx5-gtk
       fcitx5-skk
+      kdePackages.fcitx5-qt
+      kdePackages.fcitx5-skk-qt
     ];
   };
 
   # Fonts
   fonts = {
-    fonts = with pkgs; [
-      noto-fonts-cjk-serif
+    #参考サイト: https://nixos.wiki/wiki/Fonts
+    #github repository of nerdfotns: https://github.com/ryanoasis/nerd-fonts/tree/master
+    packages = with pkgs; [
+      noto-fonts
       noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
       noto-fonts-emoji
-      nerdfonts
+      nerd-fonts._0xproto
+      nerd-fonts.jetbrains-mono
     ];
     fontDir.enable = true;
     fontconfig = {

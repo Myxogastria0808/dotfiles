@@ -37,6 +37,7 @@
     # Browser
     google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default
+    w3m
 
     # Other Apps
     teams-for-linux
@@ -60,10 +61,6 @@
     typst
     #Quarto
     quarto
-
-    # Font
-    _0xproto
-    nerdfonts
 
     # http client
     httpie
@@ -90,5 +87,7 @@
     #Display and control Android devices over USB or TCP/IP
     #https://github.com/Genymobile/scrcpy/
     scrcpy
+
+    positron-bin
   ];
 }

@@ -21,6 +21,7 @@
     tty-clock
     ookla-speedtest
     fzf
+    nkf
     # ネタコマンド
     lolcat
     sl

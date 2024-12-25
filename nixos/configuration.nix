@@ -96,6 +96,7 @@
       noto-fonts-emoji
       nerd-fonts._0xproto
       nerd-fonts.jetbrains-mono
+      roboto
     ];
     fontDir.enable = true;
     fontconfig = {
@@ -124,12 +125,12 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-  services.xserver.displayManager.defaultSession = "plasmax11";
+  services.displayManager.defaultSession = "plasmax11";
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -193,15 +194,10 @@
     zsh.enable = true;
   };
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    # require DaVinci Resolve
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      intel-compute-runtime
-      rocmPackages.clr.icd
-    ];
   };
+
   # Enable TailScale
   services.tailscale.enable = true;
 

@@ -47,7 +47,6 @@
     bitwarden-desktop
     libreoffice
     obs-studio
-    davinci-resolve
     ffmpeg
     krita
     inkscape

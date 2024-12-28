@@ -12,11 +12,8 @@
     #ghostty
     file."config" = {
       enable = true;
+      source = ./config/ghostty/config;
       target = "/home/${username}/.config/ghostty/config";
-      text = "
-background-opacity = 0.85
-background-blur-radius = 20
-      ";
     };
   };
   # Enable home-manager

@@ -27,7 +27,7 @@
     zulip
 
     #Terminal
-    inputs.ghostty.packages.x86_64-linux.default
+    inputs.ghostty.packages.${pkgs.system}.default
 
     # Editor
     nano

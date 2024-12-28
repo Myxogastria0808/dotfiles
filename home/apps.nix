@@ -1,7 +1,6 @@
 { pkgs, inputs, ... }:
 {
   imports = [
-    ./config/alacritty.nix
     ./config/starship.nix
     ./config/git.nix
     ./config/zsh/zsh.nix
@@ -11,6 +10,7 @@
     ./config/commands.nix
     ./config/mpv.nix
     ./config/kde.nix
+    # ./config/alacritty.nix
     # ./config/vscode.nix
   ];
   # Install pkgs

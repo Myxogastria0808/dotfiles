@@ -26,7 +26,7 @@
     slack
     zulip
 
-    #Terminal
+    #Ghostty
     inputs.ghostty.packages.${pkgs.system}.default
 
     # Editor

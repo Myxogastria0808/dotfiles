@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs = {
     # Go
     go.enable = true;
@@ -20,5 +21,8 @@
     openssl
     # C
     gcc
+    # Java
+    # 参考サイト: https://www.javadrive.jp/start/install/index5.html
+    temurin-bin
   ];
 }

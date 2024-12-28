@@ -26,10 +26,14 @@
     slack
     zulip
 
+    #Terminal
+    inputs.ghostty.packages.x86_64-linux.default
+
     # Editor
     nano
     zed-editor
     vscode
+    positron-bin
 
     #skk
     skktools
@@ -86,7 +90,5 @@
     #Display and control Android devices over USB or TCP/IP
     #https://github.com/Genymobile/scrcpy/
     scrcpy
-
-    positron-bin
   ];
 }

@@ -10,7 +10,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ----------------- | ---------------------- |
 | Target Hardware   | ThinkPad X1 Carbon 7th |
 | Window Manager    | KDE Plasma 6           |
-| Terminal Emulator | Alacritty              |
+| Terminal Emulator | Ghostty                |
 | Shell             | zsh                    |
 | Vim               | NixVim                 |
 | Prompt            | starship               |
@@ -18,7 +18,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | Bluetooth         | Enable                 |
 | KDE connect       | Enable                 |
 | Docker            | Enable                 |
-| Japanese Input    | fcitx5-mozc            |
+| Japanese Input    | skk                    |
 | TimeZone          | Asia/Tokyo             |
 | i18n              | en_US.UTF-8            |
 

@@ -10,8 +10,8 @@
     ./config/commands.nix
     ./config/mpv.nix
     ./config/kde.nix
-    # ./config/alacritty.nix
-    # ./config/vscode.nix
+    # ./archive/alacritty.nix
+    # ./archive/vscode.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [

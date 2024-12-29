@@ -46,7 +46,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | gc                      | `nix-collect-garbage`                                                    |
 | t                       | `typst compile`                                                          |
 | open                    | `dolphin`                                                                |
-| pg                      | `speedtest`                                                              |
+| ping                    | `speedtest`                                                              |
 | mobile                  | `scrcpy -d`                                                              |
 
 # How to setup

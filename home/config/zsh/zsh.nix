@@ -64,7 +64,7 @@
       "t" = "typst compile";
       "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
       "open" = "dolphin";
-      "pg" = "speedtest";
+      "ping" = "speedtest";
       "mobile" = "scrcpy -d";
     };
     # .zshrc

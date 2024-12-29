@@ -10,6 +10,7 @@
     ./config/commands.nix
     ./config/mpv.nix
     ./config/kde.nix
+    ./config/zed-editor.nix
     # ./archive/alacritty.nix
     # ./archive/vscode.nix
   ];
@@ -31,7 +32,6 @@
 
     # Editor
     nano
-    zed-editor
     vscode
     positron-bin
 

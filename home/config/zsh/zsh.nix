@@ -73,6 +73,8 @@
       eval "$(zoxide init zsh)"
       #oh-my-zsh
       ZSH_CUSTOM=$HOME/.config/oh-my-zsh
+      #zsh-autosuggestions
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75"
     '';
     # .zenv
     envExtra = '''';

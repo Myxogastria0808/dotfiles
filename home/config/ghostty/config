@@ -1,4 +1,4 @@
-theme = catppuccin-frappe
+theme = Builtin Solarized Dark
 background-opacity = 0.85
 background-blur-radius = 20
 font-family = "0xProto Nerd Font"

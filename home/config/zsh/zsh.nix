@@ -66,6 +66,7 @@
       "open" = "dolphin";
       "ping" = "speedtest";
       "mobile" = "scrcpy -d";
+      "clock" = "tty-clock -c -s";
     };
     # .zshrc
     initExtra = ''

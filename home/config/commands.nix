@@ -23,6 +23,8 @@
     fzf
     nkf
     # ネタコマンド
+    cava
+    cmatrix
     lolcat
     sl
     cowsay

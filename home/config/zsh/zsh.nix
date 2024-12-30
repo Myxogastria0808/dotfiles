@@ -67,6 +67,7 @@
       "ping" = "speedtest";
       "mobile" = "scrcpy -d";
       "clock" = "tty-clock -c -s";
+      "g" = "lazygit";
     };
     # .zshrc
     initExtra = ''

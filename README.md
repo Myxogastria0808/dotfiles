@@ -49,6 +49,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ping                    | `speedtest`                                                              |
 | mobile                  | `scrcpy -d`                                                              |
 | clock                   | `tty-clock -c -s`                                                        |
+| g                       | `lazygit`                                                                |
 
 # How to setup
 

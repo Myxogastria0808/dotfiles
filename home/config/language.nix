@@ -19,7 +19,6 @@
     rustup
     pkg-config
     openssl
-    cargo-generate
     # C
     gcc
     # Java

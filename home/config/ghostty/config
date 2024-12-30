@@ -1,8 +1,9 @@
-theme = Breeze
-background=00313f
+# theme = Breeze
+# background=00313f
+theme = Builtin Solarized Dark
 background-opacity = 0.85
 font-family = "0xProto Nerd Font"
-
+palette = 8=#5d728c
 # *keybind* #
 # create new tab
 keybind = ctrl+alt+n=new_tab

@@ -97,6 +97,8 @@
       nerd-fonts._0xproto
       nerd-fonts.jetbrains-mono
       roboto
+      kochi-substitute
+      udev-gothic-nf
     ];
     fontDir.enable = true;
     fontconfig = {

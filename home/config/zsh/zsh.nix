@@ -68,7 +68,6 @@
       "mobile" = "scrcpy -d";
       "clock" = "tty-clock -c -s";
       "g" = "lazygit";
-      "abc" = "cargo generate --git https://github.com/Myxogastria0808/atcoder-template.git";
     };
     # .zshrc
     initExtra = ''

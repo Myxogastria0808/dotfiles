@@ -1,4 +1,5 @@
-theme = Builtin Solarized Dark
+theme = Breeze
+background=00313f
 background-opacity = 0.85
 font-family = "0xProto Nerd Font"
 

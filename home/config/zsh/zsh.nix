@@ -50,10 +50,13 @@
       "ll" = "eza -l";
       "tree" = "eza --tree";
       "find" = "fd";
+      "size" = "fd --size";
       "ps" = "procs";
       "man" = "tldr";
       "diff" = "delta --side-by-side";
       "neofetch" = "fastfetch";
+      #参考サイト: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
+      "nix-develop" = "nix develop -c $SHELL";
       "hn" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig";
       "hm" = "home-manager switch";
       "nr" = "sudo nixos-rebuild switch";
@@ -63,7 +66,6 @@
       "gc" = "nix-collect-garbage";
       "t" = "typst compile";
       "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
-      "open" = "dolphin";
       "ping" = "speedtest";
       "mobile" = "scrcpy -d";
       "clock" = "tty-clock -c -s";

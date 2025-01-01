@@ -33,10 +33,12 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ll                      | `eza -l`                                                                 |
 | tree                    | `eza --tree`                                                             |
 | find                    | `fd`                                                                     |
+| size                    | `fd --size`                                                              |
 | ps                      | `procs`                                                                  |
 | man                     | `tldr`                                                                   |
 | diff                    | `delta --side-by-side`                                                   |
 | neofetch                | `fastfetch`                                                              |
+| nix-develop             | `nix develop -c $SHELL`                                                  |
 | hn (for NixOS user)     | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
 | hm (for not NixOS user) | `home-manager switch`                                                    |
 | hg                      | `home-manager generations`                                               |
@@ -45,7 +47,6 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ns                      | `firefox https://search.nixos.org`                                       |
 | gc                      | `nix-collect-garbage`                                                    |
 | t                       | `typst compile`                                                          |
-| open                    | `dolphin`                                                                |
 | ping                    | `speedtest`                                                              |
 | mobile                  | `scrcpy -d`                                                              |
 | clock                   | `tty-clock -c -s`                                                        |

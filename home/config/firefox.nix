@@ -88,7 +88,11 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepa/addon-5824618-latest.xpi";
           installation_mode = "force_installed";
         };
-
+        #Livemarks
+        "{c5867acc-54c9-4074-9574-04d8818d53e8}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/livemarks/addon-5650259-latest.xpi";
+          installation_mode = "force_installed";
+        };
       };
       #about:config
       Preferences = {

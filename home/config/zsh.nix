@@ -64,7 +64,7 @@
       "hg" = "home-manager generations";
       "ns" = "firefox https://search.nixos.org";
       "gc" = "nix-collect-garbage";
-      "t" = "typst compile";
+      "t" = "typst watch";
       "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
       "ping" = "speedtest";
       "mobile" = "scrcpy -d";

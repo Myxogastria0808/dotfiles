@@ -51,6 +51,8 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | mobile                  | `scrcpy -d`                                                              |
 | clock                   | `tty-clock -c -s`                                                        |
 | g                       | `lazygit`                                                                |
+| pdf                     | `tdf`                                                                    |
+| `open`                  | `yazi`                                                                   |
 
 # How to setup
 

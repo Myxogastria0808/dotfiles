@@ -22,6 +22,7 @@
     ookla-speedtest
     fzf
     nkf
+    tdf
     # ネタコマンド
     cava
     cmatrix

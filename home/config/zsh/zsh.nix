@@ -70,6 +70,8 @@
       "mobile" = "scrcpy -d";
       "clock" = "tty-clock -c -s";
       "g" = "lazygit";
+      "pdf" = "tdf";
+      "open" = "yazi";
     };
     # .zshrc
     initExtra = ''

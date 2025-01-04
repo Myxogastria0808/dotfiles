@@ -1,5 +1,3 @@
-# theme = Breeze
-# background=00313f
 theme = Builtin Solarized Dark
 background-opacity = 0.85
 font-family = "0xProto Nerd Font"

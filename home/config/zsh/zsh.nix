@@ -40,15 +40,6 @@
           sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
         };
       }
-      {
-        name = "zsh-you-should-use";
-        src = pkgs.fetchFromGitHub {
-          owner = "MichaelAquilina";
-          repo = "zsh-you-should-use";
-          rev = "1.9.0";
-          sha256 = "f13d39a1ae84219e4ee14e77d31bb774c91f2fe3";
-        };
-      }
     ];
     # alias
     shellAliases = {

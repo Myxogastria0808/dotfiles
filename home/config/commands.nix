@@ -23,6 +23,8 @@
     fzf
     nkf
     tdf
+    #nurl: https://github.com/nix-community/nurl
+    nurl
     # ネタコマンド
     cava
     cmatrix

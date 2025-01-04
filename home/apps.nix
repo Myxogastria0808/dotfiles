@@ -3,7 +3,7 @@
   imports = [
     ./config/starship.nix
     ./config/git.nix
-    ./config/zsh/zsh.nix
+    ./config/zsh.nix
     ./config/firefox.nix
     ./config/nvim/nixvim.nix
     ./config/language.nix

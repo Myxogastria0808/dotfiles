@@ -25,6 +25,7 @@
     tdf
     #nurl: https://github.com/nix-community/nurl
     nurl
+    xsel
     # ネタコマンド
     cava
     cmatrix

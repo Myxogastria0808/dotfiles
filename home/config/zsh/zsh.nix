@@ -75,12 +75,59 @@
     };
     # .zshrc
     initExtra = ''
-      #zoxide
+      # zoxide
       eval "$(zoxide init zsh)"
-      #oh-my-zsh
+      # oh-my-zsh
       ZSH_CUSTOM=$HOME/.config/oh-my-zsh
-      #zsh-autosuggestions
+      # zsh-autosuggestions
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75"
+      # nurl alias
+      #参考サイト: https://chitoku.jp/programming/bash-getopts-long-options/
+      #参考サイト: https://future-architect.github.io/articles/20210405/
+      #参考サイト: https://blog.kteru.net/bash-template-for-using-getopts/
+      # fetchFromGitHubのsha256の取得用
+      # ($1) ... optional option (-h, -f)
+      # $1 ($2) ... github repository url
+      # $2 ($3) ... version
+      function nl () {
+        while getopts ":h:f" opt; do
+          case $opt in
+            h)
+              # -h が指定された場合
+              result=''$(nurl -H ''${2} ''${3} 2> /dev/null)
+              echo "''${result}"
+              echo "''${result}" | xsel -b
+              ;;
+            f)
+              # -f が指定された場合
+              result=''$(nurl ''${2} ''${3} 2> /dev/null)
+              echo "''${result}"
+              echo "''${result}" | xsel -b
+              ;;
+            ?)
+              # -h, -f 以外のオプションが指定された場合
+              cat <<EOM
+      This is unexpected option.
+
+      Usage: nl [OPTIONS] [URL] [REV]
+
+      Arguments:
+              [URL]
+                      URL to the repository to be fetched
+
+              [REV]
+                      The revision or reference to be fetched
+
+      Options:
+              -h
+                      Show and copy to clipboard the hash value
+              -f
+                      Show and copy to clipboard complete results
+      EOM
+              ;;
+          esac
+        done
+      }
     '';
     # .zenv
     envExtra = '''';

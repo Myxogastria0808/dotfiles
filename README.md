@@ -52,7 +52,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | clock                   | `tty-clock -c -s`                                                        |
 | g                       | `lazygit`                                                                |
 | pdf                     | `tdf`                                                                    |
-| `open`                  | `yazi`                                                                   |
+| open                    | `yazi`                                                                   |
 
 # How to setup
 

@@ -22,9 +22,9 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | TimeZone          | Asia/Tokyo             |
 | i18n              | en_US.UTF-8            |
 
-## Alius
+## Alias
 
-| command alius           | execute comand                                                           |
+| command alias           | execute comand                                                           |
 | ----------------------- | ------------------------------------------------------------------------ |
 | ..                      | `cd ../`                                                                 |
 | ...                     | `cd ../../`                                                              |
@@ -53,6 +53,26 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | g                       | `lazygit`                                                                |
 | pdf                     | `tdf`                                                                    |
 | open                    | `yazi`                                                                   |
+
+## Advanced Alias
+
+### nurl alias
+
+- nural [OPTIONS] [URL] [REV]
+
+[OPTIONS]
+
+`-f` - Show and copy to clipboard the hash value
+
+`-h` - Show and copy to clipboard complete results
+
+[URL]
+
+URL to the repository to be fetched
+
+[REV]
+
+The revision or reference to be fetched
 
 # How to setup
 

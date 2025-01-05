@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    # one of zsh plugins
+    zsh-you-should-use
+  ];
   #参考サイト: https://blog.ryota-ka.me/posts/2021/12/31/home-manager
   programs.zsh = {
     enable = true;
@@ -18,7 +22,7 @@
           owner = "zsh-users";
           repo = "zsh-autosuggestions";
           rev = "v0.7.0";
-          sha256 = "1g3pij5qn2j7v7jjac2a63lxd97mcsgw6xq6k5p7835q9fjiid98";
+          hash = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
         };
       }
       {
@@ -81,6 +85,17 @@
       ZSH_CUSTOM=$HOME/.config/oh-my-zsh
       # zsh-autosuggestions
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75"
+      # copy file to clipboard
+      function copyfile () {
+        cat $1
+        xclip -selection clipboard $1
+      }
+      # copy path to clipboard
+      function copypath () {
+        result=$(pwd)
+        echo "''${result}"
+        echo "''${result}" | xclip -selection clipboard
+      }
       # nurl alias
       #参考サイト: https://chitoku.jp/programming/bash-getopts-long-options/
       #参考サイト: https://future-architect.github.io/articles/20210405/
@@ -96,13 +111,13 @@
               # -h が指定された場合
               result=''$(nurl -H ''${2} ''${3} 2> /dev/null)
               echo "''${result}"
-              echo "''${result}" | xsel -b
+              echo "''${result}" | xclip -selection clipboard
               ;;
             f)
               # -f が指定された場合
               result=''$(nurl ''${2} ''${3} 2> /dev/null)
               echo "''${result}"
-              echo "''${result}" | xsel -b
+              echo "''${result}" | xclip -selection clipboard
               ;;
             ?)
               # -h, -f 以外のオプションが指定された場合

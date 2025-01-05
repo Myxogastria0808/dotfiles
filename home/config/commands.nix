@@ -25,7 +25,8 @@
     tdf
     #nurl: https://github.com/nix-community/nurl
     nurl
-    xsel
+    #xclip: https://kazuhira-r.hatenablog.com/entry/2023/07/31/000525
+    xclip
     # ネタコマンド
     cava
     cmatrix

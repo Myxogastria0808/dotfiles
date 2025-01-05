@@ -74,6 +74,18 @@ URL to the repository to be fetched
 
 The revision or reference to be fetched
 
+### copypath
+
+- copypath
+
+Show and copy pwd results to clickboard
+
+### copyfile
+
+- copyfile [FILE]
+
+Show and copy a file content to clickboard
+
 # How to setup
 
 ## For NixOS User

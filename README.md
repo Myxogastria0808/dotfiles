@@ -58,7 +58,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 
 ### nurl alias
 
-- nural [OPTIONS] [URL] [REV]
+- nl [OPTIONS] [URL] [REV]
 
 [OPTIONS]
 

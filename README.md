@@ -62,9 +62,9 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 
 [OPTIONS]
 
-`-f` - Show and copy to clipboard the hash value
+`-f` ... Show and copy to clipboard the hash value
 
-`-h` - Show and copy to clipboard complete results
+`-h` ... Show and copy to clipboard complete results
 
 [URL]
 

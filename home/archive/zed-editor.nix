@@ -10,6 +10,18 @@
         light = "One Light";
         dark = "One Dark";
       };
+      lsp = {
+        rust-analyzer = {
+          binary = {
+            path = "/run/current-system/sw/bin/rust-analyzer";
+          };
+        };
+        nix = {
+          binary = {
+            path_lookup = true;
+          };
+        };
+      };
     };
   };
 }

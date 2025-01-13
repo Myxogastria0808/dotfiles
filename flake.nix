@@ -35,11 +35,6 @@
     # nixvim.url = "github:fred-drake/neovim#";
     # nix-vscode-extentions
     # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    # rust
-    # rust-overlay = {
-    #   url = "github:oxalica/rust-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     #nix-gaming
     #GitHub:https://github.com/fufexan/nix-gaming?tab=readme-ov-file
     # nix-gaming.url = "github:fufexan/nix-gaming";
@@ -55,7 +50,6 @@
           config.allowUnfree = true;
           overlays = [
             inputs.nur.overlay
-            #   inputs.rust-overlay.overlays.default
           ];
         };
         extraSpecialArgs = {

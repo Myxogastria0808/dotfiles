@@ -70,7 +70,7 @@
       "gc" = "nix-collect-garbage";
       "t" = "typst watch";
       "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
-      "ping" = "speedtest";
+      "net" = "speedtest";
       "mobile" = "scrcpy -d";
       "clock" = "tty-clock -c -s";
       "g" = "lazygit";

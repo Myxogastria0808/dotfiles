@@ -1,5 +1,6 @@
 theme = Builtin Solarized Dark
 background-opacity = 0.85
+unfocused-split-opacity = 1
 font-family = "0xProto Nerd Font"
 palette = 8=#5d728c
 # *keybind* #

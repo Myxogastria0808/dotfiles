@@ -47,7 +47,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ns                      | `firefox https://search.nixos.org`                                       |
 | gc                      | `nix-collect-garbage`                                                    |
 | t                       | `typst watch`                                                            |
-| ping                    | `speedtest`                                                              |
+| net                     | `speedtest`                                                              |
 | mobile                  | `scrcpy -d`                                                              |
 | clock                   | `tty-clock -c -s`                                                        |
 | g                       | `lazygit`                                                                |

@@ -19,8 +19,9 @@
     file."config.kdl" = {
       enable = true;
       source = ./config/zellij/config.kdl;
-      target = "$XDG_CONFIG_HOME/zellij/config.kdl";
+      target = "/home/${username}/.config/zellij/config.kdl";
     };
+
   };
   # Enable home-manager
   programs.home-manager.enable = true;

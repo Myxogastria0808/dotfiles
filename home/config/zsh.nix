@@ -81,8 +81,6 @@
     initExtra = ''
       # zoxide
       eval "$(zoxide init zsh)"
-      #zellij
-      eval "$(zellij setup --generate-auto-start zsh)"
       # oh-my-zsh
       ZSH_CUSTOM=$HOME/.config/oh-my-zsh
       # zsh-autosuggestions

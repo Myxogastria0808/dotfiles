@@ -1,0 +1,9 @@
+layout {
+    tab_template name="ranger-on-the-side" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+}
+

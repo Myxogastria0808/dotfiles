@@ -11,7 +11,6 @@
     ./config/mpv.nix
     ./config/kde.nix
     ./config/yazi.nix
-    ./config/zellij/zellij.nix
     # ./archive/zed-editor.nix
     # ./archive/alacritty.nix
     # ./archive/vscode.nix

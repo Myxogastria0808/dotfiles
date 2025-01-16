@@ -58,6 +58,7 @@
     blender
     kdePackages.kcolorchooser
     freecad
+    stacer
 
     # TeXLive full install
     texlive.combined.scheme-full

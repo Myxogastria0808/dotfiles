@@ -76,6 +76,7 @@
       "g" = "lazygit";
       "pdf" = "tdf";
       "open" = "yazi";
+      "tetris" = "bastet";
     };
     # .zshrc
     initExtra = ''

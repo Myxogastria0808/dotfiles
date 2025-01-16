@@ -53,6 +53,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | g                       | `lazygit`                                                                |
 | pdf                     | `tdf`                                                                    |
 | open                    | `yazi`                                                                   |
+| tetris                  | `bastet`                                                                 |
 
 ## Advanced Alias
 

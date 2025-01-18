@@ -54,6 +54,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | pdf                     | `tdf`                                                                    |
 | open                    | `yazi`                                                                   |
 | tetris                  | `bastet`                                                                 |
+| cf-net                  | `firefox https://speed.cloudflare.com/`                                  |
 
 ## Advanced Alias
 

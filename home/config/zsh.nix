@@ -71,6 +71,7 @@
       "t" = "typst watch";
       "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
       "net" = "speedtest";
+      "cf-net" = "firefox https://speed.cloudflare.com/";
       "mobile" = "scrcpy -d";
       "clock" = "tty-clock -c -s";
       "g" = "lazygit";

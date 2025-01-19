@@ -34,6 +34,7 @@
     # Editor
     nano
     vscode
+    positron-bin
 
     #skk
     skktools

@@ -34,6 +34,7 @@
     # Editor
     nano
     vscode
+    rstudio
 
     #skk
     skktools

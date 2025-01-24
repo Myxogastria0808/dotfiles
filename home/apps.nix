@@ -34,6 +34,7 @@
     # Editor
     nano
     vscode
+    # rstudio
 
     #skk
     skktools
@@ -60,7 +61,7 @@
     stacer
 
     # TeXLive full install
-    # texlive.combined.scheme-full
+    texlive.combined.scheme-full
     # Typst
     typst
     # Quarto

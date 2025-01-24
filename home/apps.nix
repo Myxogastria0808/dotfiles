@@ -34,7 +34,6 @@
     # Editor
     nano
     vscode
-    # rstudio
 
     #skk
     skktools
@@ -64,8 +63,6 @@
     texlive.combined.scheme-full
     # Typst
     typst
-    # Quarto
-    # quarto
 
     # http client
     httpie

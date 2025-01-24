@@ -72,7 +72,7 @@
         # NixOSシステム構成が定義されているモジュールのリスト
         modules = [
           ./nixos/configuration.nix
-          inputs.nur.nixosModules.nur
+          inputs.nur.modules.nixos.default
         ];
       };
     };

@@ -99,6 +99,9 @@
       roboto
       kochi-substitute
       udev-gothic-nf
+      takao
+      hanazono
+      jigmo
     ];
     fontDir.enable = true;
     fontconfig = {
@@ -146,7 +149,7 @@
 
   # Audio
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false; # change to pipewire
+  services.pulseaudio.enable = false; # change to pipewire
   security.rtkit.enable = true; # require pipewire
   services.pipewire = {
     enable = true;

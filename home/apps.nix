@@ -34,7 +34,7 @@
     # Editor
     nano
     vscode
-    jetbrains.rust-rover
+    # jetbrains.rust-rover
 
     #skk
     skktools

@@ -34,6 +34,7 @@
     # Editor
     nano
     vscode
+    jetbrains.rust-rover
 
     #skk
     skktools
@@ -42,6 +43,7 @@
     google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default
     w3m
+    tor
 
     # Other Apps
     teams-for-linux

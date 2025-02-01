@@ -78,6 +78,8 @@
       "pdf" = "tdf";
       "open" = "yazi";
       "tetris" = "bastet";
+      "tv-history" = "tv zsh-history";
+      "tv-nixpkg" = "tv nixpkgs";
     };
     # .zshrc
     initExtra = ''

@@ -14,9 +14,9 @@
       inputs.home-manager.follows = "home-manager";
     };
     #ghostty
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
+    ghostty.url = "github:ghostty-org/ghostty";
+    #nix-search-tv
+    nix-search-tv.url = "github:3timeslazy/nix-search-tv";
     #NUR
     nur.url = "github:nix-community/NUR";
     #Zen Browser

@@ -2,7 +2,7 @@ theme = Builtin Solarized Dark
 background-opacity = 0.85
 unfocused-split-opacity = 1
 font-family = "0xProto Nerd Font"
-font-family = "UDEV Gothic NF"
+font-family = "TakaoGothic"
 palette = 8=#5d728c
 # *keybind* #
 # create new tab

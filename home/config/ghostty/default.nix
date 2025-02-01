@@ -9,7 +9,7 @@
     file = {
       "config" = {
         enable = true;
-        source = ./config/ghostty/config/config;
+        source = ./config/config;
         target = "/home/${username}/.config/ghostty/config";
       };
     };

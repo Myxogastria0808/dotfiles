@@ -11,6 +11,8 @@
     ./config/mpv.nix
     ./config/kde.nix
     ./config/yazi.nix
+    ./config/television
+    ./config/ghostty
     # ./archive/zed-editor.nix
     # ./archive/alacritty.nix
     # ./archive/vscode.nix
@@ -27,9 +29,6 @@
     vesktop # instead of Discord
     slack
     zulip
-
-    #Ghostty
-    inputs.ghostty.packages.${pkgs.system}.default
 
     # Editor
     nano

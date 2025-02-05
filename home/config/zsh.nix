@@ -84,6 +84,8 @@
     };
     # .zshrc
     initExtra = ''
+      # direnv
+      eval "$(direnv hook zsh)"
       # mcfly
       eval "$(mcfly init zsh)"
       # zoxide

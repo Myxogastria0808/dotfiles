@@ -16,6 +16,8 @@
     gparted
     zip
     unzip
+    dust
+    mcfly
     rename
     #tty-clock: https://zenn.dev/nukokoi/articles/539017fa274cf4
     tty-clock

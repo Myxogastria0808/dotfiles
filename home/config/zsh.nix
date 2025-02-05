@@ -58,6 +58,7 @@
       "ps" = "procs";
       "man" = "tldr";
       "diff" = "delta --side-by-side";
+      "du" = "sudo dust";
       "neofetch" = "fastfetch";
       #参考サイト: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
       "nix-develop" = "nix develop -c $SHELL";
@@ -83,6 +84,8 @@
     };
     # .zshrc
     initExtra = ''
+      # mcfly
+      eval "$(mcfly init zsh)"
       # zoxide
       eval "$(zoxide init zsh)"
       # oh-my-zsh

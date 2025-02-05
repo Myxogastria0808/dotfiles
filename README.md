@@ -38,6 +38,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | man                     | `tldr`                                                                   |
 | diff                    | `delta --side-by-side`                                                   |
 | neofetch                | `fastfetch`                                                              |
+| du                      | `sudo dust`                                                              |
 | nix-develop             | `nix develop -c $SHELL`                                                  |
 | hn (for NixOS user)     | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
 | hm (for not NixOS user) | `home-manager switch`                                                    |

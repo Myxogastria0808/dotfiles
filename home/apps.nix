@@ -69,26 +69,27 @@
     httpie
     postman
 
-    #container
+    # container
     docker
     docker-compose
     devenv
     distrobox
 
-    #Arduino IDE
+    # Arduino IDE
     arduino-ide
 
-    #for nix-shell
+    # for devShell
+    nix-direnv
     direnv
 
-    #VM
+    # VM
     vmware-workstation
 
-    #make
+    # make
     gnumake
 
-    #Display and control Android devices over USB or TCP/IP
-    #https://github.com/Genymobile/scrcpy/
+    # Display and control Android devices over USB or TCP/IP
+    # https://github.com/Genymobile/scrcpy/
     scrcpy
   ];
 }

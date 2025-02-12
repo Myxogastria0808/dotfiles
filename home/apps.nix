@@ -33,7 +33,7 @@
     # Editor
     nano
     vscode
-    # jetbrains.rust-rover
+    code-cursor
 
     #skk
     skktools
@@ -59,6 +59,7 @@
     kdePackages.kcolorchooser
     freecad
     stacer
+    spacedrive
 
     # TeXLive full install
     texlive.combined.scheme-full

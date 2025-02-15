@@ -8,4 +8,3 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 ln -s $HOME/dotfiles/home $HOME/.config/home-manager
 home-manager switch
-ln -s $HOME/dotfiles/home/config/zsh/oh-my-zsh $HOME/.config/oh-my-zsh

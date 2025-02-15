@@ -1,3 +1,0 @@
-[submodule "home/config/zsh/oh-my-zsh/zsh-nix-shell"]
-	path = home/config/zsh/oh-my-zsh/zsh-nix-shell
-	url = https://github.com/chisui/zsh-nix-shell.git

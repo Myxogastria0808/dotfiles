@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     gh
-    #lazygit
     lazygit
   ];
   programs.git = {

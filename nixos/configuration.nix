@@ -131,6 +131,8 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasmax11";
+  # require XWayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -179,7 +181,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
+      "flatpak"
     ];
     # default terminal
     shell = "/run/current-system/sw/bin/zsh";
@@ -235,6 +237,7 @@
     fprintd-tod # require fingerprint
     kdePackages.kdeconnect-kde # KDE connect
     appimage-run # require appimage
+    wireguard-tools # require wireguard
   ];
 
   # Enable fingerprint
@@ -263,20 +266,20 @@
     enable = true;
     # trust virtual NIC od TailScale
     trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [
+      config.services.tailscale.port # require TailScale
+      51820 # require WireGuard
+    ];
+    # require KDE connect
     allowedTCPPortRanges = [
       {
         from = 1714;
         to = 1764;
-      } # require KDE connect
-    ];
-    allowedUDPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      } # require KDE connect
+      }
     ];
   };
+  # Set WireGuard config
+  networking.wg-quick.interfaces.wg0.configFile = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -71,7 +71,6 @@
     postman
 
     # container
-    docker
     docker-compose
     devenv
     distrobox

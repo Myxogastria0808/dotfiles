@@ -77,7 +77,7 @@
       "clock" = "tty-clock -c -s";
       "g" = "lazygit";
       "pdf" = "tdf";
-      "open" = "yazi";
+      "open" = "spacedrive";
       "tetris" = "bastet";
       "tv-history" = "tv zsh-history";
       "tv-nixpkg" = "tv nixpkgs";

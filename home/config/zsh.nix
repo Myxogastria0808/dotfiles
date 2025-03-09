@@ -76,6 +76,7 @@
       "mobile" = "scrcpy -d";
       "clock" = "tty-clock -c -s";
       "g" = "lazygit";
+      "d" = "sudo lazydocker";
       "pdf" = "tdf";
       "open" = "spacedrive";
       "tetris" = "bastet";

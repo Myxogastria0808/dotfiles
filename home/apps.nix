@@ -30,6 +30,9 @@
     slack
     zulip
 
+    #Matrix Desktop Client
+    element-desktop
+
     # Editor
     nano
     vscode
@@ -74,6 +77,7 @@
     docker-compose
     devenv
     distrobox
+    lazydocker
 
     # Arduino IDE
     arduino-ide
@@ -91,5 +95,8 @@
     # Display and control Android devices over USB or TCP/IP
     # https://github.com/Genymobile/scrcpy/
     scrcpy
+
+    # Mincraft
+    prismlauncher
   ];
 }

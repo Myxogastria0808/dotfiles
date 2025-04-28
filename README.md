@@ -387,6 +387,13 @@ sudo reboot now
 sh /etc/nixos/home/config/scripts/install-hm-nixos.sh
 ```
 
+## DeepWiki
+
+> [!WARNING]
+> The accuracy of the contents of generated deepwiki has not been verified by me.
+
+https://deepwiki.com/Myxogastria0808/dotfiles/
+
 **Reference Site**
 
 https://nixos.org/manual/nixos/stable/

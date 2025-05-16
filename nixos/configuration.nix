@@ -17,6 +17,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # Cleeanup /tmp
+  boot.tmp.cleanOnBoot = true;
 
   nix = {
     settings = {
@@ -134,6 +136,8 @@
   services.displayManager.defaultSession = "plasmax11";
   # require XWayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # require Bevy developemtn environment
+  services.xserver.videoDrivers = [ "modesetting" ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -188,7 +192,11 @@
     shell = "/run/current-system/sw/bin/zsh";
   };
   # Add users to vboxusers group
-  users.extraGroups.vboxusers.members = [ "hello" ];
+  users.extraGroups.vboxusers.members = [
+    "hello"
+    "docker"
+    "libvirtd"
+  ];
 
   # Enable flatpak
   services.flatpak.enable = true;
@@ -204,6 +212,10 @@
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+    ];
   };
 
   # Enable TailScale
@@ -229,6 +241,15 @@
     # Enable virtualbox guest additions
     virtualbox.guest.enable = true;
     virtualbox.guest.dragAndDrop = true;
+  };
+
+  # Enable KVM
+  # https://nixos.wiki/wiki/Virt-manager
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = [ "hello" ];
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
   };
 
   # Install pkgs to system

@@ -250,6 +250,15 @@ nano /mnt/etc/nixos/nixos/configuration.nix
   };
 ...
 (omitted)
+...
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = [ "<username>" ];
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
+...
+(omitted)
 ```
 
 editing `flake.nix` following
@@ -287,6 +296,7 @@ nano /mnt/etc/nixos/flake.nix
     };
   ...
   (omitted)
+  };
 ```
 
 Install NixOS

@@ -13,6 +13,7 @@
     ./config/yazi.nix
     ./config/television
     ./config/ghostty
+    ./config/vpn
     # ./archive/zed-editor.nix
     # ./archive/alacritty.nix
     # ./archive/vscode.nix
@@ -36,7 +37,6 @@
     # Editor
     nano
     vscode
-    code-cursor
 
     #skk
     skktools
@@ -45,7 +45,7 @@
     google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default
     w3m
-    tor
+    tor-browser
 
     # Other Apps
     teams-for-linux
@@ -60,9 +60,7 @@
     inkscape
     blender
     kdePackages.kcolorchooser
-    freecad
     stacer
-    spacedrive
 
     # TeXLive full install
     texlive.combined.scheme-full

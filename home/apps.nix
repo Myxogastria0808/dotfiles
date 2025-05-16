@@ -13,7 +13,7 @@
     ./config/yazi.nix
     ./config/television
     ./config/ghostty
-    ./config/vpn
+    ./config/vpn.nix
     # ./archive/zed-editor.nix
     # ./archive/alacritty.nix
     # ./archive/vscode.nix

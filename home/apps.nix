@@ -13,7 +13,6 @@
     ./config/yazi.nix
     ./config/television
     ./config/ghostty
-    ./config/vpn.nix
     # ./archive/zed-editor.nix
     # ./archive/alacritty.nix
     # ./archive/vscode.nix
@@ -25,6 +24,9 @@
 
     #NUR
     #e.g. nur.repos.nikpkgs.simulide
+
+    # RDP Client
+    remmina
 
     # Chat
     vesktop # instead of Discord

@@ -136,8 +136,6 @@
   services.displayManager.defaultSession = "plasmax11";
   # require XWayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  # require Bevy developemtn environment
-  services.xserver.videoDrivers = [ "modesetting" ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -212,10 +210,6 @@
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      intel-vaapi-driver
-    ];
   };
 
   # Enable TailScale

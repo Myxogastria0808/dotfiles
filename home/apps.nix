@@ -6,7 +6,6 @@
     ./config/zsh.nix
     ./config/firefox.nix
     ./config/nvim/nixvim.nix
-    ./config/language.nix
     ./config/commands.nix
     ./config/mpv.nix
     ./config/kde.nix
@@ -24,6 +23,9 @@
 
     #NUR
     #e.g. nur.repos.nikpkgs.simulide
+
+    # DJ mixing software
+    mixxx
 
     # RDP Client
     remmina
@@ -66,8 +68,6 @@
 
     # TeXLive full install
     texlive.combined.scheme-full
-    # Typst
-    typst
 
     # http client
     httpie

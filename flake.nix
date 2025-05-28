@@ -40,41 +40,49 @@
     # nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
-  outputs = inputs: {
-    ## home-manager ##
-    homeConfigurations = {
-      myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import inputs.nixpkgs {
-          system = "x86_64-linux";
-          # Enable unfee pkgs
-          config.allowUnfree = true;
-          overlays = [
-            inputs.nur.overlays.default
+  outputs =
+    inputs:
+    let
+      baseModules = [
+        ./nixos/configuration.nix
+        inputs.nur.modules.nixos.default
+      ];
+      nixosModules = [
+        ./modules/language.nix
+      ];
+    in
+    {
+      ## home-manager ##
+      homeConfigurations = {
+        myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = import inputs.nixpkgs {
+            system = "x86_64-linux";
+            # Enable unfee pkgs
+            config.allowUnfree = true;
+            overlays = [
+              inputs.nur.overlays.default
+            ];
+          };
+          extraSpecialArgs = {
+            inherit inputs;
+            username = "hello";
+          };
+          modules = [
+            ./home/home.nix
+            # inputs.nixvim.homeManagerModules.nixvim
+            inputs.plasma-manager.homeManagerModules.plasma-manager
           ];
         };
-        extraSpecialArgs = {
-          inherit inputs;
-          username = "hello";
+      };
+      ## configuration.nix ##
+      # nixosConfigurations.hostname
+      # Replace nixos with your hostname
+      nixosConfigurations = {
+        nixos = inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux"; # sysytem arch param
+          # NixOSシステム構成が定義されているモジュールのリスト
+          modules = baseModules ++ nixosModules;
         };
-        modules = [
-          ./home/home.nix
-          # inputs.nixvim.homeManagerModules.nixvim
-          inputs.plasma-manager.homeManagerModules.plasma-manager
-        ];
       };
     };
-    ## configuration.nix ##
-    # nixosConfigurations.hostname
-    # Replace nixos with your hostname
-    nixosConfigurations = {
-      nixos = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; # sysytem arch param
-        # NixOSシステム構成が定義されているモジュールのリスト
-        modules = [
-          ./nixos/configuration.nix
-          inputs.nur.modules.nixos.default
-        ];
-      };
-    };
-  };
 }

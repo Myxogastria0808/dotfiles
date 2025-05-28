@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     # Java
-    temurin-bin
+    jdk
     # python
     python3
     # R

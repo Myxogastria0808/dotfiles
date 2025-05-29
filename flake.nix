@@ -48,7 +48,7 @@
         inputs.nur.modules.nixos.default
       ];
       nixosModules = [
-        ./app.nix
+        ./modules/app.nix
         ./modules/language.nix
       ];
     in

@@ -8,6 +8,7 @@
     ./config/mpv.nix
     ./config/kde.nix
     ./config/ghostty
+    # ./config/archive/alacritty.nix
     # ./config/archive/television
     # ./config/archive/vscode.nix
     # ./config/archive/zed-editor.nix

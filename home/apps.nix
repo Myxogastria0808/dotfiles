@@ -3,17 +3,13 @@
   imports = [
     ./config/starship.nix
     ./config/git.nix
-    ./config/zsh.nix
     ./config/firefox.nix
     ./config/nvim/nixvim.nix
-    ./config/commands.nix
     ./config/mpv.nix
     ./config/kde.nix
     ./config/yazi.nix
     ./config/television
     ./config/ghostty
-    # ./archive/zed-editor.nix
-    # ./archive/alacritty.nix
     # ./archive/vscode.nix
   ];
   # Install pkgs

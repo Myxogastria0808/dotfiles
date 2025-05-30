@@ -15,8 +15,6 @@
     };
     #ghostty
     ghostty.url = "github:ghostty-org/ghostty";
-    #nix-search-tv
-    nix-search-tv.url = "github:3timeslazy/nix-search-tv";
     #NUR
     nur.url = "github:nix-community/NUR";
     #Zen Browser
@@ -33,7 +31,7 @@
     # nixvim
     # GitHub:https://github.com/fred-drake/neovim
     # nixvim.url = "github:fred-drake/neovim#";
-    # nix-vscode-extentions
+    # nix-vscode-extensions
     # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     #nix-gaming
     #GitHub:https://github.com/fufexan/nix-gaming?tab=readme-ov-file
@@ -58,7 +56,7 @@
         myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs {
             system = "x86_64-linux";
-            # Enable unfee pkgs
+            # Enable unfree pkgs
             config.allowUnfree = true;
             overlays = [
               inputs.nur.overlays.default
@@ -80,7 +78,7 @@
       # Replace nixos with your hostname
       nixosConfigurations = {
         nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux"; # sysytem arch param
+          system = "x86_64-linux"; # system arch param
           # NixOSシステム構成が定義されているモジュールのリスト
           modules = baseModules ++ nixosModules;
         };

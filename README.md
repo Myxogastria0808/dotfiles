@@ -32,7 +32,6 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ls                      | `eza`                                                                    |
 | ll                      | `eza -l`                                                                 |
 | tree                    | `eza --tree`                                                             |
-| find                    | `fd`                                                                     |
 | size                    | `fd --size`                                                              |
 | ps                      | `procs`                                                                  |
 | man                     | `tldr`                                                                   |
@@ -57,8 +56,6 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | open                    | `spacedrive`                                                             |
 | tetris                  | `bastet`                                                                 |
 | cf-net                  | `firefox https://speed.cloudflare.com/`                                  |
-| tv-history              | `tv zsh-history`                                                         |
-| tv-nixpkg               | `tv nixpkgs`                                                             |
 
 ## Advanced Alias
 

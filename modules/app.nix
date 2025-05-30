@@ -1,5 +1,12 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./config/commands.nix
+    ./config/language.nix
+    ./config/zed-editor.nix
+    ./config/zsh.nix
+    # ./config/archive/alacritty.nix
+  ];
   environment.systemPackages = with pkgs; [
     # RDP
     parsec-bin
@@ -39,7 +46,7 @@
     # Meeting Software
     zoom-us
 
-    # Pasward Manager
+    # Password Manager
     bitwarden-desktop
 
     # Design and Drawing Software
@@ -82,7 +89,7 @@
     # https://github.com/Genymobile/scrcpy/
     scrcpy
 
-    # Mincraft
+    # Minecraft
     prismlauncher
   ];
 }

@@ -8,7 +8,6 @@
     ./config/starship.nix
     ./config/git.nix
     ./config/yazi.nix
-    ./config/zed-editor.nix
     ./config/zsh.nix
     # ./config/archive/alacritty.nix
     # ./config/archive/television

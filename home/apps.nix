@@ -7,10 +7,10 @@
     ./config/nvim/nixvim.nix
     ./config/mpv.nix
     ./config/kde.nix
-    ./config/yazi.nix
     ./config/ghostty
-    # ./archive/config/television
-    # ./archive/vscode.nix
+    # ./config/archive/television
+    # ./config/archive/vscode.nix
+    # ./config/archive/zed-editor.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [

@@ -3,9 +3,9 @@
   imports = [
     ./config/commands.nix
     ./config/language.nix
+    ./config/yazi.nix
     ./config/zed-editor.nix
     ./config/zsh.nix
-    # ./config/archive/alacritty.nix
   ];
   environment.systemPackages = with pkgs; [
     # RDP
@@ -26,6 +26,7 @@
     # Editor
     nano
     vscode
+    zed-editor
 
     # Input Method
     skktools

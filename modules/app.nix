@@ -41,7 +41,6 @@
     # Editor
     nano
     vscode
-    zed-editor
 
     # Input Method
     skktools
@@ -80,6 +79,8 @@
 
     # TeXLive (almost full)
     texlive.combined.scheme-full
+    # Typst
+    typst
 
     # Http Client
     httpie

@@ -47,7 +47,6 @@
       ];
       nixosModules = [
         ./modules/app.nix
-        ./modules/language.nix
       ];
     in
     {

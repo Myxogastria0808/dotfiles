@@ -3,6 +3,7 @@
   imports = [
     ./config/commands.nix
     ./config/language.nix
+    ./config/thunderbird.nix
     ./config/yazi.nix
   ];
   environment.systemPackages = with pkgs; [

@@ -2,7 +2,10 @@
 {
   imports = [
     ./config/commands.nix
+    ./config/git.nix
     ./config/language.nix
+    ./config/mpv.nix
+    ./config/starship.nix
     ./config/thunderbird.nix
     ./config/yazi.nix
   ];

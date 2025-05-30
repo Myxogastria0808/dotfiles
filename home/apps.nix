@@ -1,11 +1,8 @@
 { pkgs, inputs, ... }:
 {
   imports = [
-    ./config/starship.nix
-    ./config/git.nix
     ./config/firefox.nix
     ./config/nvim/nixvim.nix
-    ./config/mpv.nix
     ./config/kde.nix
     ./config/ghostty
     ./config/zsh.nix

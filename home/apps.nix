@@ -8,8 +8,8 @@
     ./config/mpv.nix
     ./config/kde.nix
     ./config/yazi.nix
-    ./config/television
     ./config/ghostty
+    # ./archive/config/television
     # ./archive/vscode.nix
   ];
   # Install pkgs

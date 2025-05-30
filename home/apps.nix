@@ -5,11 +5,15 @@
     ./config/nvim/nixvim.nix
     ./config/kde.nix
     ./config/ghostty
+    ./config/starship.nix
+    ./config/git.nix
+    ./config/thunderbird.nix
+    ./config/yazi.nix
+    ./config/zed-editor.nix
     ./config/zsh.nix
     # ./config/archive/alacritty.nix
     # ./config/archive/television
     # ./config/archive/vscode.nix
-    # ./config/archive/zed-editor.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [

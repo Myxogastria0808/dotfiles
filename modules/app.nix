@@ -2,12 +2,7 @@
 {
   imports = [
     ./config/commands.nix
-    ./config/git.nix
     ./config/language.nix
-    ./config/mpv.nix
-    ./config/starship.nix
-    ./config/thunderbird.nix
-    ./config/yazi.nix
   ];
   environment.systemPackages = with pkgs; [
     # RDP
@@ -35,6 +30,9 @@
 
     # Image
     ffmpeg
+
+    # Video
+    mpv
 
     # Microsoft like Software
     teams-for-linux

@@ -4,7 +4,6 @@
     ./config/commands.nix
     ./config/language.nix
     ./config/yazi.nix
-    ./config/zed-editor.nix
     ./config/zsh.nix
   ];
   environment.systemPackages = with pkgs; [

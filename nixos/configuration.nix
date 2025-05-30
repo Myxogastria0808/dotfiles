@@ -246,16 +246,6 @@
     spiceUSBRedirection.enable = true;
   };
 
-  # Install pkgs to system
-  environment.systemPackages = with pkgs; [
-    home-manager
-    tailscale # VPN
-    fprintd-tod # require fingerprint
-    kdePackages.kdeconnect-kde # KDE connect
-    appimage-run # require appimage
-    wireguard-tools # require wireguard
-  ];
-
   # Enable fingerprint
   # services.fprintd = {
   #   enable = true;

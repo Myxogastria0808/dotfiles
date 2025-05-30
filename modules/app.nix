@@ -5,6 +5,24 @@
     ./config/language.nix
   ];
   environment.systemPackages = with pkgs; [
+    # home-manager
+    home-manager
+
+    # VPN
+    tailscale
+
+    # Fingerprint
+    fprintd-tod
+
+    # KDE connect
+    kdePackages.kdeconnect-kde
+
+    # AppImage
+    appimage-run
+
+    # Wireguard
+    wireguard-tools
+
     # RDP
     parsec-bin
     # RDP Client

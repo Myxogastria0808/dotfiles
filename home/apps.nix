@@ -7,7 +7,6 @@
     ./config/ghostty
     ./config/starship.nix
     ./config/git.nix
-    ./config/thunderbird.nix
     ./config/yazi.nix
     ./config/zed-editor.nix
     ./config/zsh.nix
@@ -22,6 +21,9 @@
 
     #NUR
     #e.g. nur.repos.nikpkgs.simulide
+
+    # Mailer
+    thunderbird
 
     # Browser
     google-chrome

@@ -16,6 +16,8 @@
 
     # KDE connect
     kdePackages.kdeconnect-kde
+    # KDE Packages
+    kdePackages.filelight
 
     # AppImage
     appimage-run

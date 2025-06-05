@@ -3,6 +3,7 @@
   imports = [
     ./config/commands.nix
     ./config/language.nix
+    ./config/nix-ld.nix
   ];
   environment.systemPackages = with pkgs; [
     # home-manager

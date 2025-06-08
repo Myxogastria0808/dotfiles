@@ -2,6 +2,7 @@
 {
   imports = [
     ./config/commands.nix
+    ./config/git.nix
     ./config/language.nix
     ./config/nix-ld.nix
   ];

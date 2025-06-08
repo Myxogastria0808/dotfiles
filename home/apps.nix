@@ -6,7 +6,6 @@
     ./config/kde.nix
     ./config/ghostty
     ./config/starship.nix
-    ./config/git.nix
     ./config/yazi.nix
     ./config/zsh.nix
     # ./config/archive/alacritty.nix

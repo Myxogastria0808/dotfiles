@@ -21,6 +21,9 @@
       credential = {
         "https://github.com".helper = "!gh auth git-credential";
       };
+      ghq = {
+        root = "~/src";
+      };
     };
   };
 }

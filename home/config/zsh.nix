@@ -69,7 +69,6 @@
       "ns" = "firefox https://search.nixos.org";
       "gc" = "nix-collect-garbage";
       "t" = "typst watch";
-      "vv" = "appimage-run ~/.voicevox/VOICEVOX.AppImage";
       "net" = "speedtest";
       "cf-net" = "firefox https://speed.cloudflare.com/";
       "mobile" = "scrcpy -d";

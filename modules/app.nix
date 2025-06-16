@@ -21,6 +21,9 @@
     # KDE Packages
     kdePackages.filelight
 
+    # Voice Synthesizer
+    voicevox
+
     # AppImage
     appimage-run
 

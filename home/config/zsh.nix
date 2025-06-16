@@ -150,6 +150,18 @@
           esac
         done
       }
+      # ghq
+      # 参考サイト: https://zenn.dev/oreo2990/articles/13c80cf34a95af
+      function peco-src () {
+        local selected_dir=$(ghq list -p | peco --prompt="repositories >" --query "$LBUFFER")
+        if [ -n "$selected_dir" ]; then
+          BUFFER="cd ''${selected_dir}"
+          zle accept-line
+        fi
+        zle clear-screen
+      }
+      zle -N peco-src
+      bindkey '^]' peco-src
     '';
     # .zenv
     envExtra = '''';

@@ -3,6 +3,8 @@ background-opacity = 0.85
 unfocused-split-opacity = 1
 font-family = "0xProto Nerd Font"
 font-family = "TakaoGothic"
+font-feature = -calt
+font-feature = -dlig
 palette = 8=#5d728c
 # *keybind* #
 # create new tab

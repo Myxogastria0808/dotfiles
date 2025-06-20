@@ -104,7 +104,7 @@
     direnv
 
     # Virtual Machine
-    vmware-workstation
+    # vmware-workstation
 
     # make
     gnumake

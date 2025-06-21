@@ -99,12 +99,9 @@
       noto-fonts-emoji
       nerd-fonts._0xproto
       nerd-fonts.jetbrains-mono
+      nerd-fonts."m+"
       roboto
-      kochi-substitute
       udev-gothic-nf
-      takao
-      hanazono
-      jigmo
     ];
     fontDir.enable = true;
     fontconfig = {

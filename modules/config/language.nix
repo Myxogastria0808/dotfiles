@@ -6,7 +6,5 @@
     # R
     R
     rPackages.languageserver
-    # C
-    gcc
   ];
 }

@@ -106,9 +106,6 @@
     # Virtual Machine
     # vmware-workstation
 
-    # make
-    gnumake
-
     # Display and control Android devices over USB or TCP/IP
     # https://github.com/Genymobile/scrcpy/
     scrcpy

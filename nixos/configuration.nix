@@ -1,7 +1,6 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   pkgs,
@@ -43,11 +42,6 @@
   nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   services.resolved.enable = true;
 
@@ -75,7 +69,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable fcitx5-mozc
+  # Enable fcitx5
   i18n.inputMethod = {
     type = "fcitx5";
     enable = true;
@@ -86,41 +80,6 @@
       kdePackages.fcitx5-qt
       kdePackages.fcitx5-skk-qt
     ];
-  };
-
-  # Fonts
-  fonts = {
-    #参考サイト: https://nixos.wiki/wiki/Fonts
-    #github repository of nerdfotns: https://github.com/ryanoasis/nerd-fonts/tree/master
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
-      noto-fonts-emoji
-      nerd-fonts._0xproto
-      nerd-fonts.jetbrains-mono
-      nerd-fonts."m+"
-      roboto
-      udev-gothic-nf
-    ];
-    fontDir.enable = true;
-    fontconfig = {
-      defaultFonts = {
-        serif = [
-          "Noto Serif CJK JP"
-          "Noto Color Emoji"
-        ];
-        sansSerif = [
-          "Noto Sans CJK JP"
-          "Noto Color Emoji"
-        ];
-        monospace = [
-          "JetBrainsMono Nerd Font"
-          "Noto Color Emoji"
-        ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-    };
   };
 
   # Enable the X11 windowing system.
@@ -199,11 +158,9 @@
 
   # Enable pkgs
   programs = {
-    # Flakes clones its dependencies through the git command,
-    # so git must be installed first
-    git.enable = true;
     zsh.enable = true;
   };
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
@@ -211,14 +168,10 @@
 
   # Enable TailScale
   services.tailscale.enable = true;
-
-  # Enable Steam
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
+  environment.systemPackages = with pkgs; [
+    # https://github.com/SneWs/tail-tray
+    tail-tray # GUI manager for TailScale
+  ];
 
   virtualisation = {
     # Enable docker
@@ -253,14 +206,6 @@
   #   };
   # };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
   # Enable openssh.
   services.openssh.enable = true;
 
@@ -290,5 +235,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

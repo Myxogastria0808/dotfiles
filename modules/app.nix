@@ -2,9 +2,11 @@
 {
   imports = [
     ./config/commands.nix
+    ./config/fonts.nix
     ./config/git.nix
     ./config/language.nix
     ./config/nix-ld.nix
+    ./config/stream.nix
   ];
   environment.systemPackages = with pkgs; [
     # home-manager
@@ -63,9 +65,6 @@
     # Live Streaming
     obs-studio
 
-    # 3D Modelling
-    blender
-
     # Meeting Software
     zoom-us
 
@@ -80,6 +79,8 @@
 
     # Color Picker
     kdePackages.kcolorchooser
+
+    # System Monitor
     stacer
 
     # TeXLive (almost full)

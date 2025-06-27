@@ -5,6 +5,5 @@
     python3
     # R
     R
-    rPackages.languageserver
   ];
 }

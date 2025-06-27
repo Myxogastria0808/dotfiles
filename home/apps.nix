@@ -20,9 +20,6 @@
     #NUR
     #e.g. nur.repos.nikpkgs.simulide
 
-    # Mailer
-    thunderbird
-
     # Browser
     google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default

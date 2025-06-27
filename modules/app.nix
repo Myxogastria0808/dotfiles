@@ -43,6 +43,7 @@
     element-desktop
 
     # Editor
+    helix
     nano
     vscode
 

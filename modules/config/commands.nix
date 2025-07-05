@@ -16,6 +16,8 @@
     gparted
     zip
     unzip
+    rar
+    unrar
     dust
     mcfly
     rename

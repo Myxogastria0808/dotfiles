@@ -173,8 +173,8 @@
   environment.systemPackages = with pkgs; [
     # VPN
     tailscale
-    # https://github.com/SneWs/tail-tray
-    tail-tray # GUI manager for TailScale
+    # https://github.com/mattn/tailscale-systray
+    tailscale-systray
   ];
 
   virtualisation = {

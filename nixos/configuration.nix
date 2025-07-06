@@ -179,7 +179,7 @@
     # Enable docker
     docker.enable = true;
     # Enable vmware
-    vmware.host.enable = true;
+    # vmware.host.enable = true;
     # Enable waydroid
     waydroid.enable = true;
     # Enable virtualbox

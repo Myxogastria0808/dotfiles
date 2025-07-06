@@ -25,7 +25,6 @@
     let
       baseModules = [
         ./nixos/configuration.nix
-        inputs.nur.modules.nixos.default
       ];
       nixosModules = [
         ./modules/app.nix

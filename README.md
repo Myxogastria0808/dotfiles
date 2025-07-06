@@ -33,18 +33,11 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | ll                      | `eza -l`                                                                 |
 | tree                    | `eza --tree`                                                             |
 | size                    | `fd --size`                                                              |
-| ps                      | `procs`                                                                  |
-| man                     | `tldr`                                                                   |
 | diff                    | `delta --side-by-side`                                                   |
 | neofetch                | `fastfetch`                                                              |
-| du                      | `sudo dust`                                                              |
 | nix-develop             | `nix develop -c $SHELL`                                                  |
 | hn (for NixOS user)     | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
-| hm (for not NixOS user) | `home-manager switch`                                                    |
-| hg                      | `home-manager generations`                                               |
 | nr (for NixOS user)     | `sudo nixos-rebuild switch`                                              |
-| hs                      | `firefox https://home-manager-options.extranix.com`                      |
-| ns                      | `firefox https://search.nixos.org`                                       |
 | gc                      | `nix-collect-garbage`                                                    |
 | t                       | `typst watch`                                                            |
 | net                     | `speedtest`                                                              |
@@ -53,9 +46,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | g                       | `lazygit`                                                                |
 | d                       | `sudo lazydocker`                                                        |
 | pdf                     | `tdf`                                                                    |
-| open                    | `spacedrive`                                                             |
 | tetris                  | `bastet`                                                                 |
-| cf-net                  | `firefox https://speed.cloudflare.com/`                                  |
 
 ## Advanced Alias
 
@@ -89,9 +80,7 @@ Show and copy pwd results to clickboard
 
 Show and copy a file content to clickboard
 
-# How to setup
-
-## For NixOS User
+# How to setup (NixOS)
 
 > [!WARNING]
 > Please note that some commands have not been checked for execution results.
@@ -299,7 +288,7 @@ nano /mnt/etc/nixos/flake.nix
 Install NixOS
 
 ```shell
-cd /mnt/etc/nixos
+cd /mnt/etc/dotfiles/
 nixos-install --flake .#nixos
 ```
 
@@ -314,10 +303,11 @@ reboot now
 run folowing commands
 
 ```shell
-cd /home/<username>
+cd $HOME
 git clone https://github.com/Myxogastria0808/dotfiles.git
 cd dotfiles
-ln -s /etc/nixos /home/hello/dotfiles
+sudo rm -rf /etc/nixos
+sudo ln -s $HOME/dotfiles /etc/nixos
 nix run home-manager -- switch --flake .#myHomeConfig
 ```
 
@@ -327,30 +317,39 @@ reboot
 sudo reboot now
 ```
 
-set other symbolic link
-
-```shell
-sudo ln -s /etc/nixos/home/config/zsh/oh-my-zsh $HOME/.config/oh-my-zsh
-```
-
 editing `git.nix` following
 
 ```shell
-nano /home/<usernmae>/dotfiles/home/config/git.nix
+nano $HOME/dotfiles/modules/config/git.nix
 ```
 
-```
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
+```nix
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [
     gh
+    lazygit
+    # 参考サイト: https://zenn.dev/oreo2990/articles/13c80cf34a95af
+    ghq
+    # Simplistic interactive filtering tool
+    peco
   ];
   programs.git = {
     enable = true;
-    userName = "<github username>";
-    userEmail = "<github email>";
-    extraConfig = {
-      init.defaultBranch = "main";
-      credential."https://github.com".helper = "!gh auth git-credential";
+    config = {
+      init = {
+        defaultBranch = "main";
+      };
+      user = {
+        name = "<github username>";
+        email = "<github email>";
+      };
+      credential = {
+        "https://github.com".helper = "!gh auth git-credential";
+      };
+      ghq = {
+        root = "~/src";
+      };
     };
   };
 }
@@ -374,7 +373,7 @@ sudo tailscale up
 run folowing command
 
 ```shell
-hn
+hm
 ```
 
 reboot
@@ -384,15 +383,6 @@ sudo reboot now
 ```
 
 ### 5. Finish!
-
-## For NOT NixOS User
-
-> [!WARNING]
-> Please note that we have not checked the execution results of the following commands.
-
-```shell
-sh /etc/nixos/home/config/scripts/install-hm-nixos.sh
-```
 
 ## DeepWiki
 

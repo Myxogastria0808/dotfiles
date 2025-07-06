@@ -14,9 +14,11 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  # Cleeanup /tmp
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+  # Cleanup /tmp
   boot.tmp.cleanOnBoot = true;
 
   nix = {
@@ -179,7 +181,7 @@
     # Enable vmware
     # vmware.host.enable = true;
     # Enable waydroid
-    waydroid.enable = true;
+    #waydroid.enable = true;
     # Enable virtualbox
     virtualbox.host.enable = true;
     # Enable virtualbox guest additions

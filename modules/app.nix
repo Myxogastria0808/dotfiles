@@ -6,7 +6,7 @@
     ./config/git.nix
     ./config/language.nix
     ./config/nix-ld.nix
-    ./config/stream.nix
+    ./config/steam.nix
   ];
   environment.systemPackages = with pkgs; [
     # home-manager
@@ -46,8 +46,7 @@
     vesktop # instead of Discord
     slack
     zulip
-    # Matrix Desktop Client
-    element-desktop
+    element-desktop # Matrix Desktop Client
 
     # Editor
     helix
@@ -69,9 +68,6 @@
 
     # Live Streaming
     obs-studio
-
-    # Meeting Software
-    zoom-us
 
     # Password Manager
     bitwarden-desktop

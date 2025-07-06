@@ -5,7 +5,6 @@
     ./config/nvim/nixvim.nix
     ./config/ghostty
     ./config/starship.nix
-    ./config/yazi.nix
     ./config/zsh.nix
     # ./config/archive/alacritty.nix
     # ./config/archive/television
@@ -13,12 +12,6 @@
   ];
   # Install pkgs
   home.packages = with pkgs; [
-    #nix-gaming
-    # inputs.nix-gaming.packages.${pkgs.system}.wine-ge
-
-    #NUR
-    #e.g. nur.repos.nikpkgs.simulide
-
     # Browser
     inputs.zen-browser.packages."${pkgs.system}".default
   ];

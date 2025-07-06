@@ -1,45 +1,57 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # fetchers
     curl
     wget
+    # researcher that files opened by a process
+    lsof
+    # next generation: neofetch
     fastfetch
+    # next generation: top
+    htop
     bottom
+    # next generation: ls
     eza
-    zoxide
+    # next generation: cat
     bat
+    # next generation: find
     fd
-    procs
-    tldr
+    # next generation: diff
     delta
+    # partitioning tools
     parted
     gparted
+    # zip / unzip
     zip
     unzip
+    # rar / unrar
     rar
     unrar
-    dust
-    mcfly
-    rename
-    #tty-clock: https://zenn.dev/nukokoi/articles/539017fa274cf4
-    tty-clock
-    ookla-speedtest
-    nkf
+    # file browsing tui
+    yazi
+    # pdf viewer
     tdf
-    #nurl: https://github.com/nix-community/nurl
+    # network speed test tool
+    ookla-speedtest
+    # tty-clock: https://zenn.dev/nukokoi/articles/539017fa274cf4
+    tty-clock
+    # converter of character code and newline code
+    nkf
+    # nurl: https://github.com/nix-community/nurl
     nurl
-    #xclip: https://kazuhira-r.hatenablog.com/entry/2023/07/31/000525
+    # xclip: https://kazuhira-r.hatenablog.com/entry/2023/07/31/000525
     xclip
-    glow
-    lsof
-    # ネタコマンド
+    # joke commands
+    ## audio visualization
     cava
-    cmatrix
+    ## text decorations to rainbow
     lolcat
+    ## ascii art
     sl
-    cowsay
     cmatrix
+    cowsay
+    ## tetris
     bastet
-    oneko
   ];
 }

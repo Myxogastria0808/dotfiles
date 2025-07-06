@@ -9,8 +9,6 @@
     };
     #ghostty
     ghostty.url = "github:ghostty-org/ghostty";
-    #NUR
-    nur.url = "github:nix-community/NUR";
     #Zen Browser
     #GitHub:https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";
@@ -41,9 +39,6 @@
             system = "x86_64-linux";
             # Enable unfree pkgs
             config.allowUnfree = true;
-            overlays = [
-              inputs.nur.overlays.default
-            ];
           };
           extraSpecialArgs = {
             inherit inputs;

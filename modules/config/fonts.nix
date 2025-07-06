@@ -2,7 +2,7 @@
 {
   fonts = {
     #参考サイト: https://nixos.wiki/wiki/Fonts
-    #github repository of nerdfotns: https://github.com/ryanoasis/nerd-fonts/tree/master
+    #github repository of nerd-fonts: https://github.com/ryanoasis/nerd-fonts/tree/master
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans

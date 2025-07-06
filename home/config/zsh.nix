@@ -54,19 +54,12 @@
       "ll" = "eza -l";
       "tree" = "eza --tree";
       "size" = "fd --size";
-      "ps" = "procs";
-      "man" = "tldr";
       "diff" = "delta --side-by-side";
-      "du" = "sudo dust";
       "neofetch" = "fastfetch";
       #参考サイト: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
       "nix-develop" = "nix develop -c $SHELL";
-      "hn" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig";
-      "hm" = "home-manager switch";
+      "hm" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig";
       "nr" = "sudo nixos-rebuild switch";
-      "hs" = "firefox https://home-manager-options.extranix.com";
-      "hg" = "home-manager generations";
-      "ns" = "firefox https://search.nixos.org";
       "gc" = "nix-collect-garbage";
       "t" = "typst watch";
       "net" = "speedtest";
@@ -76,32 +69,32 @@
       "g" = "lazygit";
       "d" = "sudo lazydocker";
       "pdf" = "tdf";
-      "open" = "spacedrive";
       "tetris" = "bastet";
     };
     # .zshrc
     initExtra = ''
       # direnv
       eval "$(direnv hook zsh)"
-      # mcfly
-      eval "$(mcfly init zsh)"
-      # zoxide
-      eval "$(zoxide init zsh)"
+
       # oh-my-zsh
       ZSH_CUSTOM=$HOME/.config/oh-my-zsh
+
       # zsh-autosuggestions
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75"
+
       # copy file to clipboard
       function copyfile () {
         cat $1
         xclip -selection clipboard $1
       }
+
       # copy path to clipboard
       function copypath () {
         result=$(pwd)
         echo "''${result}"
         echo "''${result}" | xclip -selection clipboard
       }
+
       # nurl alias
       #参考サイト: https://chitoku.jp/programming/bash-getopts-long-options/
       #参考サイト: https://future-architect.github.io/articles/20210405/
@@ -149,6 +142,7 @@
           esac
         done
       }
+
       # ghq
       # 参考サイト: https://zenn.dev/oreo2990/articles/13c80cf34a95af
       function peco-src () {

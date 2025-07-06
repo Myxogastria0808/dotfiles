@@ -7,12 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # plasma-manager
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
     #ghostty
     ghostty.url = "github:ghostty-org/ghostty";
     #NUR
@@ -20,22 +14,12 @@
     #Zen Browser
     #GitHub:https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";
-    # default nixvim
-    # nixvim = {
-    #   url = "github:nix-community/nixvim";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     # nixvim
     # GitHub:https://github.com/dc-tec/nixvim
     nixvim.url = "github:dc-tec/nixvim";
     # nixvim
     # GitHub:https://github.com/fred-drake/neovim
     # nixvim.url = "github:fred-drake/neovim#";
-    # nix-vscode-extensions
-    # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    #nix-gaming
-    #GitHub:https://github.com/fufexan/nix-gaming?tab=readme-ov-file
-    # nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
   outputs =
@@ -67,8 +51,6 @@
           };
           modules = [
             ./home/home.nix
-            # inputs.nixvim.homeManagerModules.nixvim
-            inputs.plasma-manager.homeManagerModules.plasma-manager
           ];
         };
       };

@@ -12,6 +12,11 @@
     # home-manager
     home-manager
 
+    # browser
+    google-chrome
+    w3m
+    tor-browser
+
     # VPN
     tailscale
 
@@ -83,8 +88,6 @@
     # System Monitor
     stacer
 
-    # TeXLive (almost full)
-    texlive.combined.scheme-full
     # Typst
     typst
 

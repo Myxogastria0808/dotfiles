@@ -3,7 +3,6 @@
   imports = [
     ./config/firefox.nix
     ./config/nvim/nixvim.nix
-    ./config/kde.nix
     ./config/ghostty
     ./config/starship.nix
     ./config/yazi.nix
@@ -21,9 +20,6 @@
     #e.g. nur.repos.nikpkgs.simulide
 
     # Browser
-    google-chrome
     inputs.zen-browser.packages."${pkgs.system}".default
-    w3m
-    tor-browser
   ];
 }

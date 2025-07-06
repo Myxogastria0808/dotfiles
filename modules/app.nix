@@ -17,16 +17,11 @@
     w3m
     tor-browser
 
-    # VPN
-    tailscale
-
     # Fingerprint
     fprintd-tod
 
     # KDE connect
     kdePackages.kdeconnect-kde
-    # KDE Packages
-    kdePackages.filelight
 
     # AppImage
     appimage-run
@@ -80,9 +75,6 @@
 
     # Color Picker
     kdePackages.kcolorchooser
-
-    # System Monitor
-    stacer
 
     # Typst
     typst

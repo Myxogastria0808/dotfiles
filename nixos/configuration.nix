@@ -171,6 +171,8 @@
   # Enable TailScale
   services.tailscale.enable = true;
   environment.systemPackages = with pkgs; [
+    # VPN
+    tailscale
     # https://github.com/SneWs/tail-tray
     tail-tray # GUI manager for TailScale
   ];

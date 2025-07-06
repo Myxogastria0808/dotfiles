@@ -173,17 +173,15 @@
   environment.systemPackages = with pkgs; [
     # VPN
     tailscale
-    # https://github.com/mattn/tailscale-systray
-    tailscale-systray
   ];
 
   virtualisation = {
     # Enable docker
     docker.enable = true;
     # Enable vmware
-    # vmware.host.enable = true;
+    vmware.host.enable = true;
     # Enable waydroid
-    #waydroid.enable = true;
+    waydroid.enable = true;
     # Enable virtualbox
     virtualbox.host.enable = true;
     # Enable virtualbox guest additions

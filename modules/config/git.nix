@@ -1,4 +1,9 @@
-{ pkgs, githubUsername, githubEmail ... }:
+{
+  pkgs,
+  githubUsername,
+  githubEmail,
+  ...
+}:
 {
   environment.systemPackages = with pkgs; [
     gh

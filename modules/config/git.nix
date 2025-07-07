@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, githubUsername, githubEmail ... }:
 {
   environment.systemPackages = with pkgs; [
     gh
@@ -15,8 +15,8 @@
         defaultBranch = "main";
       };
       user = {
-        name = "Myxogastria0808";
-        email = "r.rstudio.c@gmail.com";
+        name = "${githubUsername}";
+        email = "${githubEmail}";
       };
       credential = {
         "https://github.com".helper = "!gh auth git-credential";

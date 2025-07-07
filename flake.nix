@@ -23,6 +23,13 @@
   outputs =
     inputs:
     let
+      # username
+      username = "hello";
+      # GitHub username
+      githubUsername = "Myxogastria0808";
+      # GitHub email
+      githubEmail = "r.rstudio.c@gmail.com";
+      # nixosModules entorypoint
       baseModules = [
         ./nixos/configuration.nix
       ];
@@ -41,7 +48,7 @@
           };
           extraSpecialArgs = {
             inherit inputs;
-            username = "hello";
+            username = username;
           };
           modules = [
             ./home/home.nix
@@ -56,6 +63,12 @@
           system = "x86_64-linux"; # system arch param
           # NixOSシステム構成が定義されているモジュールのリスト
           modules = baseModules ++ nixosModules;
+          specialArgs = {
+            inherit inputs;
+            username = username;
+            githubUsername = githubUsername;
+            githubEmail = githubEmail;
+          };
         };
       };
     };

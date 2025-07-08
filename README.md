@@ -302,6 +302,15 @@ login gitHub
 gh auth login
 ```
 
+create a directory to be managed by ghq
+
+```shell
+# Change directory to home
+cd $HOME
+# Create src directory
+src
+```
+
 ### 6. Setup Tailscale
 
 run `tailscale up`
@@ -320,6 +329,20 @@ hm
 ```
 
 ### 7. Finish!
+
+## How to manage repositories with ghq and peco
+
+- clone repository
+
+`clone` is alias of `ghq get`
+
+```shell
+clone <repository URI>
+```
+
+- move repository directory
+
+type `Ctrl + g` on a terminal -> be showed selection menu of repositories.
 
 ## DeepWiki
 

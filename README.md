@@ -201,11 +201,15 @@ nixos-generate-config --root /mnt
 Setup dotfiles
 
 ```shell
+# install git
 nix-env -i git
+# Change directory to /etc
 cd /etc
+# Clone this repository
 git clone --recursive https://github.com/Myxogastria0808/dotfiles.git
-# Delete the original nixos directory.
+# Delete the original nixos directory
 rm -rf /etc/nixos
+# Symlink the dotfiles directory to /etc/nixos
 ln -s dotfiles nixos
 ```
 
@@ -215,74 +219,40 @@ cf: This dotfiles's initial user password is `sakura`
 
 cf: This dotfiles's user name is `hello`
 
-editing `configuration.nix` following
-
-```shell
-nano /mnt/etc/nixos/nixos/configuration.nix
-```
-
-```
-(omitted)
-...
-  users.users.<username> = {
-    ...
-    (omitted)
-    ...
-    # Genarate following commacnd: mkpasswd -m sha-512
-    initialHashedPassword="<hashed password>";
-    ...
-    (omitted)
-    ...
-  };
-...
-(omitted)
-...
-  programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = [ "<username>" ];
-  virtualisation = {
-    libvirtd.enable = true;
-    spiceUSBRedirection.enable = true;
-  };
-...
-(omitted)
-```
-
 editing `flake.nix` following
 
 ```shell
 nano /mnt/etc/nixos/flake.nix
 ```
 
+edit `flake.nix` to set your `username`, `GitHub username`, and `GitHub email`
+
 ```
-(omitted)
+{
 ...
-  outputs = inputs: {
-    ## home-manager ##
-    homeConfigurations = {
-      myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import inputs.nixpkgs {
-          system = "x86_64-linux";
-          # Enable unfee pkgs
-          config.allowUnfree = true;
-          overlays = [
-            inputs.nur.overlay
-            #   inputs.rust-overlay.overlays.default
-          ];
-        };
-        extraSpecialArgs = {
-          inherit inputs;
-          username = "<username>";
-        };
-        modules = [
-          ./home/home.nix
-          # inputs.nixvim.homeManagerModules.nixvim
-          inputs.plasma-manager.homeManagerModules.plasma-manager
-        ];
-      };
-    };
-  ...
-  (omitted)
-  };
+(omitted)
+  outputs =
+    inputs:
+    let
+      # username
+      username = "hello";
+      # GitHub username
+      githubUsername = "Myxogastria0808";
+      # GitHub email
+      githubEmail = "r.rstudio.c@gmail.com";
+      # nixosModules entorypoint
+      baseModules = [
+        ./nixos/configuration.nix
+      ];
+      nixosModules = [
+        ./modules/app.nix
+      ];
+    in
+    {
+      ## home-manager ##
+...
+(omitted)
+}
 ```
 
 Install NixOS
@@ -298,16 +268,22 @@ Reboot
 reboot now
 ```
 
-### 4. Setup about home-manager
+### 4. Relocation of dotfiles
 
-run folowing commands
+setup dotfiles
 
 ```shell
+# Change directory to home
 cd $HOME
+# Clone dotfiles repository
 git clone https://github.com/Myxogastria0808/dotfiles.git
+# Change directory to dotfiles
 cd dotfiles
+# Remove previous nixos settings
 sudo rm -rf /etc/nixos
+# Symlink dotfiles to /etc/nixos
 sudo ln -s $HOME/dotfiles /etc/nixos
+# Switch to home-manager configuration
 nix run home-manager -- switch --flake .#myHomeConfig
 ```
 
@@ -317,49 +293,15 @@ reboot
 sudo reboot now
 ```
 
-editing `git.nix` following
+### 5. Setup GitHub
 
-```shell
-nano $HOME/dotfiles/modules/config/git.nix
-```
-
-```nix
-{ pkgs, ... }:
-{
-  environment.systemPackages = with pkgs; [
-    gh
-    lazygit
-    # 参考サイト: https://zenn.dev/oreo2990/articles/13c80cf34a95af
-    ghq
-    # Simplistic interactive filtering tool
-    peco
-  ];
-  programs.git = {
-    enable = true;
-    config = {
-      init = {
-        defaultBranch = "main";
-      };
-      user = {
-        name = "<github username>";
-        email = "<github email>";
-      };
-      credential = {
-        "https://github.com".helper = "!gh auth git-credential";
-      };
-      ghq = {
-        root = "~/src";
-      };
-    };
-  };
-}
-```
-
-login github
+login gitHub
 
 ```shell
 gh auth login
 ```
+
+### 6. Setup Tailscale
 
 run `tailscale up`
 
@@ -370,19 +312,13 @@ run `tailscale up`
 sudo tailscale up
 ```
 
-run folowing command
+run following command
 
 ```shell
 hm
 ```
 
-reboot
-
-```shell
-sudo reboot now
-```
-
-### 5. Finish!
+### 7. Finish!
 
 ## DeepWiki
 

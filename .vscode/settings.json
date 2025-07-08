@@ -55,5 +55,6 @@
         "xclip",
         "yazi",
         "zulip"
-    ]
+    ],
+    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix"
 }

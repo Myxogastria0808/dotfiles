@@ -27,3 +27,4 @@ venv/bin/pip install -r requirements.txt
 sudo venv/bin/python3 main.py install libhoudini
 cd ..
 sudo rm -rf waydroid_script
+

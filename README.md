@@ -24,29 +24,30 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 
 ## Alias
 
-| command alias           | execute comand                                                           |
-| ----------------------- | ------------------------------------------------------------------------ |
-| ..                      | `cd ../`                                                                 |
-| ...                     | `cd ../../`                                                              |
-| ....                    | `cd ../../../`                                                           |
-| ls                      | `eza`                                                                    |
-| ll                      | `eza -l`                                                                 |
-| tree                    | `eza --tree`                                                             |
-| size                    | `fd --size`                                                              |
-| diff                    | `delta --side-by-side`                                                   |
-| neofetch                | `fastfetch`                                                              |
-| nix-develop             | `nix develop -c $SHELL`                                                  |
-| hn (for NixOS user)     | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
-| nr (for NixOS user)     | `sudo nixos-rebuild switch`                                              |
-| gc                      | `nix-collect-garbage`                                                    |
-| t                       | `typst watch`                                                            |
-| net                     | `speedtest`                                                              |
-| mobile                  | `scrcpy -d`                                                              |
-| clock                   | `tty-clock -c -s`                                                        |
-| g                       | `lazygit`                                                                |
-| d                       | `sudo lazydocker`                                                        |
-| pdf                     | `tdf`                                                                    |
-| tetris                  | `bastet`                                                                 |
+| command alias       | execute comand                                                           |
+| ------------------- | ------------------------------------------------------------------------ |
+| ..                  | `cd ../`                                                                 |
+| ...                 | `cd ../../`                                                              |
+| ....                | `cd ../../../`                                                           |
+| ls                  | `eza`                                                                    |
+| ll                  | `eza -l`                                                                 |
+| tree                | `eza --tree`                                                             |
+| size                | `fd --size`                                                              |
+| diff                | `delta --side-by-side`                                                   |
+| neofetch            | `fastfetch`                                                              |
+| nix-develop         | `nix develop -c $SHELL`                                                  |
+| hn (for NixOS user) | `cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig` |
+| nr (for NixOS user) | `sudo nixos-rebuild switch`                                              |
+| gc                  | `nix-collect-garbage`                                                    |
+| t                   | `typst watch`                                                            |
+| net                 | `speedtest`                                                              |
+| mobile              | `scrcpy -d`                                                              |
+| clock               | `tty-clock -c -s`                                                        |
+| g                   | `lazygit`                                                                |
+| d                   | `sudo lazydocker`                                                        |
+| clone               | `ghq get`                                                                |
+| pdf                 | `tdf`                                                                    |
+| tetris              | `bastet`                                                                 |
 
 ## Advanced Alias
 

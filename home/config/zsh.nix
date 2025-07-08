@@ -68,6 +68,7 @@
       "clock" = "tty-clock -c -s";
       "g" = "lazygit";
       "d" = "sudo lazydocker";
+      "clone" = "ghq get";
       "pdf" = "tdf";
       "tetris" = "bastet";
     };
@@ -154,7 +155,7 @@
         zle clear-screen
       }
       zle -N peco-src
-      bindkey '^]' peco-src
+      bindkey '^g' peco-src
     '';
     # .zenv
     envExtra = '''';

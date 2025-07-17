@@ -13,7 +13,9 @@ keybind = ctrl+alt+n=new_tab
 keybind = ctrl+alt+left_bracket=previous_tab
 keybind = ctrl+alt+right_bracket=next_tab
 # close tab
-keybind = ctrl+alt+q=close_window
+keybind = ctrl+alt+q=close_surface
+# close window
+keybind = ctrl+alt+k=close_window
 
 # create new split window
 keybind = ctrl+alt+r=new_split:right

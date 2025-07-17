@@ -4,6 +4,7 @@
     # fetchers
     curl
     wget
+    yt-dlp
     # researcher that files opened by a process
     lsof
     # next generation: neofetch

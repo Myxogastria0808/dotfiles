@@ -37,6 +37,9 @@
     # DJ Mixing Software
     mixxx
 
+    # Geographic Information System
+    qgis
+
     # Chat
     vesktop # instead of Discord
     slack

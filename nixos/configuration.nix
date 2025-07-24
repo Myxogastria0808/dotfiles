@@ -165,9 +165,7 @@
   };
 
   # Enable OpenGL
-  hardware.graphics = {
-    enable = true;
-  };
+  hardware.graphics.enable = true;
 
   # Enable TailScale
   services.tailscale.enable = true;
@@ -179,15 +177,8 @@
   virtualisation = {
     # Enable docker
     docker.enable = true;
-    # Enable vmware
-    # vmware.host.enable = true;
     # Enable waydroid
     waydroid.enable = true;
-    # Enable virtualbox
-    virtualbox.host.enable = true;
-    # Enable virtualbox guest additions
-    virtualbox.guest.enable = true;
-    virtualbox.guest.dragAndDrop = true;
   };
 
   # Enable KVM

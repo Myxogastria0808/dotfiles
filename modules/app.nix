@@ -99,9 +99,6 @@
     nix-direnv
     direnv
 
-    # Virtual Machine
-    # vmware-workstation
-
     # Display and control Android devices over USB or TCP/IP
     # https://github.com/Genymobile/scrcpy/
     scrcpy

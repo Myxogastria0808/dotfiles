@@ -1,9 +1,4 @@
-{
-  username,
-  pkgs,
-  inputs,
-  ...
-}:
+{ pkgs, ... }:
 {
   home = {
     file = {
@@ -14,7 +9,7 @@
       };
     };
     packages = with pkgs; [
-      inputs.ghostty.packages.${pkgs.system}.default
+      ghostty
     ];
   };
 }

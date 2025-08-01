@@ -7,8 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #ghostty
-    ghostty.url = "github:ghostty-org/ghostty";
     #Zen Browser
     #GitHub:https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";

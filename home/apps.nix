@@ -5,7 +5,7 @@
     ./config/nvim/nixvim.nix
     ./config/ghostty
     ./config/starship.nix
-    ./config/zsh.nix
+    # ./config/archive/zsh.nix
     # ./config/archive/alacritty.nix
     # ./config/archive/television
     # ./config/archive/vscode.nix

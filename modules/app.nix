@@ -7,6 +7,7 @@
     ./config/language.nix
     ./config/nix-ld.nix
     ./config/steam.nix
+    ./config/zsh.nix
   ];
   environment.systemPackages = with pkgs; [
     # home-manager

@@ -127,9 +127,6 @@
     noisetorch.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
   # Disable change password from command.
   users.mutableUsers = true;
@@ -158,11 +155,6 @@
   # Enable flatpak
   services.flatpak.enable = true;
   xdg.portal.enable = true; # require flatpak
-
-  # Enable pkgs
-  programs = {
-    zsh.enable = true;
-  };
 
   # Enable OpenGL
   hardware.graphics.enable = true;
@@ -206,8 +198,7 @@
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
-    # trust virtual NIC od TailScale
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = [ "tailscale0" ]; # trust virtual NIC of TailScale
     allowedUDPPorts = [
       config.services.tailscale.port # require TailScale
       51820 # require WireGuard

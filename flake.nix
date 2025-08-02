@@ -11,11 +11,15 @@
     # GitHub Repository: https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";
     # nixvim
-    # GitHub Repository: https://github.com/dc-tec/nixvim
-    nixvim.url = "github:dc-tec/nixvim";
-    # nixvim
-    # GitHub Repository: https://github.com/fred-drake/neovim
-    # nixvim.url = "github:fred-drake/neovim#";
+    nixvim = {
+      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+      # url = "github:nix-community/nixvim/nixos-25.05";
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      #* Configured nixvim *#
+      # GitHub Repository: https://github.com/dc-tec/nixvim
+      # url = "github:dc-tec/nixvim";
+    };
   };
 
   outputs =
@@ -58,8 +62,8 @@
       # Replace nixos with your hostname
       nixosConfigurations = {
         nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux"; # system arch param
-          # NixOSシステム構成が定義されているモジュールのリスト
+          system = "x86_64-linux"; # System architecture parameter
+          # Module configurations
           modules = baseModules ++ nixosModules;
           specialArgs = {
             inherit inputs;

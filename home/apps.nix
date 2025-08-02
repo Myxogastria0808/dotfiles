@@ -2,7 +2,7 @@
 {
   imports = [
     ./config/firefox.nix
-    ./config/nvim/nixvim.nix
+    # ./config/archive/nixvim.nix
     ./config/ghostty
     # ./config/archive/starship.nix
     # ./config/archive/zsh.nix

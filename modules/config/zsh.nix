@@ -1,7 +1,4 @@
 { pkgs, ... }: {
-    environment.systemPackages = with pkgs; [
-        # zsh-you-should-use
-    ];
     # Enable zsh shell
     programs.zsh = {
         enable = true;

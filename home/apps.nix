@@ -4,7 +4,7 @@
     ./config/firefox.nix
     ./config/nvim/nixvim.nix
     ./config/ghostty
-    ./config/starship.nix
+    # ./config/archive/starship.nix
     # ./config/archive/zsh.nix
     # ./config/archive/alacritty.nix
     # ./config/archive/television

@@ -7,27 +7,27 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #Zen Browser
-    #GitHub:https://github.com/MarceColl/zen-browser-flake
+    # Zen Browser
+    # GitHub Repository: https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";
     # nixvim
-    # GitHub:https://github.com/dc-tec/nixvim
+    # GitHub Repository: https://github.com/dc-tec/nixvim
     nixvim.url = "github:dc-tec/nixvim";
     # nixvim
-    # GitHub:https://github.com/fred-drake/neovim
+    # GitHub Repository: https://github.com/fred-drake/neovim
     # nixvim.url = "github:fred-drake/neovim#";
   };
 
   outputs =
     inputs:
     let
-      # username
+      # Username
       username = "hello";
       # GitHub username
       githubUsername = "Myxogastria0808";
       # GitHub email
       githubEmail = "r.rstudio.c@gmail.com";
-      # nixosModules entrypoint
+      # NixosModules entrypoint
       baseModules = [
         ./nixos/configuration.nix
       ];

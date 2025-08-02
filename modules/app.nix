@@ -14,7 +14,7 @@
     # home-manager
     home-manager
 
-    # browser
+    # Browser
     google-chrome
     w3m
     tor-browser

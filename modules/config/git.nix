@@ -8,7 +8,7 @@
   environment.systemPackages = with pkgs; [
     gh
     lazygit
-    # 参考サイト: https://zenn.dev/oreo2990/articles/13c80cf34a95af
+    # Reference: https://zenn.dev/oreo2990/articles/13c80cf34a95af
     ghq
     # Simplistic interactive filtering tool
     peco

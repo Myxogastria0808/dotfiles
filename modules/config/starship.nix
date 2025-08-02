@@ -1,5 +1,5 @@
 { ... }: {
-  #参考サイト: https://gist.github.com/mIcHyAmRaNe/a6ee5ca3311d61ae6f181e691643925d
+  # Reference: https://gist.github.com/mIcHyAmRaNe/a6ee5ca3311d61ae6f181e691643925d
   programs.starship = {
     enable = true;
     settings = {
@@ -102,7 +102,7 @@
           Unknown = " ";
         };
       };
-      #symbol
+      # Symbol
       package.symbol = "󰏗 ";
       aws.symbol = "  ";
       buf.symbol = " ";

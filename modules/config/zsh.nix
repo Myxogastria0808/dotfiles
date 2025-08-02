@@ -6,20 +6,19 @@
         autosuggestions.enable = true;
         syntaxHighlighting.enable = true;
         # Oh My Zsh
+        # zsh-completions automatically installed by `programs.zsh.enable = true`
+        # Reference: https://github.com/nix-community/nix-zsh-completions
         ohMyZsh = {
             enable = true;
-            plugins = [
-                "zsh-nix-shell"
-            ];
+            plugins = [];
         };
-        # Login Shell Initialization
-        loginShellInit = ''
+        # Shell initialization
+        shellInit = ''
+            # welcome message
             DISTRO=`sed -n -e /^NAME=/p /etc/os-release | cut -c 6-`
             EXCLAMATION="!!!"
             cowsay "Welcome to " ''$DISTRO''$EXCLAMATION | lolcat
-        '';
-        # Shell Initialization
-        shellInit = ''
+
             # direnv
             eval "$(direnv hook zsh)"
 
@@ -114,7 +113,7 @@
             "size" = "fd --size";
             "diff" = "delta --side-by-side";
             "neofetch" = "fastfetch";
-            #参考サイト: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
+            # Reference: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
             "nix-develop" = "nix develop -c $SHELL";
             "hm" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig";
             "nr" = "sudo nixos-rebuild switch";

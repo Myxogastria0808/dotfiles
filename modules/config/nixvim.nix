@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     #* Configured nixvim *#
     # GitHub:https://github.com/dc-tec/nixvim

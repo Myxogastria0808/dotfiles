@@ -27,7 +27,7 @@
       githubUsername = "Myxogastria0808";
       # GitHub email
       githubEmail = "r.rstudio.c@gmail.com";
-      # nixosModules entorypoint
+      # nixosModules entrypoint
       baseModules = [
         ./nixos/configuration.nix
       ];

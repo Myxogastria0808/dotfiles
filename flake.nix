@@ -39,6 +39,7 @@
       ];
       nixosModules = [
         ./modules/app.nix
+        inputs.nixvim.nixosModules.nixvim
       ];
     in
     {

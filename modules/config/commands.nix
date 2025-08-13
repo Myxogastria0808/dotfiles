@@ -9,6 +9,8 @@
     lsof
     # Next generation: neofetch
     fastfetch
+    # CPU monitaring tui
+    s-tui
     # Next generation: top
     htop
     bottom

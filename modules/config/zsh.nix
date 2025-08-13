@@ -128,6 +128,7 @@
             "clone" = "ghq get";
             "pdf" = "tdf";
             "tetris" = "bastet";
+	    "cpu" = "s-tui";
         };
     };
 }

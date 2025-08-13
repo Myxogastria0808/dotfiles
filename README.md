@@ -48,6 +48,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | clone               | `ghq get`                                                                |
 | pdf                 | `tdf`                                                                    |
 | tetris              | `bastet`                                                                 |
+| cpu                 | `s-tui`                                                                  |
 
 ## Advanced Alias
 

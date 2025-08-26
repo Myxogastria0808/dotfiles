@@ -1,5 +1,6 @@
 { pkgs, ... } : {
   environment.systemPackages = with pkgs; [
+    stack
     haskell-language-server
   ];
   # Binary Cache for haskell.nix

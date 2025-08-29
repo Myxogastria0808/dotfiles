@@ -43,11 +43,6 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/new-tab-override/addon-1351101-latest.xpi";
           installation_mode = "force_installed";
         };
-        # React Developer Tools
-        "@react-devtools" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/react-devtools/addon-13300647-latest.xpi";
-          installation_mode = "force_installed";
-        };
         # Search Result Previews
         "admin@fastaddons.com_SearchResultPreviews" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/search_result_previews/addon-12626983-latest.xpi";

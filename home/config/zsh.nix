@@ -2,21 +2,12 @@
 {
   #参考サイト: https://blog.ryota-ka.me/posts/2021/12/31/home-manager
   programs.zsh = {
-    enable = false;
-    initExtraFirst = '''';
-    # alias
-    shellAliases = {};
+    enable = true;
     # .zshrc
-    initExtra = ''
+    initContent = ''
       # IHP (Integrated Haskell Platform)
       # https://ihp.digitallyinduced.com
       eval "$(direnv hook bash)"
     '';
-    # .zenv
-    envExtra = '''';
-    # .zlogin
-    loginExtra = '''';
-    # .zlogout
-    logoutExtra = '''';
   };
 }

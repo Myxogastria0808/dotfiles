@@ -73,7 +73,7 @@
       "tetris" = "bastet";
     };
     # .zshrc
-    initExtra = ''
+    initContent = ''
       # direnv
       eval "$(direnv hook zsh)"
 

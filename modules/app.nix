@@ -4,6 +4,7 @@
     ./config/commands.nix
     ./config/fonts.nix
     ./config/git.nix
+    ./config/haskell.nix
     ./config/language.nix
     ./config/nix-ld.nix
     ./config/nixvim.nix

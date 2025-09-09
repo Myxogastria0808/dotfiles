@@ -16,6 +16,9 @@
     # home-manager
     home-manager
 
+    # Build System
+    gnumake
+
     # Browser
     google-chrome
     w3m

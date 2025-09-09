@@ -2,7 +2,7 @@
 {
   #参考サイト: https://blog.ryota-ka.me/posts/2021/12/31/home-manager
   programs.zsh = {
-    enable = true;
+    enable = false;
     initExtraFirst = '''';
     # alias
     shellAliases = {};

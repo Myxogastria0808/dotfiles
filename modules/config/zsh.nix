@@ -19,6 +19,10 @@
             EXCLAMATION="!!!"
             cowsay "Welcome to " ''$DISTRO''$EXCLAMATION | lolcat
 
+            # IHP (Integrated Haskell Platform)
+            # https://ihp.digitallyinduced.com
+            eval "$(direnv hook bash)"
+
             # direnv
             eval "$(direnv hook zsh)"
 

@@ -9,7 +9,6 @@
     # ./config/archive/vscode.nix
     ./config/ghostty
     ./config/firefox.nix
-    ./config/zsh.nix
   ];
   # Install pkgs
   home.packages = with pkgs; [

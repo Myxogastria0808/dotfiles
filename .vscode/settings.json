@@ -92,6 +92,7 @@
         "xclip",
         "xhci",
         "yazi",
+        "zenv",
         "zulip"
     ],
     "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix"

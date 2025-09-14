@@ -108,6 +108,10 @@
                 echo ">>> Ctrl+C to abort... (waiting 3 seconds)"
                 sleep 3
 
+                # get permission
+                echo ">>> Getting sudo permission..."
+                sudo -v || return 1
+
                 sudo dd if="$iso" bs="$bs" status=none iflag=fullblock | pv -s "$size" | sudo dd of="$dev" bs="$bs" status=none conv=fsync
             }
 

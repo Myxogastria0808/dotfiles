@@ -63,11 +63,11 @@
                             shift 2
                             ;;
                         -h|--help)
-                            echo "Usage: ddiso --iso <iso-file> --dev <device> (optional: --bs <block-size>, default: 1M)"
+                            echo "Usage: ddiso --iso <iso file> --dev <device> (optional: --bs <block size, default: 1M>)"
                             return 0
                             ;;
                         *)
-                            echo "Usage: ddiso --iso <iso-file> --dev <device> (optional: --bs <block-size>, default: 1M)"
+                            echo "Usage: ddiso --iso <iso file> --dev <device> (optional: --bs <block size, default: 1M>)"
                             return 1
                             ;;
                     esac
@@ -75,7 +75,7 @@
 
                 # validation of arguments
                 if [[ -z "$iso" || -z "$dev" ]]; then
-                    echo "Usage: ddiso --iso <iso-file> --dev <device> (optional: --bs <block-size>, default: 1M)"
+                    echo "Usage: ddiso --iso <iso file> --dev <device> (optional: --bs <block size, default: 1M>)"
                     return 1
                 fi
 

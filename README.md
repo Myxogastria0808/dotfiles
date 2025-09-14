@@ -82,6 +82,12 @@ Show and copy pwd results to clickboard
 
 Show and copy a file content to clickboard
 
+### ddiso
+
+- ddiso --iso [ISO FILE] --dev [DEVICE] (optional: --bs [BLOCK SIZE, default: 1M])
+
+Make install media
+
 # How to setup (NixOS)
 
 > [!WARNING]

@@ -41,6 +41,76 @@
                 echo "''${result}" | xclip -selection clipboard
             }
 
+            # dd iso to usb
+            dd-iso() {
+                local iso=""
+                local dev=""
+                local bs="1M"
+
+                # parse arguments
+                while [[ "$#" -gt 0 ]]; do
+                    case $1 in
+                        --iso)
+                            iso="$2"
+                            shift 2
+                            ;;
+                        --dev)
+                            dev="$2"
+                            shift 2
+                            ;;
+                        --bs)
+                            bs="$2"
+                            shift 2
+                            ;;
+                        -h|--help)
+                            echo "Usage: dd-iso --iso <iso-file> --dev <device> (optional: --bs <block-size>, default: 1M)"
+                            return 0
+                            ;;
+                        *)
+                            echo "Usage: dd-iso --iso <iso-file> --dev <device> (optional: --bs <block-size>, default: 1M)"
+                            return 1
+                            ;;
+                    esac
+                done
+
+                # validation of arguments
+                if [[ -z "$iso" || -z "$dev" ]]; then
+                    echo "Usage: dd-iso --iso <iso-file> --dev <device> (optional: --bs <block-size>, default: 1M)"
+                    return 1
+                fi
+
+                # check if ISO file exists
+                if [[ ! -f "$iso" ]]; then
+                    echo "Error: ISO not found: $iso"
+                    return 1
+                fi
+
+                # check if device exists and is a block device
+                if [[ ! -b "$dev" ]]; then
+                    echo "Error: Not a block device: $dev"
+                    return 1
+                fi
+
+                # check if device is mounted
+                local mount_points=$(lsblk -no MOUNTPOINTS "$dev" 2>/dev/null | tr '\n' ',' | sed 's/^,//; s/,$//' | sed 's/,/, /g')
+                if [[ -n "$mount_points" ]]; then
+                    echo "Error: Device is mounted at: $mount_points"
+                    return 1
+                fi
+
+                # get ISO file size as bytes
+                local size=$(du -b "$iso" | cut -f1)
+
+                # show info and wait for 3 seconds
+                echo ">>> Info: "$iso" ("$size" bytes) → "$dev""
+                echo ">>> This command will erase all data on "$dev"."
+                echo ">>> Make sure you have the correct device!"
+                echo ">>> Ctrl+C to abort... (waiting 3 seconds)"
+                sleep 3
+
+                sudo dd if="$iso" bs="$bs" status=none iflag=fullblock | pv -s "$size" | sudo dd of="$dev" bs="$bs" status=none conv=fsync
+            }
+
             # nurl alias
             #参考サイト: https://chitoku.jp/programming/bash-getopts-long-options/
             #参考サイト: https://future-architect.github.io/articles/20210405/
@@ -128,7 +198,7 @@
             "clone" = "ghq get";
             "pdf" = "tdf";
             "tetris" = "bastet";
-	    "cpu" = "s-tui";
+            "cpu" = "s-tui";
         };
     };
 }

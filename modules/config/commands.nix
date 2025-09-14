@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # Tool for monitoring the progress of data through a pipeline
+    pv
     # Fetchers
     curl
     wget

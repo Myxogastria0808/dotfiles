@@ -92,7 +92,7 @@
                 fi
 
                 # check if device is mounted
-                local mount_points=$(lsblk -no MOUNTPOINTS "$dev" 2>/dev/null | tr '\n' ',' | sed 's/^,//; s/,$//' | sed 's/,/, /g')
+                local mount_points=$(lsblk -no MOUNTPOINTS "$dev" 2>/dev/null | grep . | tr '\n' ',' | sed 's/^,//; s/,$//' | sed 's/,/, /g')
                 if [[ -n "$mount_points" ]]; then
                     echo "Error: Device is mounted at: $mount_points"
                     return 1

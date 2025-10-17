@@ -13,8 +13,12 @@
     ./config/zsh.nix
   ];
   environment.systemPackages = with pkgs; [
-    # home-manager
-    home-manager
+    # Rs232c
+    screen
+    minicom
+
+    # WASM Runtime
+    wasmtime
 
     # Build System
     gnumake
@@ -57,6 +61,7 @@
     helix
     nano
     vscode
+    zed-editor
 
     # Input Method
     skktools

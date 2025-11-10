@@ -53,7 +53,7 @@
 
     # Chat
     discord
-    vesktop # instead of Discord
+    # vesktop # instead of Discord
     slack
     zulip
     element-desktop # Matrix Desktop Client

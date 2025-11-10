@@ -52,6 +52,7 @@
     qgis
 
     # Chat
+    discord
     vesktop # instead of Discord
     slack
     zulip

@@ -45,6 +45,9 @@
     # RDP Client
     remmina
 
+    # Game Engine
+    godot
+
     # DJ Mixing Software
     mixxx
 

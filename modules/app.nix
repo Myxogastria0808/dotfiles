@@ -46,7 +46,7 @@
     remmina
 
     # Game Engine
-    # godot
+    godot
 
     # DJ Mixing Software
     mixxx

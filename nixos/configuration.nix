@@ -94,7 +94,7 @@
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasmax11";
   # Enable XWayland
-  programs.xwayland.enable = true;
+  # programs.xwayland.enable = true;
   xdg.portal ={
     enable = true; # require flatpak
     extraPortals = with pkgs; [

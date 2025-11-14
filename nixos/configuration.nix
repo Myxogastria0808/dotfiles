@@ -93,8 +93,21 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasmax11";
-  # require XWayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # Enable XWayland
+  programs.xwayland.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # require XWayland
+  xdg.portal ={
+    enable = true; # require flatpak
+    extraPortals = with pkgs; [
+      # Reference: https://search.nixos.org/options?channel=25.05&show=xdg.portal.extraPortals&query=xdg.portal
+      # List of additional portals to add to path.
+      # Portals allow interaction with system, like choosing files or taking screenshots.
+      # At minimum, a desktop portal implementation should be listed.
+      # GNOME and KDE already adds xdg-desktop-portal-gtk; and xdg-desktop-portal-kde respectively.
+      # On other desktop environments you probably want to add them yourself.
+      xdg-desktop-portal-gtk
+    ];
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -154,7 +167,6 @@
 
   # Enable flatpak
   services.flatpak.enable = true;
-  xdg.portal.enable = true; # require flatpak
 
   # Enable OpenGL
   hardware.graphics.enable = true;

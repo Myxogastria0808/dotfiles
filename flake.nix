@@ -12,10 +12,10 @@
     zen-browser.url = "github:MarceColl/zen-browser-flake";
     # nixvim
     nixvim = {
-      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
-      # url = "github:nix-community/nixvim/nixos-25.05";
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+      # url = "github:nix-community/nixvim/nixos-25.05";
       #* Configured nixvim *#
       # GitHub Repository: https://github.com/dc-tec/nixvim
       # url = "github:dc-tec/nixvim";

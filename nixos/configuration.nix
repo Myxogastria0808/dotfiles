@@ -95,7 +95,6 @@
   services.displayManager.defaultSession = "plasmax11";
   # Enable XWayland
   programs.xwayland.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # require XWayland
   xdg.portal ={
     enable = true; # require flatpak
     extraPortals = with pkgs; [

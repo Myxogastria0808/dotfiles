@@ -82,8 +82,6 @@
         fcitx5-mozc
         fcitx5-gtk
         fcitx5-skk
-        # kdePackages.fcitx5-qt
-        # kdePackages.fcitx5-skk-qt
       ];
     };
   };

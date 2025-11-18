@@ -88,6 +88,14 @@ Show and copy a file content to clickboard
 
 Make install media
 
+### mermaid
+
+- mermaid [MERMAID FILE (.mmd file)]
+
+optional: mermaid -i [MERMAID FILE (.mmd file)] -o [SVG | PNG | PDF FILE]
+
+Generate a mermaid diagram png file from a mermaid file
+
 # How to setup (NixOS)
 
 > [!WARNING]

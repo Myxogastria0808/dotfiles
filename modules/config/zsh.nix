@@ -115,6 +115,49 @@
                 sudo dd if="$iso" bs="$bs" status=none iflag=fullblock | pv -s "$size" | sudo dd of="$dev" bs="$bs" status=none conv=fsync
             }
 
+            mermaid() {
+                # case 1: mermaid hoge.mmd
+                if [ $# -eq 1 ] && [[ "$1" == *.mmd ]]; then
+                    input="$1"
+                    output="${input%.*}.png"
+                # case 2: mermaid -i hoge.mmd
+                elif [ $# -eq 2 ] && [ "$1" = "-i" ] && [[ "$2" == *.mmd ]]; then
+                    input="$2"
+                    output="${input%.*}.png"
+                # case 3: mermaid -i hoge.mmd -o hoge.png
+                elif [ $# -eq 4 ] && [ "$1" = "-i" ] && [[ "$2" == *.mmd ]] && [ "$3" = "-o" ] && ([[ "$4" == *.png ]] || [[ "$4" == *.svg ]] || [[ "$4" == *.pdf ]]); then
+                    input="$2"
+                    output="$4"
+                # invalid pattern
+                else
+                    echo "Usage:"
+                    echo "  mermaid <mmd file (e.g. hoge.mmd)>"
+                    echo "  mermaid -i <mmd file (e.g. hoge.mmd)>"
+                    echo "  mermaid -i <mmd file (e.g. hoge.mmd)> -o <png |svg | pdf file>"
+                    return 1
+                fi
+
+                # check input file existence
+                if [ ! -f "$input" ]; then
+                    echo "Error: input file not found: $input"
+                    return 1
+                fi
+
+                # check output file existence
+                if [ -f "$output" ]; then
+                    echo "$output already exists. Overwrite? (y/N)"
+                    read -r answer
+                    if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+                        echo "Overwrite cancelled."
+                        return 0
+                    fi
+                fi
+
+                # execute mermaid-cli
+                echo "Generating diagram: $output"
+                mmdc -i "$input" -o "$output"
+            }
+
             # nurl alias
             #参考サイト: https://chitoku.jp/programming/bash-getopts-long-options/
             #参考サイト: https://future-architect.github.io/articles/20210405/

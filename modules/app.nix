@@ -62,10 +62,12 @@
     element-desktop # Matrix Desktop Client
 
     # Editor
-    helix
     nano
     vscode
     zed-editor
+
+    # Mermaid CLI
+    mermaid-cli
 
     # Input Method
     skktools

@@ -119,11 +119,11 @@
                 # case 1: mermaid hoge.mmd
                 if [ $# -eq 1 ] && [[ "$1" == *.mmd ]]; then
                     input="$1"
-                    output="${input%.*}.png"
+                    output="''${input%.*}.png"
                 # case 2: mermaid -i hoge.mmd
                 elif [ $# -eq 2 ] && [ "$1" = "-i" ] && [[ "$2" == *.mmd ]]; then
                     input="$2"
-                    output="${input%.*}.png"
+                    output="''${input%.*}.png"
                 # case 3: mermaid -i hoge.mmd -o hoge.png
                 elif [ $# -eq 4 ] && [ "$1" = "-i" ] && [[ "$2" == *.mmd ]] && [ "$3" = "-o" ] && ([[ "$4" == *.png ]] || [[ "$4" == *.svg ]] || [[ "$4" == *.pdf ]]); then
                     input="$2"

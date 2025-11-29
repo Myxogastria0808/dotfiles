@@ -154,6 +154,7 @@
       "networkmanager"
       "wheel"
       "flatpak"
+      "incus-admin"
     ];
     # default terminal
     shell = "/run/current-system/sw/bin/zsh";
@@ -183,6 +184,8 @@
     docker.enable = true;
     # Enable waydroid
     waydroid.enable = true;
+    # Enable Incus
+    incus.enable = true;
   };
 
   # Enable KVM
@@ -210,7 +213,10 @@
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
-    trustedInterfaces = [ "tailscale0" ]; # trust virtual NIC of TailScale
+    trustedInterfaces = [
+      "tailscale0" # trust virtual NIC of TailScale
+      "incusbr0" # trust virtual NIC of Incus
+    ];
     allowedUDPPorts = [
       config.services.tailscale.port # require TailScale
       51820 # require WireGuard
@@ -225,6 +231,8 @@
   };
   # Set WireGuard config
   networking.wg-quick.interfaces.wg0.configFile = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
+  # require Incus
+  networking.nftables.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

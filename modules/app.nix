@@ -13,6 +13,9 @@
     ./config/zsh.nix
   ];
   environment.systemPackages = with pkgs; [
+    # container
+    incus-ui-canonical
+
     # Rs232c
     screen
     minicom

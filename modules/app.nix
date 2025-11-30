@@ -69,6 +69,12 @@
     vscode
     zed-editor
 
+    # ni
+    # multiple npm package management tool
+    # support: npm · yarn · pnpm · bun · deno
+    # Reference: https://github.com/antfu-collective/ni
+    ni
+
     # Mermaid CLI
     mermaid-cli
 

@@ -233,7 +233,7 @@
             # Reference: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
             "nix-develop" = "nix develop -c $SHELL";
             "hm" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig";
-            "nr" = "sudo nixos-rebuild switch";
+            "nixos" = "sudo nixos-rebuild switch";
             "gc" = "nix-collect-garbage";
             "t" = "typst watch";
             "net" = "speedtest";

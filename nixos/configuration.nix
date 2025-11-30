@@ -185,7 +185,10 @@
     # Enable waydroid
     waydroid.enable = true;
     # Enable Incus
-    incus.enable = true;
+    incus = {
+      enable = true;
+      ui.enable = true;
+    };
   };
 
   # Enable KVM

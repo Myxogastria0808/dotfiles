@@ -16,6 +16,10 @@
     # container
     incus-ui-canonical
 
+    # Generative AI Agent CLI
+    codex
+    claude-code
+
     # Rs232c
     screen
     minicom

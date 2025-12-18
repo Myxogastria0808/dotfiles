@@ -16,6 +16,9 @@
     # container
     incus-ui-canonical
 
+    # Mail Client
+    thunderbird
+
     # Generative AI Agent CLI
     codex
     claude-code

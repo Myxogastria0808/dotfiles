@@ -8,5 +8,5 @@
       libgcc
       glibc
     ];
-  }
+  };
 }

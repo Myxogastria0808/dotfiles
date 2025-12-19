@@ -16,6 +16,9 @@
     # container
     incus-ui-canonical
 
+    # Certification
+    openssl
+
     # Mail Client
     thunderbird
 

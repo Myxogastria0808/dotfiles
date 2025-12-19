@@ -5,5 +5,7 @@
     python3
     # R
     R
+    # Golang
+    go
   ];
 }

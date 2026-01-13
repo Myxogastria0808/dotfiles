@@ -49,6 +49,7 @@ This dotfiles describes almost everything in nix except AstroNvim. This dotfiles
 | pdf                    | `tdf`                                                                    |
 | tetris                 | `bastet`                                                                 |
 | cpu                    | `s-tui`                                                                  |
+| dog                    | `bat`                                                                    |
 
 ## Advanced Alias
 

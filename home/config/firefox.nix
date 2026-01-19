@@ -18,11 +18,6 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/addon-13299734-latest.xpi";
           installation_mode = "force_installed";
         };
-        # Double-click Image Downloader
-        "jid1-xgtdawe3yyUeBQ@jetpack" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/double-click-image-download/addon-4545060-latest.xpi";
-          installation_mode = "force_installed";
-        };
         # Enhancer for YouTube™
         "enhancerforyoutube@maximerf.addons.mozilla.org" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/enhancer-for-youtube/addon-6294433-latest.xpi";
@@ -61,11 +56,6 @@
         # TWP
         "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/traduzir-paginas-web/addon-15610759-latest.xpi";
-          installation_mode = "force_installed";
-        };
-        # uBlock Origin
-        "uBlock0@raymondhill.net" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/addon-11423598-latest.xpi";
           installation_mode = "force_installed";
         };
         # Wappalyzer

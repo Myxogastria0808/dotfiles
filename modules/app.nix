@@ -88,6 +88,9 @@
     # Mermaid CLI
     mermaid-cli
 
+    # Graphviz
+    graphviz
+
     # Input Method
     skktools
 

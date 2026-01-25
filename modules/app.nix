@@ -100,9 +100,6 @@
     # Video
     mpv
 
-    # Video Editor
-    kdePackages.kdenlive
-
     # Microsoft like Software
     teams-for-linux
     libreoffice

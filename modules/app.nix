@@ -102,7 +102,7 @@
 
     # Microsoft like Software
     teams-for-linux
-    libreoffice
+    wpsoffice
 
     # Live Streaming
     obs-studio

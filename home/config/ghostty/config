@@ -1,4 +1,4 @@
-theme = Builtin Solarized Dark
+theme = Desert
 background-opacity = 0.85
 unfocused-split-opacity = 1
 font-family = "0xProto Nerd Font"
@@ -6,7 +6,7 @@ font-family = "TakaoGothic"
 font-feature = -calt
 font-feature = -dlig
 palette = 8=#5d728c
-# *keybind* #
+#* keybind *#
 # create new tab
 keybind = ctrl+alt+n=new_tab
 # move tabs

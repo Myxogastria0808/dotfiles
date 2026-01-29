@@ -30,12 +30,14 @@
   };
 
   # Set skk dictonaries
-  # Reference: https://skk-dev.github.io/dict/
   environment.systemPackages = with pkgs.skkDictionaries; [
     #* Standard dictionary *#
+    # Reference: https://skk-dev.github.io/dict/
     # SKK-JISYO.L.gz (Largest standard dictionary)
     l
+
     #* Specialized dictionary *#
+    # Reference: https://skk-dev.github.io/dict/
     # SKK-JISYO.jinmei.gz (Japanese individuals)
     jinmei
     # SKK-JISYO.fullname.gz (Full names of Japanese individuals published in newspapers)
@@ -66,5 +68,9 @@
     itaiji_jis3_4
     # SKK-JISYO.mazegaki.gz (Mixed writing dictionary)
     mazegaki
+
+    #* Emoji dictionary *#
+    # Reference: https://github.com/ymrl/SKK-JISYO.emoji-ja/tree/master
+    emoji
   ];
 }

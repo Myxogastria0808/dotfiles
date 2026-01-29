@@ -31,7 +31,7 @@
 
   # Set skk dictonaries
   # Reference: https://skk-dev.github.io/dict/
-  environment.systemPackages.skkDictionaries = with pkgs; [
+  environment.systemPackages = with pkgs.skkDictionaries; [
     #* Standard dictionary *#
     # SKK-JISYO.L.gz (Largest standard dictionary)
     l

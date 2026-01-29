@@ -5,7 +5,8 @@ font-family = "0xProto Nerd Font"
 font-family = "TakaoGothic"
 font-feature = -calt
 font-feature = -dlig
-palette = 8=#5d728c
+# palette = 8=#5d728c
+
 #* keybind *#
 # create new tab
 keybind = ctrl+alt+n=new_tab

@@ -102,7 +102,12 @@
 
     # Microsoft like Software
     teams-for-linux
-    wpsoffice
+    # LibreOffice for KDE
+    libreoffice-qt
+    # spellcheck for LibreOffice
+    hunspell
+    hunspellDicts.uk_UA
+    hunspellDicts.th_TH
 
     # Live Streaming
     obs-studio

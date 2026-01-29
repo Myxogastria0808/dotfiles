@@ -8,6 +8,7 @@
     # ./config/archive/television
     # ./config/archive/vscode.nix
     ./config/ghostty
+    ./config/skk
     ./config/firefox.nix
   ];
   # Install pkgs

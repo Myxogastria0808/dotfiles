@@ -4,7 +4,7 @@
     file = {
       "config" = {
         enable = true;
-        source = ./config/config;
+        source = ./config;
         target = "/home/${username}/.config/ghostty/config";
       };
     };

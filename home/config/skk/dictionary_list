@@ -1,20 +1,21 @@
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.L,mode=readonly,type=file
+# System dictionaries (readonly)
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.L,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.emoji,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.china_taiwan,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji.JIS3_4,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.propernoun,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.jinmei,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.law,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.station,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.fullname,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.mazegaki,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/zipcode,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.geo,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS3_4,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2004,mode=readonly,encoding=UTF-8
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.okinawa,mode=readonly,encoding=UTF-8
 
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.emoji,mode=readonly,type=file
-
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.china_taiwan,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji.JIS3_4,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.propernoun,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.jinmei,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.law,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.station,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.fullname,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.mazegaki,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.zipcode,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.geo,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS3_4,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.office.zipcode,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2004,mode=readonly,type=file
-encoding=UTF-8,file=/run/current-system/sw/share/skk/SKK-JISYO.okinawa,mode=readonly,type=file
+# User dictionary (readwrite)
+type=file,file=$HOME/.local/share/fcitx5/skk/user.dict,mode=readwrite,encoding=UTF-8

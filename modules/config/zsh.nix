@@ -246,7 +246,7 @@
             "pdf" = "tdf";
             "tetris" = "bastet";
             "cpu" = "s-tui";
-            "dog" = "bat";
+            "music" ="cava";
         };
     };
 }

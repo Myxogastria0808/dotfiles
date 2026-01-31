@@ -13,6 +13,9 @@
       nerd-fonts."m+"
       roboto
       udev-gothic-nf
+      # Microsoft's TrueType core fonts
+      # Reference: https://corefonts.sourceforge.net/
+      corefonts
     ];
     fontDir.enable = true;
     fontconfig = {

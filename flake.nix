@@ -11,7 +11,7 @@
     # GitHub Repository: https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";
     # nixvim
-    nixvim.url = "github:Myxogastria0808/nix-flakes-nixvim/main";
+    nixvimConfig.url = "github:Myxogastria0808/nix-flakes-nixvim/main";
   };
 
   outputs =
@@ -61,7 +61,7 @@
           modules = baseModules ++ nixosModules ++ [
             ({ pkgs, inputs, ... }: {
               environment.systemPackages = [
-                inputs.nixvim.packages.x86_64-linux.default
+                inputs.nixvimConfig.packages.x86_64-linux.default
               ];
             })
           ];

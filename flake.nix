@@ -11,15 +11,7 @@
     # GitHub Repository: https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";
     # nixvim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
-      # url = "github:nix-community/nixvim/nixos-25.05";
-      #* Configured nixvim *#
-      # GitHub Repository: https://github.com/dc-tec/nixvim
-      # url = "github:dc-tec/nixvim";
-    };
+    nixvim.url = "github:Myxogastria0808/nix-flakes-nixvim/main";
   };
 
   outputs =
@@ -39,7 +31,6 @@
       ];
       nixosModules = [
         ./modules/app.nix
-        inputs.nixvim.nixosModules.nixvim
       ];
     in
     {
@@ -74,6 +65,11 @@
             githubUsername = githubUsername;
             githubEmail = githubEmail;
           };
+          environment.systemPackages = [
+            # NixVim
+            # GitHub Repository: https://github.com/MarceColl/zen-browser-flake
+            inputs.nixvim.packages.${system}.default
+          ]
         };
       };
     };

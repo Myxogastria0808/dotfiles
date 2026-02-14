@@ -1,3 +1,6 @@
+# User dictionary (readwrite)
+type=file,file=$HOME/.local/share/fcitx5/skk/user.dict,mode=readwrite,encoding=UTF-8
+
 # System dictionaries (readonly)
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.L,mode=readonly,encoding=UTF-8
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.emoji,mode=readonly,encoding=UTF-8
@@ -16,6 +19,3 @@ type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS3_4,mode=readonly,e
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji,mode=readonly,encoding=UTF-8
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2004,mode=readonly,encoding=UTF-8
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.okinawa,mode=readonly,encoding=UTF-8
-
-# User dictionary (readwrite)
-type=file,file=$HOME/.local/share/fcitx5/skk/user.dict,mode=readwrite,encoding=UTF-8

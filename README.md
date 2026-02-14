@@ -1,6 +1,6 @@
 # About this dotfiles
 
-This dotfiles describes almost everything in nix except AstroNvim. This dotfiles makes home-manager independent from NixOS Modules. Therefore, the parts managed by home-manager are supposed to be available to all linux users. In addition, some NixOS users can make full use of this dotfiles. This dotfiles has been created for successful setup on the ThinkPad X1 Carbon 7th. It has not been tested on other generations of the X1 Carbon, but users with other generations of the X1 Carbon may also be able to set it up successfully.
+WThis dotfiles makes home-manager independent from NixOS Modules. Therefore, the parts managed by home-manager are supposed to be available to all linux users. In addition, some NixOS users can make full use of this dotfiles. This dotfiles has been created for successful setup on the ThinkPad X1 Carbon 7th. It has not been tested on other generations of the X1 Carbon, but users with other generations of the X1 Carbon may also be able to set it up successfully.
 
 # Outline
 

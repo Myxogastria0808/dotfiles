@@ -3,7 +3,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
-          "nixvim",
+          "nixvimConfig",
           "nixvim",
           "nixpkgs"
         ]
@@ -92,29 +92,9 @@
     },
     "nixvim": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "nixvim": "nixvim_2"
-      },
-      "locked": {
-        "lastModified": 1771050977,
-        "narHash": "sha256-IPXH1mn9Gw7pj1Pm37TustOq3IS7jsL4CSyvNj+pPOU=",
-        "owner": "Myxogastria0808",
-        "repo": "nix-flakes-nixvim",
-        "rev": "a57d20e0a41943a5b66de617c468dd8e76612042",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Myxogastria0808",
-        "ref": "main",
-        "repo": "nix-flakes-nixvim",
-        "type": "github"
-      }
-    },
-    "nixvim_2": {
-      "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": [
-          "nixvim",
+          "nixvimConfig",
           "nixpkgs"
         ],
         "systems": "systems"
@@ -133,11 +113,31 @@
         "type": "github"
       }
     },
+    "nixvimConfig": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2",
+        "nixvim": "nixvim"
+      },
+      "locked": {
+        "lastModified": 1771053029,
+        "narHash": "sha256-GUoGhN0gqjAj3YjYJ7kOGprVZfPG346JyxNgGvTH7D8=",
+        "owner": "Myxogastria0808",
+        "repo": "nix-flakes-nixvim",
+        "rev": "eef24ce02cf52badcd6ae0cb791e354256d38cf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Myxogastria0808",
+        "ref": "main",
+        "repo": "nix-flakes-nixvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixvim": "nixvim",
+        "nixvimConfig": "nixvimConfig",
         "zen-browser": "zen-browser"
       }
     },

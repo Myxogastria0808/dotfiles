@@ -18,7 +18,7 @@
     inputs:
     let
       # System
-      system = "x86_64-linux";
+      systems = "x86_64-linux";
       # Username
       username = "hello";
       # GitHub username
@@ -38,7 +38,7 @@
       homeConfigurations = {
         myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs {
-            system = system;# System architecture parameter
+            system = systems;# System architecture parameter
             # Enable unfree pkgs
             config.allowUnfree = true;
           };
@@ -56,7 +56,7 @@
       # Replace nixos with your hostname
       nixosConfigurations = {
         nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = system; # System architecture parameter
+          system = systems; # System architecture parameter
           # Module configurations
           modules = baseModules ++ nixosModules ++ [
             ({ pkgs, inputs, ... }: {

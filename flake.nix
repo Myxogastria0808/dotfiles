@@ -58,18 +58,19 @@
         nixos = inputs.nixpkgs.lib.nixosSystem {
           system = system; # System architecture parameter
           # Module configurations
-          modules = baseModules ++ nixosModules;
+          modules = baseModules ++ nixosModules ++ [
+            ({ pkgs, ... }: {
+              environment.systemPackages = [
+                inputs.nixvim.packages.x86_64-linux.default
+              ];
+            })
+          ];
           specialArgs = {
             inherit inputs;
             username = username;
             githubUsername = githubUsername;
             githubEmail = githubEmail;
           };
-          environment.systemPackages = [
-            # NixVim
-            # GitHub Repository: https://github.com/MarceColl/zen-browser-flake
-            inputs.nixvim.packages.${system}.default
-          ]
         };
       };
     };

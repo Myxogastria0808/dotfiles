@@ -8,7 +8,6 @@
     ./config/i18n.nix
     ./config/language.nix
     ./config/nix-ld.nix
-    ./config/nixvim.nix
     ./config/starship.nix
     ./config/steam.nix
     ./config/zsh.nix

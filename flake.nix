@@ -59,7 +59,7 @@
           system = system; # System architecture parameter
           # Module configurations
           modules = baseModules ++ nixosModules ++ [
-            ({ pkgs, ... }: {
+            ({ pkgs, inputs, ... }: {
               environment.systemPackages = [
                 inputs.nixvim.packages.x86_64-linux.default
               ];

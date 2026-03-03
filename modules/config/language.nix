@@ -9,7 +9,6 @@
     go
     # Nodejs
     nodejs
-    corepack
     # python
     python3
     # R

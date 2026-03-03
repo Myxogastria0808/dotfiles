@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # file path searching tool
+    mlocate
     # Tool for monitoring the progress of data through a pipeline
     pv
     # Fetchers

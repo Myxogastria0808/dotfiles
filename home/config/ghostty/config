@@ -17,7 +17,7 @@ keybind = ctrl+alt+right_bracket=next_tab
 # close tab
 keybind = ctrl+alt+q=close_surface
 # close window
-keybind = ctrl+alt+k=close_window
+keybind = ctrl+alt+d=close_window
 
 # create new split window
 keybind = ctrl+alt+l=new_split:right

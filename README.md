@@ -59,9 +59,9 @@ WThis dotfiles makes home-manager independent from NixOS Modules. Therefore, the
 
 [OPTIONS]
 
-`-f` ... Show and copy to clipboard the hash value
+`--hash` ... Show and copy to clipboard the hash value
 
-`-h` ... Show and copy to clipboard complete results
+`--rev`  ... Show the rev value only
 
 [URL]
 

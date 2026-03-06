@@ -160,9 +160,9 @@
       }
 
       # nurl alias
-      #参考サイト: https://chitoku.jp/programming/bash-getopts-long-options/
-      #参考サイト: https://future-architect.github.io/articles/20210405/
-      #参考サイト: https://blog.kteru.net/bash-template-for-using-getopts/
+      # Reference: https://chitoku.jp/programming/bash-getopts-long-options/
+      # Reference: https://future-architect.github.io/articles/20210405/
+      # Reference: https://blog.kteru.net/bash-template-for-using-getopts/
       # fetchFromGitHubのsha256の取得用
       # ($1) ... optional option (--hash, --rev, --help)
       # $1 ($2) ... github repository url
@@ -235,8 +235,82 @@
           esac
       }
 
+      # Terminal Shortcut Keys Helper
+      function shell() {
+          local BOLD="\e[1m"
+          local RESET="\e[0m"
+          local CYAN="\e[36m"
+          local YELLOW="\e[33m"
+          local GREEN="\e[32m"
+          local MAGENTA="\e[35m"
+          local DIM="\e[2m"
+          echo ""
+          echo -e "''${BOLD}''${CYAN}╔══════════════════════════════════════════════════════╗''${RESET}"
+          echo -e "''${BOLD}''${CYAN}║           zsh Keyboard Shortcuts Cheatsheet          ║''${RESET}"
+          echo -e "''${BOLD}''${CYAN}╚══════════════════════════════════════════════════════╝''${RESET}"
+          # ── Cursor Movement ──────────────────────────────────────────
+          echo ""
+          echo -e "''${BOLD}''${YELLOW}  Cursor Movement''${RESET}"
+          echo -e "''${DIM}  ──────────────────────────────────────────────────────''${RESET}"
+          echo ""
+          echo -e "  ''${BOLD}Ctrl+A''${RESET}  Move to beginning of line"
+          echo -e "  ''${DIM}  \$ git commit -m \"fix bug\"''${RESET}"
+          echo -e "  ''${GREEN}    ^''${RESET}"
+          echo -e "  ''${GREEN}    Ctrl+A moves here''${RESET}"
+          echo ""
+          echo -e "  ''${BOLD}Ctrl+E''${RESET}  Move to end of line"
+          echo -e "  ''${DIM}  \$ git commit -m \"fix bug\"''${RESET}"
+          echo -e "  ''${GREEN}                           ^''${RESET}"
+          echo -e "  ''${GREEN}                           Ctrl+E moves here''${RESET}"
+          echo ""
+          echo -e "  ''${BOLD}Alt+F / Alt+B''${RESET}  Move forward / backward one word"
+          echo -e "  ''${DIM}  \$ git commit -m \"fix bug\"''${RESET}"
+          echo -e "  ''${GREEN}    ^   ^       ^  ^   ^   ''${RESET}"
+          echo -e "  ''${GREEN}    Jump word by word''${RESET}"
+          echo ""
+          echo -e "  ''${BOLD}Alt+>''${RESET}  Insert history entry at cursor position"
+          echo -e "  ''${DIM}  \$ git commit  \"fix bug\"''${RESET}"
+          echo -e "  ''${GREEN}               ^''${RESET}"
+          echo -e "  ''${GREEN}               Selected history entry is inserted here''${RESET}"
+          # ── Text Editing ──────────────────────────────────────────
+          echo ""
+          echo -e "''${BOLD}''${YELLOW}  Text Editing''${RESET}"
+          echo -e "''${DIM}  ──────────────────────────────────────────────────────''${RESET}"
+          echo ""
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+K" "Delete from cursor to end of line"
+          echo -e "  ''${DIM}  \$ git commit -m \"fix bug\"''${RESET}"
+          echo -e "  ''${DIM}            ^''${RESET}"
+          echo -e "  ''${MAGENTA}            ├──────────────┤ ← deleted''${RESET}"
+          echo ""
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+U" "Delete entire line"
+          echo -e "  ''${DIM}  \$ git commit -m \"fix bug\"''${RESET}"
+          echo -e "  ''${MAGENTA}   ├───────────────────────┤ ← all deleted''${RESET}"
+          echo ""
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+T" "Swap the two characters before cursor"
+          echo -e "  ''${DIM}  \$ git commit -m \"fxi bug\"''${RESET}"
+          echo -e "  ''${DIM}                    ^^ cursor''${RESET}"
+          echo -e "  ''${GREEN}  \$ git commit -m \"fix bug\"''${RESET}"
+          echo -e "  ''${GREEN}                    ^^''${RESET}"
+          echo ""
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Alt+T" "Swap the two words before cursor"
+          echo -e "  ''${DIM}  \$ git commit -m \"fix bug\"''${RESET}"
+          echo -e "  ''${DIM}    ^───^ cursor''${RESET}"
+          echo -e "  ''${GREEN}  \$ commit git -m \"fix bug\"''${RESET}"
+          echo -e "  ''${GREEN}    ^──────^''${RESET}"
+          echo ""
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+_" "Undo last edit"
+          # ── Other ──────────────────────────────────────────────
+          echo ""
+          echo -e "''${BOLD}''${YELLOW}  Other''${RESET}"
+          echo -e "''${DIM}  ──────────────────────────────────────────────────────''${RESET}"
+          echo ""
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+L" "Clear screen (history preserved)"
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+E" "Edit current input in editor"
+          echo ""
+        }
+
       # ghq
-      # 参考サイト: https://zenn.dev/oreo2990/articles/13c80cf34a95af
+      # Reference: https://zenn.dev/oreo2990/articles/13c80cf34a95af
       function peco-src () {
           local selected_dir=$(ghq list -p | peco --prompt="repositories >" --query "$LBUFFER")
           if [ -n "$selected_dir" ]; then

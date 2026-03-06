@@ -71,6 +71,12 @@ URL to the repository to be fetched
 
 The revision or reference to be fetched
 
+### shell
+
+- shell (help command for terminal shortcut keys)
+
+Show terminal shortcut keys
+
 ### copypath
 
 - copypath

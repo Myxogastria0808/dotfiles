@@ -47,6 +47,8 @@
     nkf
     # nurl: https://github.com/nix-community/nurl
     nurl
+    # nix-init: https://github.com/nix-community/nix-init
+    nix-init
     # xclip: https://kazuhira-r.hatenablog.com/entry/2023/07/31/000525
     xclip
     # Joke commands

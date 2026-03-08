@@ -61,7 +61,7 @@ WThis dotfiles makes home-manager independent from NixOS Modules. Therefore, the
 
 `--hash` ... Show and copy to clipboard the hash value
 
-`--rev`  ... Show the rev value only
+`--rev` ... Show the rev value only
 
 [URL]
 

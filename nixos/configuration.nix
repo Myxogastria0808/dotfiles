@@ -67,7 +67,7 @@
   services.displayManager.defaultSession = "plasmax11";
   # Enable XWayland
   programs.xwayland.enable = true;
-  xdg.portal ={
+  xdg.portal = {
     enable = true; # require flatpak
     # Reference: https://search.nixos.org/options?channel=25.05&show=xdg.portal.extraPortals&query=xdg.portal
     # List of additional portals to add to path.

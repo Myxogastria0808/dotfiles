@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   # Reference: https://gist.github.com/mIcHyAmRaNe/a6ee5ca3311d61ae6f181e691643925d
   programs.starship = {
     enable = true;

@@ -1,11 +1,11 @@
 { pkgs, inputs, ... }:
 {
   imports = [
-    # ./config/archive/starship.nix
-    # ./config/archive/zsh.nix
-    # ./config/archive/alacritty.nix
-    # ./config/archive/television
-    # ./config/archive/vscode.nix
+    # ./config/.archive/starship.nix
+    # ./config/.archive/zsh.nix
+    # ./config/.archive/alacritty.nix
+    # ./config/.archive/television
+    # ./config/.archive/vscode.nix
     ./config/ghostty
     ./config/skk
     ./config/firefox.nix

@@ -7,7 +7,7 @@
     username = "${username}";
     homeDirectory = "/home/${username}";
     #This dotfiles use nixpkgs-unstable so hn command does not check "release check".
-    stateVersion = "25.05";
+    stateVersion = "26.05";
     enableNixpkgsReleaseCheck = false;
   };
   # Enable home-manager

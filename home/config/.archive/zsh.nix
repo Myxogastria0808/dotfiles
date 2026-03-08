@@ -158,10 +158,10 @@
       bindkey '^g' peco-src
     '';
     # .zenv
-    envExtra = '''';
+    envExtra = "";
     # .zlogin
-    loginExtra = '''';
+    loginExtra = "";
     # .zlogout
-    logoutExtra = '''';
+    logoutExtra = "";
   };
 }

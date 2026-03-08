@@ -38,7 +38,7 @@
       homeConfigurations = {
         myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs {
-            system = systems;# System architecture parameter
+            system = systems; # System architecture parameter
             # Enable unfree pkgs
             config.allowUnfree = true;
           };
@@ -58,13 +58,19 @@
         nixos = inputs.nixpkgs.lib.nixosSystem {
           system = systems; # System architecture parameter
           # Module configurations
-          modules = baseModules ++ nixosModules ++ [
-            ({ pkgs, inputs, ... }: {
-              environment.systemPackages = [
-                inputs.nixvimConfig.packages.x86_64-linux.default
-              ];
-            })
-          ];
+          modules =
+            baseModules
+            ++ nixosModules
+            ++ [
+              (
+                { pkgs, inputs, ... }:
+                {
+                  environment.systemPackages = [
+                    inputs.nixvimConfig.packages.x86_64-linux.default
+                  ];
+                }
+              )
+            ];
           specialArgs = {
             inherit inputs;
             username = username;

@@ -55,6 +55,8 @@
     # Nix package initializer - scaffolds package expressions from URLs
     # Ref: https://github.com/nix-community/nix-init
     nix-init
+    # Prefetch dependencies from npm
+    prefetch-npm-deps
     # Copy text to the X11 clipboard from the terminal
     # Ref: https://kazuhira-r.hatenablog.com/entry/2023/07/31/000525
     xclip

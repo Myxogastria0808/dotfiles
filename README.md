@@ -1,6 +1,6 @@
 # About this dotfiles
 
-WThis dotfiles makes home-manager independent from NixOS Modules. Therefore, the parts managed by home-manager are supposed to be available to all linux users. In addition, some NixOS users can make full use of this dotfiles. This dotfiles has been created for successful setup on the ThinkPad X1 Carbon 7th. It has not been tested on other generations of the X1 Carbon, but users with other generations of the X1 Carbon may also be able to set it up successfully.
+This dotfiles makes home-manager independent from NixOS Modules. Therefore, the parts managed by home-manager are supposed to be available to all Linux users. In addition, some NixOS users can make full use of this dotfiles. This dotfiles has been created for successful setup on the ThinkPad X1 Carbon 7th. It has not been tested on other generations of the X1 Carbon, but users with other generations of the X1 Carbon may also be able to set it up successfully.
 
 # Outline
 
@@ -41,6 +41,7 @@ WThis dotfiles makes home-manager independent from NixOS Modules. Therefore, the
 | gc                     | `nix-collect-garbage`                                                    |
 | t                      | `typst watch`                                                            |
 | net                    | `speedtest`                                                              |
+| cf-net                 | `firefox https://speed.cloudflare.com/`                                  |
 | mobile                 | `scrcpy -d`                                                              |
 | clock                  | `tty-clock -c -s`                                                        |
 | g                      | `lazygit`                                                                |
@@ -81,13 +82,13 @@ Show terminal shortcut keys
 
 - copypath
 
-Show and copy pwd results to clickboard
+Show and copy pwd results to clipboard
 
 ### copyfile
 
 - copyfile [FILE]
 
-Show and copy a file content to clickboard
+Show and copy a file content to clipboard
 
 ### ddiso
 
@@ -178,7 +179,7 @@ nameserver 1.1.1.1
 options edns0
 ```
 
-Checking strage device
+Checking storage device
 
 This command views available storage devices
 
@@ -263,7 +264,7 @@ edit `flake.nix` to set your `username`, `GitHub username`, and `GitHub email`
       githubUsername = "Myxogastria0808";
       # GitHub email
       githubEmail = "r.rstudio.c@gmail.com";
-      # nixosModules entorypoint
+      # Base NixOS system configuration entry point
       baseModules = [
         ./nixos/configuration.nix
       ];
@@ -329,8 +330,8 @@ create a directory to be managed by ghq
 ```shell
 # Change directory to home
 cd $HOME
-# Create src directory
-src
+# Create src directory (used as ghq root: ~/src)
+mkdir src
 ```
 
 ### 6. Setup Tailscale

@@ -1,6 +1,10 @@
 { ... }:
 {
-  # Reference: https://gist.github.com/mIcHyAmRaNe/a6ee5ca3311d61ae6f181e691643925d
+  # Ref: https://gist.github.com/mIcHyAmRaNe/a6ee5ca3311d61ae6f181e691643925d
+  #
+  # Prompt layout (two-line):
+  #   Line 1: ┌──(username❄ hostname)-[directory] OS git_branch git_status ... modules
+  #   Line 2: └─λ
   programs.starship = {
     enable = true;
     settings = {
@@ -41,7 +45,7 @@
       };
       continuation_prompt = "[...](bold blue)";
       cmd_duration = {
-        min_time = 1000;
+        min_time = 1000; # Show duration only for commands taking longer than 1 second
         format = "  [$duration]($style)";
         style = "bold yellow";
       };
@@ -53,6 +57,7 @@
       git_state = {
         disabled = false;
       };
+      # OS icon shown in the prompt (Nerd Font glyph per distro)
       os = {
         format = "[$symbol]($style)";
         style = "bold green";
@@ -103,7 +108,7 @@
           Unknown = " ";
         };
       };
-      # Symbol
+      # Language/tool symbols (Nerd Font glyphs shown when inside a relevant project directory)
       package.symbol = "󰏗 ";
       aws.symbol = "  ";
       buf.symbol = " ";

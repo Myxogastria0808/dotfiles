@@ -1,46 +1,49 @@
 {
   inputs = {
-    # nixpkgs
+    # Package collection - nixpkgs-unstable for latest packages
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # home-manager
+
+    # User environment manager - pinned to the same nixpkgs to avoid duplication
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Zen Browser
-    # GitHub Repository: https://github.com/MarceColl/zen-browser-flake
+
+    # Zen Browser (currently unused - kept for future reference)
+    # Ref: https://github.com/MarceColl/zen-browser-flake
     zen-browser.url = "github:MarceColl/zen-browser-flake";
-    # nixvim
+
+    # NixVim configuration from a separate external flake
+    # Ref: https://github.com/Myxogastria0808/nix-flakes-nixvim
     nixvimConfig.url = "github:Myxogastria0808/nix-flakes-nixvim/main";
   };
 
   outputs =
     inputs:
     let
-      # System
-      systems = "x86_64-linux";
-      # Username
+      systems = "x86_64-linux"; # Target architecture
       username = "hello";
-      # GitHub username
       githubUsername = "Myxogastria0808";
-      # GitHub email
       githubEmail = "r.rstudio.c@gmail.com";
-      # NixosModules entrypoint
+
+      # NixOS base system configuration (boot, hardware, networking, services)
       baseModules = [
         ./nixos/configuration.nix
       ];
+
+      # NixOS application and tool modules (packages, shell, fonts, i18n, etc.)
       nixosModules = [
         ./modules/app.nix
       ];
     in
     {
-      ## home-manager ##
+      # ── home-manager ──────────────────────────────────────────────────────────
+      # User-level configuration, intentionally independent from NixOS
       homeConfigurations = {
         myHomeConfig = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs {
-            system = systems; # System architecture parameter
-            # Enable unfree pkgs
-            config.allowUnfree = true;
+            system = systems;
+            config.allowUnfree = true; # Allow non-free packages
           };
           extraSpecialArgs = {
             inherit inputs;
@@ -51,13 +54,13 @@
           ];
         };
       };
-      ## configuration.nix ##
-      # nixosConfigurations.hostname
-      # Replace nixos with your hostname
+
+      # ── NixOS ─────────────────────────────────────────────────────────────────
+      # Replace "nixos" with your hostname if different from the default
       nixosConfigurations = {
         nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = systems; # System architecture parameter
-          # Module configurations
+          system = systems;
+          # Merge base config, app modules, and nixvim from the external flake
           modules =
             baseModules
             ++ nixosModules

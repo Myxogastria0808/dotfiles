@@ -3,22 +3,25 @@
   imports = [
     ./apps.nix
   ];
+
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
-    #This dotfiles use nixpkgs-unstable so hn command does not check "release check".
+    # Using nixpkgs-unstable, so the release check is disabled to suppress version mismatch warnings
     stateVersion = "26.05";
     enableNixpkgsReleaseCheck = false;
   };
-  # Enable home-manager
+
+  # Let home-manager manage itself
   programs.home-manager.enable = true;
+
   nixpkgs = {
     config = {
-      # Enable install unfree pkgs
-      allowUnfree = true;
+      allowUnfree = true; # Allow non-free packages
     };
   };
-  # Setting about KVM
+
+  # Auto-connect to the QEMU/KVM system socket on virt-manager startup
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = [ "qemu:///system" ];

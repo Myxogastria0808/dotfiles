@@ -1,154 +1,147 @@
 { pkgs, ... }:
 {
   imports = [
-    ./config/commands.nix
-    ./config/fonts.nix
-    ./config/git.nix
-    ./config/haskell.nix
-    ./config/i18n.nix
-    ./config/language.nix
-    ./config/nix-ld.nix
-    ./config/starship.nix
-    ./config/steam.nix
-    ./config/zsh.nix
+    ./config/commands.nix # General CLI utilities and system tools
+    ./config/fonts.nix # Font packages and fontconfig defaults
+    ./config/git.nix # Git, GitHub CLI, and repository management tools
+    ./config/haskell.nix # Haskell development tools (IHP)
+    ./config/i18n.nix # Locale, fcitx5 input method, and SKK dictionaries
+    ./config/language.nix # Programming language compilers and runtimes
+    ./config/nix-ld.nix # Dynamic linker compatibility for pre-built binaries
+    ./config/starship.nix # Starship cross-shell prompt
+    ./config/steam.nix # Steam gaming platform
+    ./config/zsh.nix # Zsh shell with Oh My Zsh, aliases, and custom functions
   ];
   environment.systemPackages = with pkgs; [
-    # container
+    # Container (Incus web UI - accessible at https://localhost:8443)
     incus-ui-canonical
 
-    # Certification
+    # TLS/SSL toolkit and certificate management
     openssl
 
-    # Mail Client
+    # Email client
     thunderbird
 
-    # Generative AI Agent CLI
+    # AI assistant CLIs
     codex
     claude-code
 
-    # Rs232c
+    # Serial port communication tools (RS-232C)
     screen
     minicom
 
-    # WASM Runtime
+    # WebAssembly runtime
     wasmtime
 
-    # Build System
+    # Build automation
     gnumake
 
-    # Browser
+    # Web browsers
     google-chrome
-    w3m
-    tor-browser
+    w3m # Text-based browser for terminal use
+    tor-browser # Privacy browser routing traffic through Tor
 
-    # Fingerprint
+    # Fingerprint reader driver (for ThinkPad fingerprint sensor)
     fprintd-tod
 
-    # KDE connect
+    # KDE Connect - file transfer and notification sync with Android devices
     kdePackages.kdeconnect-kde
 
-    # AppImage
+    # AppImage launcher - run AppImage binaries without extraction
     appimage-run
 
-    # Wireguard
+    # WireGuard VPN tools
     wireguard-tools
 
-    # RDP
-    parsec-bin
-    # RDP Client
-    remmina
+    # Remote desktop
+    parsec-bin # GPU-accelerated game streaming
+    remmina # RDP/VNC client
 
-    # Game Engine
-    godot
+    # Game development
+    godot # Open-source 2D/3D game engine
 
-    # DJ Mixing Software
+    # DJ mixing software
     mixxx
 
     # Geographic Information System
     qgis
 
-    # Chat
+    # Chat and communication
     discord
-    # vesktop # instead of Discord
+    # vesktop  # Discord client alternative (currently unused)
     slack
     zulip
-    element-desktop # Matrix Desktop Client
+    element-desktop # Matrix protocol desktop client
 
-    # Editor
-    nano
-    vscode
-    zed-editor
+    # Text editors
+    nano # Minimal terminal editor
+    vscode # Visual Studio Code
+    zed-editor # High-performance collaborative editor
 
-    # ni
-    # multiple npm package management tool
-    # support: npm · yarn · pnpm · bun · deno
-    # Reference: https://github.com/antfu-collective/ni
+    # Multi-package-manager CLI for npm/yarn/pnpm/bun/deno
+    # Ref: https://github.com/antfu-collective/ni
     ni
 
-    # Mermaid CLI
-    mermaid-cli
+    # Diagram generation
+    mermaid-cli # Render Mermaid (.mmd) diagrams to PNG/SVG/PDF
+    graphviz # DOT language diagram renderer
 
-    # Graphviz
-    graphviz
-
-    # Input Method
+    # SKK dictionary management tools (for building custom dictionaries)
     skktools
 
-    # Image
+    # Media processing (audio/video/image encoding, decoding, and conversion)
     ffmpeg
 
-    # Video
+    # Video player
     mpv
 
-    # Microsoft like Software
-    teams-for-linux
-    # LibreOffice for KDE
-    libreoffice-qt
-    # spellcheck for LibreOffice
-    hunspell
-    hunspellDicts.uk_UA
-    hunspellDicts.th_TH
+    # Microsoft-compatible software
+    teams-for-linux # Microsoft Teams
+    libreoffice-qt # Office suite (Qt build for KDE)
+    hunspell # Spell-checker engine used by LibreOffice
+    hunspellDicts.uk_UA # Ukrainian spell-check dictionary
+    hunspellDicts.th_TH # Thai spell-check dictionary
 
-    # Live Streaming
+    # Live streaming and screen recording
     obs-studio
 
-    # Password Manager
+    # Password manager desktop app
     bitwarden-desktop
 
-    # Design and Drawing Software
-    drawio
-    figma-linux
-    krita
-    inkscape
+    # Design and drawing software
+    drawio # Diagram/flowchart editor
+    figma-linux # Unofficial Figma desktop client
+    krita # Digital painting application
+    inkscape # Vector graphics editor
 
-    # Color Picker
+    # Color picker for KDE
     kdePackages.kcolorchooser
 
-    # Typst
+    # Typst - modern typesetting system (alternative to LaTeX)
     typst
 
-    # Http Client
-    httpie
-    postman
+    # HTTP clients
+    httpie # User-friendly HTTP client for the terminal
+    postman # GUI API testing and documentation tool
 
-    # Container
-    docker-compose
-    devenv
-    distrobox
-    lazydocker
+    # Container management tools
+    docker-compose # Multi-container Docker orchestration
+    devenv # Development environment manager using Nix
+    distrobox # Run any Linux distro inside a container
+    lazydocker # Terminal UI for Docker container management
 
-    # Arduino IDE
+    # Embedded development
     arduino-ide
 
-    # for devShell
-    nix-direnv
-    direnv
+    # direnv integration - auto-load .envrc when entering a directory
+    nix-direnv # Nix-specific direnv extension with faster evaluations
+    direnv # Shell environment loader
 
-    # Display and control Android devices over USB or TCP/IP
-    # https://github.com/Genymobile/scrcpy/
+    # Android device mirroring and control over USB or TCP/IP
+    # Ref: https://github.com/Genymobile/scrcpy
     scrcpy
 
-    # Minecraft
+    # Minecraft launcher supporting multiple mod loaders
     prismlauncher
   ];
 }

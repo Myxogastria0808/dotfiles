@@ -1,32 +1,31 @@
 { pkgs, ... }:
 {
-  # Enable zsh shell
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    # Oh My Zsh
-    # zsh-completions automatically installed by `programs.zsh.enable = true`
-    # Reference: https://github.com/nix-community/nix-zsh-completions
+    enableCompletion = true; # Load NixOS-provided zsh completions (nix-zsh-completions)
+    autosuggestions.enable = true; # Suggest previous commands as you type
+    syntaxHighlighting.enable = true; # Highlight valid/invalid commands in real time
+    # Oh My Zsh - plugin and theme framework for zsh
+    # Note: zsh-completions are automatically installed via programs.zsh.enable
+    # Ref: https://github.com/nix-community/nix-zsh-completions
     ohMyZsh = {
       enable = true;
       plugins = [ ];
     };
-    # Shell initialization
+    # Shell initialization script - runs on every new shell session
     shellInit = ''
-      # welcome message
+      # Print a welcome message with the distro name using cowsay and lolcat
       DISTRO=`sed -n -e /^NAME=/p /etc/os-release | cut -c 6-`
       EXCLAMATION="!!!"
       cowsay "Welcome to " ''$DISTRO''$EXCLAMATION | lolcat
 
-      # direnv
+      # Hook direnv into zsh for auto-loading .envrc files on directory change
       eval "$(direnv hook zsh)"
 
-      # oh-my-zsh
+      # Set Oh My Zsh custom directory (for custom themes and plugins)
       ZSH_CUSTOM=$HOME/.config/oh-my-zsh
 
-      # zsh-autosuggestions
+      # Style for zsh-autosuggestions (dim grey, Solarized base01)
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75"
 
       # copy file to clipboard
@@ -204,14 +203,14 @@
                   rev="''${3}"
                   ;;
               -*)
-                  # --hash, --rev, --help 以外のオプションが指定された場合
+                  # Unexpected option other than --hash, --rev, --help
                   echo "This is unexpected option."
                   echo ""
                   __nl_usage
                   return 1
                   ;;
               *)
-                  # オプションなし
+                  # No option specified
                   option=""
                   url="''${1}"
                   rev="''${2}"
@@ -309,8 +308,8 @@
           echo ""
         }
 
-      # ghq
-      # Reference: https://zenn.dev/oreo2990/articles/13c80cf34a95af
+      # peco-src: fuzzy repository switcher using ghq + peco, bound to Ctrl+g
+      # Ref: https://zenn.dev/oreo2990/articles/13c80cf34a95af
       function peco-src () {
           local selected_dir=$(ghq list -p | peco --prompt="repositories >" --query "$LBUFFER")
           if [ -n "$selected_dir" ]; then
@@ -322,34 +321,38 @@
       zle -N peco-src
       bindkey '^g' peco-src
     '';
-    # Alias
+    # Shell aliases
     shellAliases = {
+      # Navigation
       ".." = "cd ../";
       "..." = "cd ../../";
       "...." = "cd ../../../";
-      "ls" = "eza";
-      "ll" = "eza -l";
-      "tree" = "eza --tree";
-      "size" = "fd --size";
-      "diff" = "delta --side-by-side";
-      "neofetch" = "fastfetch";
-      # Reference: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
-      "nix-develop" = "nix develop -c $SHELL";
-      "hm" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig";
-      "nixos" = "sudo nixos-rebuild switch";
-      "gc" = "nix-collect-garbage";
-      "t" = "typst watch";
-      "net" = "speedtest";
-      "cf-net" = "firefox https://speed.cloudflare.com/";
-      "mobile" = "scrcpy -d";
-      "clock" = "tty-clock -c -s";
-      "g" = "lazygit";
-      "d" = "sudo lazydocker";
-      "clone" = "ghq get";
-      "pdf" = "tdf";
-      "tetris" = "bastet";
-      "cpu" = "s-tui";
-      "music" = "cava";
+      # Modern CLI replacements
+      "ls" = "eza"; # eza: colorized ls with icons
+      "ll" = "eza -l"; # Long listing format
+      "tree" = "eza --tree"; # Directory tree view
+      "size" = "fd --size"; # Find files sorted by size
+      "diff" = "delta --side-by-side"; # Side-by-side diff with syntax highlighting
+      "neofetch" = "fastfetch"; # fastfetch is the maintained successor to neofetch
+      # Nix / NixOS
+      # Ref: https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075
+      "nix-develop" = "nix develop -c $SHELL"; # Open nix devShell in the current shell (zsh)
+      "hm" = "cd /etc/nixos && nix run home-manager -- switch --flake .#myHomeConfig"; # Apply home-manager config
+      "nixos" = "sudo nixos-rebuild switch"; # Apply NixOS system config
+      "gc" = "nix-collect-garbage"; # Free disk space by deleting old Nix generations
+      # Tools
+      "t" = "typst watch"; # Live-compile a Typst document on save
+      "net" = "speedtest"; # Ookla network speed test
+      "cf-net" = "firefox https://speed.cloudflare.com/"; # Cloudflare browser speed test
+      "mobile" = "scrcpy -d"; # Mirror and control an Android device over USB
+      "clock" = "tty-clock -c -s"; # Centered terminal clock with seconds
+      "g" = "lazygit"; # Terminal UI for Git
+      "d" = "sudo lazydocker"; # Terminal UI for Docker (requires root for the Docker socket)
+      "clone" = "ghq get"; # Clone a repository and place it under ~/src
+      "pdf" = "tdf"; # Open a PDF in the terminal viewer
+      "tetris" = "bastet"; # Play Tetris in the terminal
+      "cpu" = "s-tui"; # CPU stress test and monitoring TUI
+      "music" = "cava"; # Terminal audio spectrum visualizer
     };
   };
 }

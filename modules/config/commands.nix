@@ -1,66 +1,69 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # file path searching tool
+    # File path index and search tool (run `updatedb` first to build the index)
     mlocate
-    # Tool for monitoring the progress of data through a pipeline
+    # Pipeline progress monitor - shows throughput and ETA for piped data
     pv
-    # Fetchers
+    # HTTP/HTTPS download tool
     curl
+    # Non-interactive downloader for HTTP, HTTPS, and FTP
     wget
+    # YouTube and other video site downloader
     yt-dlp
-    # Researcher that files opened by a process
+    # Shows all files currently opened by a process (useful for debugging)
     lsof
-    # Next generation: neofetch
+    # System information tool - modern replacement for neofetch
     fastfetch
-    # CPU monitaring tui
+    # CPU stress test and real-time monitoring TUI
     s-tui
-    # Next generation: top
+    # Interactive process viewer - next-gen replacement for top
     htop
+    # Cross-platform resource monitor TUI (CPU, memory, disk, network)
     bottom
-    # Next generation: ls
+    # Modern ls replacement with colors, icons, and Git integration
     eza
-    # Next generation: cat
+    # Syntax-highlighted file viewer - modern replacement for cat
     bat
-    # Next generation: find
+    # Fast file finder - modern replacement for find
     fd
-    # Next generation: diff
+    # Side-by-side diff viewer with syntax highlighting - modern replacement for diff
     delta
-    # Partitioning tools
+    # Disk partitioning CLI
     parted
+    # Disk partitioning GUI
     gparted
-    # zip / unzip
+    # Archive tools
     zip
     unzip
-    # rar / unrar
     rar
     unrar
-    # File browsing tui
+    # Terminal file manager with preview support
     yazi
-    # Pdf viewer
+    # Terminal PDF viewer
     tdf
-    # Network speed test tool
+    # Ookla network speed test CLI
     ookla-speedtest
-    # tty-clock: https://zenn.dev/nukokoi/articles/539017fa274cf4
+    # Terminal clock with large display
+    # Ref: https://zenn.dev/nukokoi/articles/539017fa274cf4
     tty-clock
-    # Converter of character code and newline code
+    # Character encoding and newline code converter (useful for Japanese text files)
     nkf
-    # nurl: https://github.com/nix-community/nurl
+    # Nix fetcher helper - generates fetchFromGitHub hashes and revs
+    # Ref: https://github.com/nix-community/nurl
     nurl
-    # nix-init: https://github.com/nix-community/nix-init
+    # Nix package initializer - scaffolds package expressions from URLs
+    # Ref: https://github.com/nix-community/nix-init
     nix-init
-    # xclip: https://kazuhira-r.hatenablog.com/entry/2023/07/31/000525
+    # Copy text to the X11 clipboard from the terminal
+    # Ref: https://kazuhira-r.hatenablog.com/entry/2023/07/31/000525
     xclip
-    # Joke commands
-    ## Audio visualization
-    cava
-    ## Text decorations to rainbow
-    lolcat
-    ## Ascii art
-    sl
-    cmatrix
-    cowsay
-    ## Tetris
-    bastet
+    # Fun / joke commands
+    cava # Real-time audio spectrum visualizer in the terminal
+    lolcat # Pipes text output through rainbow colors
+    sl # Animated ASCII steam locomotive (anti-typo for `ls`)
+    cmatrix # Matrix-style falling characters animation
+    cowsay # ASCII cow (or other animals) saying a message
+    bastet # Tetris clone for the terminal
   ];
 }

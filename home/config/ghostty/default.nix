@@ -2,6 +2,7 @@
 {
   home = {
     file = {
+      # Deploy Ghostty config file to ~/.config/ghostty/config
       "config" = {
         enable = true;
         source = ./config;

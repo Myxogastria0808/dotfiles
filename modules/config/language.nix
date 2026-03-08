@@ -1,17 +1,17 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # C/C++
+    # C/C++ compiler (GCC toolchain)
     gcc
-    # Rust
+    # Rust package manager and build tool
     cargo
-    # Golang
+    # Go compiler and toolchain
     go
-    # Nodejs
+    # Node.js JavaScript runtime
     nodejs
-    # python
+    # Python 3 interpreter
     python3
-    # R
+    # R statistical computing language
     R
   ];
 }

@@ -4,7 +4,6 @@
     ./config/commands.nix # General CLI utilities and system tools
     ./config/fonts.nix # Font packages and fontconfig defaults
     ./config/git.nix # Git, GitHub CLI, and repository management tools
-    ./config/haskell.nix # Haskell development tools (IHP)
     ./config/i18n.nix # Locale, fcitx5 input method, and SKK dictionaries
     ./config/language.nix # Programming language compilers and runtimes
     ./config/nix-ld.nix # Dynamic linker compatibility for pre-built binaries
@@ -68,7 +67,6 @@
 
     # Chat and communication
     discord
-    # vesktop  # Discord client alternative (currently unused)
     slack
     zulip
     element-desktop # Matrix protocol desktop client

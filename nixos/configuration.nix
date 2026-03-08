@@ -203,5 +203,5 @@
   # (file locations, database versions) are taken. Do not change this after the
   # initial install unless you fully understand the implications.
   # See: https://nixos.org/nixos/options.html
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

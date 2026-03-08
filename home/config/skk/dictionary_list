@@ -2,20 +2,37 @@
 type=file,file=$HOME/.local/share/fcitx5/skk/user.dict,mode=readwrite,encoding=UTF-8
 
 # System dictionaries (readonly)
+# 大辞書 — 最も網羅的な基本辞書
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.L,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.emoji,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.china_taiwan,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji.JIS3_4,mode=readonly,encoding=UTF-8
+# 固有名詞辞書 — 組織名・商品名などの固有名詞
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.propernoun,mode=readonly,encoding=UTF-8
+# 人名辞書 — 日本人の姓名
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.jinmei,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.law,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.station,mode=readonly,encoding=UTF-8
+# フルネーム辞書 — 著名人などのフルネーム
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.fullname,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.mazegaki,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/zipcode,mode=readonly,encoding=UTF-8
+# 駅名辞書 — 鉄道駅名
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.station,mode=readonly,encoding=UTF-8
+# 地名辞書 — 地名・地理情報
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.geo,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS3_4,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji,mode=readonly,encoding=UTF-8
-type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2004,mode=readonly,encoding=UTF-8
+# 沖縄語辞書 — 沖縄方言・地名
 type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.okinawa,mode=readonly,encoding=UTF-8
+# 法律用語辞書 — 法令・法律用語
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.law,mode=readonly,encoding=UTF-8
+# 混じり書き辞書 — 漢字仮名混じりの読み変換
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.mazegaki,mode=readonly,encoding=UTF-8
+# 絵文字辞書 — Unicode 絵文字
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.emoji,mode=readonly,encoding=UTF-8
+# 郵便番号辞書 — 郵便番号から住所への変換
+type=file,file=/run/current-system/sw/share/skk/zipcode,mode=readonly,encoding=UTF-8
+# 台湾・中国語辞書 — 繁体字・中国語由来の語彙
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.china_taiwan,mode=readonly,encoding=UTF-8
+# JIS第2水準漢字 — JIS X 0208 第2水準の漢字
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2,mode=readonly,encoding=UTF-8
+# JIS2004追加漢字 — JIS X 0213:2004 で追加された漢字
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS2004,mode=readonly,encoding=UTF-8
+# JIS第3・第4水準漢字 — JIS X 0213 第3・第4水準の漢字
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.JIS3_4,mode=readonly,encoding=UTF-8
+# 異体字辞書 — 正字・略字・旧字体などの異体字
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji,mode=readonly,encoding=UTF-8
+# JIS第3・第4水準異体字辞書 — JIS3_4 漢字の異体字
+type=file,file=/run/current-system/sw/share/skk/SKK-JISYO.itaiji.JIS3_4,mode=readonly,encoding=UTF-8

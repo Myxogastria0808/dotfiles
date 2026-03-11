@@ -10,6 +10,7 @@
     ./config/ghostty
     ./config/skk
     ./config/firefox
+    ./config/hyprland
   ];
   # User-level packages managed by home-manager
   home.packages = with pkgs; [

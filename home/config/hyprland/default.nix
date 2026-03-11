@@ -1,5 +1,9 @@
 { inputs, pkgs, ... }:
 {
+  imports = [
+    ./rofi.nix
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     # Use the same package as the NixOS module to avoid version mismatch
@@ -84,21 +88,31 @@
 
       # ── Keybindings ───────────────────────────────────────────────────────────
       "$mod" = "SUPER";
+      "$terminal" = "ghostty";
+      "$browser" = "firefox";
+      "$fileManager" = "yazi";
 
       bind = [
         # Basic
-        "$mod, Return, exec, ghostty"
+        # Super + Q: close window
         "$mod, Q, killactive"
+        # Super + M: logout
         "$mod, M, exit"
-        "$mod, V, togglefloating"
+        # Super + F: toggle fullscreen
         "$mod, F, fullscreen"
-        "$mod, P, pseudo"         # dwindle pseudotile toggle
-        "$mod, E, togglesplit"    # dwindle split direction toggle
 
-        # App launcher (wofi - add to packages before using)
-        # "$mod, Space, exec, wofi --show drun"
+        # Applications
+        # Super + Enter: open terminal
+        "$mod, Return, exec, $terminal"
+        # Super + B: open browser
+        "$mod, B, exec, $browser"
+        # Super + E: open file manager
+        "$mod, E, exec, $fileManager"
 
-        # Focus (vim-style)
+        # App launcher
+        "$mod, Space, exec, rofi -show drun"
+
+        # Focus
         "$mod, H, movefocus, l"
         "$mod, L, movefocus, r"
         "$mod, K, movefocus, u"

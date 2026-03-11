@@ -37,7 +37,8 @@ Top-level variables (`username`, `githubUsername`, `githubEmail`) are set in `fl
 | `home/apps.nix` | Home packages and imports (ghostty, skk, firefox) |
 | `home/config/` | Per-app home-manager configs |
 | `modules/app.nix` | NixOS system packages entry point |
-| `modules/config/` | NixOS system module configs (zsh, git, starship, fonts, etc.) |
+| `modules/config/` | NixOS system module configs (zsh, git, starship, fonts, audio, virtualisation, etc.) |
+| `modules/desktop-manager/` | Desktop environment configs (display manager, KDE Plasma 6, COSMIC) |
 | `nixos/configuration.nix` | Main NixOS system config (bootloader, services, networking, users) |
 | `nixos/hardware-configuration.nix` | Hardware-specific config (auto-generated) |
 | `scripts/` | One-off setup scripts (install, tailscale, waydroid, portainer) |

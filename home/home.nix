@@ -8,18 +8,12 @@
     username = "${username}";
     homeDirectory = "/home/${username}";
     # Using nixpkgs-unstable, so the release check is disabled to suppress version mismatch warnings
-    stateVersion = "26.05";
+    stateVersion = "25.11";
     enableNixpkgsReleaseCheck = false;
   };
 
   # Let home-manager manage itself
   programs.home-manager.enable = true;
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true; # Allow non-free packages
-    };
-  };
 
   # Auto-connect to the QEMU/KVM system socket on virt-manager startup
   dconf.settings = {

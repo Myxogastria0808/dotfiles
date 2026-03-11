@@ -56,30 +56,6 @@
   # ── Locale ────────────────────────────────────────────────────────────────────
   time.timeZone = "Asia/Tokyo";
 
-  # ── Desktop ───────────────────────────────────────────────────────────────────
-  # XServer is required to run SDDM and KDE Plasma even on Wayland
-  services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  # Use X11 session; change to "plasma" to switch to Wayland
-  services.displayManager.defaultSession = "plasmax11";
-  # XWayland allows X11 apps to run inside a Wayland session
-  programs.xwayland.enable = true;
-  xdg.portal = {
-    # Required by Flatpak for sandboxed file chooser, screenshot, etc.
-    # KDE automatically provides xdg-desktop-portal-kde; no extra portals needed here
-    enable = true;
-    # extraPortals = with pkgs; [
-    #   xdg-desktop-portal-gtk  # Add this on non-KDE/GNOME desktops
-    # ];
-  };
-
-  # US keyboard layout for X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # ── Hardware ──────────────────────────────────────────────────────────────────
   # Enable CUPS print server
   services.printing.enable = true;
@@ -91,20 +67,6 @@
 
   # Enable GPU acceleration (OpenGL/Vulkan)
   hardware.graphics.enable = true;
-
-  # ── Audio ─────────────────────────────────────────────────────────────────────
-  # PipeWire replaces PulseAudio for modern low-latency audio support
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true; # Real-time scheduling priority, required by PipeWire
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true; # Required for 32-bit applications (e.g., Wine/Steam)
-    pulse.enable = true; # PulseAudio-compatible interface for legacy apps
-    jack.enable = true; # JACK-compatible interface for professional audio apps
-  };
-  # Real-time noise suppression for microphone input
-  programs.noisetorch.enable = true;
 
   # ── Users ─────────────────────────────────────────────────────────────────────
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
@@ -124,12 +86,6 @@
     ];
     shell = "/run/current-system/sw/bin/zsh";
   };
-  # Required for VirtualBox USB devices, Docker socket, and libvirt management
-  users.extraGroups.vboxusers.members = [
-    "${username}"
-    "docker"
-    "libvirtd"
-  ];
 
   # ── Services ──────────────────────────────────────────────────────────────────
   # Flatpak - sandboxed desktop application installation from Flathub
@@ -143,26 +99,6 @@
 
   # OpenSSH - allow remote login via SSH
   services.openssh.enable = true;
-
-  # ── Virtualisation ────────────────────────────────────────────────────────────
-  virtualisation = {
-    docker.enable = true;
-    waydroid.enable = true; # Run Android apps on Linux via a container
-    incus = {
-      enable = true;
-      ui.enable = true; # Enable the Incus web UI (accessible at https://localhost:8443)
-    };
-  };
-
-  # KVM / QEMU virtual machine management via virt-manager
-  # Ref: https://nixos.wiki/wiki/Virt-manager
-  programs.virt-manager.enable = true;
-  # Note: "hello" is hardcoded here - update this if the username changes
-  users.groups.libvirtd.members = [ "hello" ];
-  virtualisation = {
-    libvirtd.enable = true;
-    spiceUSBRedirection.enable = true; # USB passthrough support for virtual machines
-  };
 
   # Fingerprint reader (disabled - driver compatibility issues on this hardware)
   # services.fprintd = {
@@ -185,13 +121,6 @@
       config.services.tailscale.port # Tailscale (dynamic port, read from service config)
       51820 # WireGuard VPN
     ];
-    # KDE Connect - file transfer and notification sync with mobile devices (ports 1714-1764)
-    allowedTCPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
-    ];
   };
   # WireGuard VPN config file (contains keys and peer addresses - keep this file private)
   networking.wg-quick.interfaces.wg0.configFile = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
@@ -203,5 +132,5 @@
   # (file locations, database versions) are taken. Do not change this after the
   # initial install unless you fully understand the implications.
   # See: https://nixos.org/nixos/options.html
-  system.stateVersion = "26.05";
+  system.stateVersion = "25.11";
 }

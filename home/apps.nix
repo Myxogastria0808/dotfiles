@@ -9,7 +9,7 @@
     # ./config/.archive/vscode.nix    # Moved to modules/app.nix
     ./config/ghostty
     ./config/skk
-    ./config/firefox.nix
+    ./config/firefox
   ];
   # User-level packages managed by home-manager
   home.packages = with pkgs; [

@@ -1,13 +1,16 @@
 { pkgs, ... }:
 {
   imports = [
+    ./config/audio.nix # PipeWire audio stack and noise suppression
     ./config/commands.nix # General CLI utilities and system tools
     ./config/fonts.nix # Font packages and fontconfig defaults
     ./config/git.nix # Git, GitHub CLI, and repository management tools
     ./config/i18n.nix # Locale, fcitx5 input method, and SKK dictionaries
     ./config/language.nix # Programming language compilers and runtimes
+    ./display-manager # KDE Plasma 6 and COSMIC desktop environments
     ./config/nix-ld.nix # Dynamic linker compatibility for pre-built binaries
     ./config/starship.nix # Starship cross-shell prompt
+    ./config/virtualisation.nix # Docker, Waydroid, Incus, and libvirt/virt-manager
     ./config/steam.nix # Steam gaming platform
     ./config/zsh.nix # Zsh shell with Oh My Zsh, aliases, and custom functions
   ];

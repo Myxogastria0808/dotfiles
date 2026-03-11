@@ -38,8 +38,6 @@
     unzip
     rar
     unrar
-    # Terminal file manager with preview support
-    yazi
     # Terminal PDF viewer
     tdf
     # Ookla network speed test CLI

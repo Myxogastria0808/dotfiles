@@ -2,6 +2,14 @@
 {
   imports = [
     ./rofi.nix
+    ./waybar.nix
+    ./yazi.nix
+  ];
+
+  # hyprland family tools
+  home.packages = with pkgs; [
+    # Screenshot
+    grimblast
   ];
 
   wayland.windowManager.hyprland = {
@@ -18,7 +26,7 @@
 
       # ── Autostart ─────────────────────────────────────────────────────────────
       exec-once = [
-        # "waybar"   # status bar - uncomment after adding to packages
+        "waybar"
         # "mako"     # notification daemon - uncomment after adding to packages
       ];
 
@@ -108,6 +116,8 @@
         "$mod, B, exec, $browser"
         # Super + E: open file manager
         "$mod, E, exec, $fileManager"
+        # Super + D: open discord
+        "$mod, D, exec, discord"
 
         # App launcher
         "$mod, Space, exec, rofi -show drun"
@@ -148,13 +158,10 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
-        # Scroll through workspaces
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up, workspace, e-1"
-
-        # Screenshot (grim + slurp - add to packages before using)
-        # ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
-        # "SHIFT, Print, exec, grim - | wl-copy"
+        # Screenshot (grimblast)
+        ", Print, exec, grimblast copy area"
+        "SHIFT, Print, exec, grimblast copy screen"
+        "$mod, Print, exec, grimblast copy active"
       ];
 
       # Mouse bindings (drag to move/resize)

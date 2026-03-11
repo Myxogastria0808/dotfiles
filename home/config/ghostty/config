@@ -20,10 +20,10 @@ keybind = ctrl+alt+q=close_surface
 keybind = ctrl+alt+d=close_window
 
 # create new split window
-keybind = ctrl+alt+l=new_split:right
-keybind = ctrl+alt+h=new_split:left
-keybind = ctrl+alt+k=new_split:up
-keybind = ctrl+alt+j=new_split:down
+keybind = ctrl+alt+r=new_split:right
+keybind = ctrl+alt+l=new_split:left
+keybind = ctrl+alt+t=new_split:up
+keybind = ctrl+alt+b=new_split:down
 
 # move splited window
 keybind = ctrl+alt+right=goto_split:right

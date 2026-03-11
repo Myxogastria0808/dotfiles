@@ -3,6 +3,7 @@
   imports = [
     ./kde
     ./cosmic
+    ./hyprland
   ];
 
   # ── Display Manager ───────────────────────────────────────────────────────────

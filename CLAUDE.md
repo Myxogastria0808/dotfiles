@@ -52,7 +52,7 @@ Top-level variables (`username`, `githubUsername`, `githubEmail`) are set in `fl
 
 ### nixpkgs Channel
 
-Uses `nixpkgs-unstable`. The home-manager `stateVersion` is set to `"26.05"` with `enableNixpkgsReleaseCheck = false` to suppress release mismatch warnings.
+Uses `nixpkgs-unstable`. The home-manager `stateVersion` is set to `"25.11"` with `enableNixpkgsReleaseCheck = false` to suppress release mismatch warnings.
 
 ### External Flake Inputs
 

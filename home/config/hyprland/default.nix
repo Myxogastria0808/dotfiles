@@ -272,6 +272,7 @@
       #   l: also work when an input inhibitor (e.g. lockscreen) is active
       bindel = [
         # Volume control: up / down by 5% (with audio feedback)
+        # The sounds are from the pantheon.elementary-sound-theme package, which is defined NixOS module (path: modules/app.nix).
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
         # Brightness control: up / down by 5%

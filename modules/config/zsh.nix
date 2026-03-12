@@ -29,16 +29,28 @@
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75"
 
       # copy file to clipboard
+      # Wayland (Hyprland, Plasma on Wayland): wl-copy
+      # X11 (Plasma on X11): xclip
       function copyfile () {
           cat $1
-          xclip -selection clipboard $1
+          if [ -n "$WAYLAND_DISPLAY" ]; then
+              wl-copy < $1
+          else
+              xclip -selection clipboard $1
+          fi
       }
 
       # copy path to clipboard
+      # Wayland (Hyprland, Plasma on Wayland): wl-copy
+      # X11 (Plasma on X11): xclip
       function copypath () {
           result=$(pwd)
           echo "''${result}"
-          echo "''${result}" | xclip -selection clipboard
+          if [ -n "$WAYLAND_DISPLAY" ]; then
+              echo "''${result}" | wl-copy
+          else
+              echo "''${result}" | xclip -selection clipboard
+          fi
       }
 
       # dd iso to usb
@@ -217,11 +229,14 @@
                   ;;
           esac
 
+          # copy to clipboard: Wayland (Hyprland, Plasma on Wayland): wl-copy / X11 (Plasma on X11): xclip
+          __nl_copy() { if [ -n "$WAYLAND_DISPLAY" ]; then wl-copy; else xclip -selection clipboard; fi }
+
           case "''${option}" in
               hash)
                   result=''$(nurl -H ''${url} ''${rev} 2> /dev/null)
                   echo "''${result}"
-                  echo "''${result}" | xclip -selection clipboard
+                  echo "''${result}" | __nl_copy
                   ;;
               rev)
                   echo "''${rev}"
@@ -229,7 +244,7 @@
               *)
                   result=''$(nurl ''${url} ''${rev} 2> /dev/null)
                   echo "''${result}"
-                  echo "''${result}" | xclip -selection clipboard
+                  echo "''${result}" | __nl_copy
                   ;;
           esac
       }

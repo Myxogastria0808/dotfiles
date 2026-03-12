@@ -79,7 +79,9 @@
           # Hyprland keybinds send `pkill -RTMIN+8 waybar` on mic volume/mute change,
           # so waybar refreshes instantly instead of waiting for the polling interval.
           signal = 8;
-          interval = 30;
+          # Short interval as fallback for missed signals (e.g. when keys are held rapidly).
+          # wpctl get-volume is cheap, so 1s polling has negligible overhead.
+          interval = 1;
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar";
           on-click-right = "pavucontrol";
           tooltip = "Left: mute toggle / Right: open pavucontrol";

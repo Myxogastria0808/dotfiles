@@ -64,10 +64,10 @@
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         # Enable native Wayland for Firefox (avoids XWayland freeze/crash issues)
-        # "MOZ_ENABLE_WAYLAND,1"
+        "MOZ_ENABLE_WAYLAND,1"
         # Enable native Wayland for Electron apps (Discord, VSCode, etc.)
         # "auto" falls back to X11 if Wayland is unavailable
-        #  "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
       ];
 
       # ── General ───────────────────────────────────────────────────────────────
@@ -317,8 +317,8 @@
         # Execution order: wpctl (sync) → pkill (sync, waybar refreshes with updated value) ; paplay & (async)
         # NOTE: `cmd1 && paplay & pkill` would background wpctl too, so pkill fires before volume is set.
         #       Using `;` ensures paplay is detached AFTER pkill has already signalled waybar.
-        "SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+ && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
-        "SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%- && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
+        "SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+ && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/elementary/stereo/bell.wav &"
+        "SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%- && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/elementary/stereo/bell.wav &"
         # Brightness control: up / down by 5%
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"

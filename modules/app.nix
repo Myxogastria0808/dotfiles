@@ -147,6 +147,5 @@
 
     # Sound theme for system audio feedback (volume change, etc.)
     pantheon.elementary-sound-theme
-    sound-theme-freedesktop
   ];
 }

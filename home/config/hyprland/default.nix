@@ -220,8 +220,6 @@
         # Basic window management
         # Super + Q: close window
         "$mod, Q, killactive"
-        # Super + Shift + Q: force kill window
-        "$mod SHIFT, Q, exec, hyprctl kill"
         # Super + M: logout
         "$mod, M, exit"
         # Super + F: toggle fullscreen
@@ -237,7 +235,7 @@
         # Super + E: open file manager
         "$mod, E, exec, $fileManager"
         # Super + D: open discord
-        "$mod, D, exec, discord"
+        "$mod, D, exec, discord --disable-gpu-sandbox"
 
         # App launcher
         # Super + Space: open app launcher (rofi)

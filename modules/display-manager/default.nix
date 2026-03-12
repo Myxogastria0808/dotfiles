@@ -11,8 +11,8 @@
   services.xserver.enable = true;
   # SDDM is the shared display manager for both KDE and COSMIC sessions
   services.displayManager.sddm.enable = true;
-  # Use X11 session; change to "plasma" to switch to Wayland
-  services.displayManager.defaultSession = "plasmax11";
+  # Default session: hyprland (use "plasmax11" for KDE X11, "plasma" for KDE Wayland)
+  services.displayManager.defaultSession = "hyprland";
 
   # To replace SDDM with the COSMIC greeter instead:
   #   1. Set services.displayManager.sddm.enable = false above

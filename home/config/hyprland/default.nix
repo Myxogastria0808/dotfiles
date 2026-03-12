@@ -26,6 +26,10 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    # Disable home-manager's built-in systemd integration: it conflicts with UWSM,
+    # which manages the Hyprland session via its own systemd units.
+    # Ref: https://wiki.hypr.land/Nix/Hyprland-on-Home-Manager/
+    systemd.enable = false;
     # Use the same package as the NixOS module to avoid version mismatch
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage =
@@ -52,9 +56,6 @@
       # ── Environment Variables ─────────────────────────────────────────────────
       # Ref: https://wiki.hypr.land/Configuring/Environment-variables/
       env = [
-        "KDE_COLOR_SCHEME_PATH,/run/current-system/sw/share/color-schemes/BreezeDark.colors"
-
-        # ── XDG Desktop Specifications ──────────────────────────────────────────
         # Ref: https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
         # NOTE: UWSM users may not need these — UWSM sets them automatically at session start.
         #       Keeping them explicit here is harmless and ensures correctness without UWSM.

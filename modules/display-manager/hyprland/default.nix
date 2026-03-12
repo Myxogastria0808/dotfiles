@@ -11,4 +11,19 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
+
+  # ── Wayland environment variables ─────────────────────────────────────────────
+  # NOTE: When using UWSM, env vars set in hyprland.conf's `env` section are NOT
+  # reliably propagated to child processes. Setting them here (NixOS system level)
+  # via environment.sessionVariables ensures they are injected into the UWSM
+  # graphical session and inherited by all apps (Firefox, Discord, etc.).
+  # Ref: https://wiki.archlinux.org/title/Hyprland
+  environment.sessionVariables = {
+    # Force Firefox to use native Wayland rendering (prevents XWayland-induced freezes)
+    MOZ_ENABLE_WAYLAND = "1";
+    # Electron apps (Discord, VSCode, etc.): prefer Wayland, fall back to X11
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    # NixOS Electron/Chromium wrappers: inject --ozone-platform=wayland at launch
+    NIXOS_OZONE_WL = "1";
+  };
 }

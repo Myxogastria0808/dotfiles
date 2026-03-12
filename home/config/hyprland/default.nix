@@ -11,8 +11,6 @@
     grimblast
     # Brightness control
     brightnessctl
-    # Volume change sound
-    sound-theme-freedesktop
   ];
 
   wayland.windowManager.hyprland = {
@@ -274,8 +272,8 @@
       #   l: also work when an input inhibitor (e.g. lockscreen) is active
       bindel = [
         # Volume control: up / down by 5% (with audio feedback)
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && paplay ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && paplay ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
         # Brightness control: up / down by 5%
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"

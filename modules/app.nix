@@ -144,5 +144,8 @@
 
     # Minecraft launcher supporting multiple mod loaders
     prismlauncher
+
+    # Sound theme for system audio feedback (volume change, etc.)
+    pantheon.elementary-sound-theme
   ];
 }

@@ -76,8 +76,7 @@
   # Ref: https://wiki.hypr.land/Nix/Hyprland-on-NixOS/
   hardware.graphics = {
     enable = true;
-    package =
-      (inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa);
+    package = (inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa);
   };
 
   # ── Users ─────────────────────────────────────────────────────────────────────

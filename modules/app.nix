@@ -76,7 +76,7 @@
 
     # Text editors
     nano # Minimal terminal editor
-    vscode # Visual Studio Code
+    (vscode.override { commandLineArgs = "--password-store=gnome-libsecret"; }) # Visual Studio Code
     zed-editor # High-performance collaborative editor
 
     # Multi-package-manager CLI for npm/yarn/pnpm/bun/deno

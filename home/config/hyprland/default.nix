@@ -11,6 +11,17 @@
     grimblast
     # Brightness control
     brightnessctl
+    # Wallpaper
+    swww
+    # Clipboard manager
+    cliphist
+    wl-clipboard
+    # Color picker
+    hyprpicker
+    # Bluetooth manager
+    blueman
+    # Power menu
+    wlogout
   ];
 
   wayland.windowManager.hyprland = {
@@ -30,6 +41,9 @@
       # Ref: https://wiki.hypr.land/Configuring/Keywords/#executing
       # exec-onec: execute only on launch
       exec-once = [
+        "swww-daemon"
+        "wl-paste --type text --watch cliphist store" # Stores only text data
+        "wl-paste --type image --watch cliphist store" # Stores only image data
         "waybar"
         # "mako"     # notification daemon - uncomment after adding to packages
       ];
@@ -177,7 +191,7 @@
       "$mod" = "SUPER";
       "$terminal" = "ghostty";
       "$browser" = "firefox";
-      "$fileManager" = "Dolphin";
+      "$fileManager" = "dolphin";
 
       bind = [
         # Basic window management
@@ -202,6 +216,12 @@
 
         # App launcher
         "$mod, Space, exec, rofi -show drun"
+
+        # Clipboard history
+        "$mod, V, exec, cliphist list | rofi -dmenu -display-columns 5 | cliphist decode | wl-copy"
+
+        # Color picker (result is copied to clipboard)
+        "$mod, C, exec, hyprpicker --autocopy"
 
         # Focus windows
         "$mod, H, movefocus, l"

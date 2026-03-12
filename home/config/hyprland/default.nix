@@ -197,14 +197,14 @@
         };
       };
 
-      # ── Misc ──────────────────────────────────────────────────────────────────
-      misc = {
-        # Variable frame rate: reduce GPU/CPU usage when no animation is running.
-        # Prevents unnecessary renders from starving other processes (Discord, Firefox).
-        vfr = true;
-        disable_hyprland_logo = true;
-      };
-
+      # # ── Misc ──────────────────────────────────────────────────────────────────
+      # misc = {
+      #   # Variable frame rate: reduce GPU/CPU usage when no animation is running.
+      #   # Prevents unnecessary renders from starving other processes (Discord, Firefox).
+      #   vfr = true;
+      #   disable_hyprland_logo = true;
+      # };
+      #
       # ── Layout ────────────────────────────────────────────────────────────────
       dwindle = {
         pseudotile = true;

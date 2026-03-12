@@ -196,16 +196,6 @@
         };
       };
 
-      # ── Misc ──────────────────────────────────────────────────────────────────
-      misc = {
-        # VFR disabled: with vfr = true, Hyprland's render loop sleeps when idle.
-        # Electron apps (Discord) send damage events from an unfocused state, and
-        # if Hyprland is slow to wake from VFR sleep, Chromium's render thread stalls
-        # waiting for a buffer ACK — causing a visible freeze.
-        vfr = false;
-        disable_hyprland_logo = true;
-      };
-      #
       # ── Layout ────────────────────────────────────────────────────────────────
       dwindle = {
         pseudotile = true;

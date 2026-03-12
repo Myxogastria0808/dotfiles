@@ -76,7 +76,11 @@
 
     # Text editors
     nano # Minimal terminal editor
-    (vscode.override { commandLineArgs = "--password-store=gnome-libsecret"; }) # Visual Studio Code
+    # Visual Studio Code
+    # `--password-store=gnome-libsecret` suppresses the "OS keyring" popup on KDE Plasma.
+    # Without this flag, VSCode prompts on every launch to use KWallet via the Secret Service API.
+    # This flag tells VSCode to use the Secret Service API (which KWallet implements) directly.
+    (vscode.override { commandLineArgs = "--password-store=gnome-libsecret"; })
     zed-editor # High-performance collaborative editor
 
     # Multi-package-manager CLI for npm/yarn/pnpm/bun/deno

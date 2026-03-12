@@ -52,22 +52,32 @@
       # ── Environment Variables ─────────────────────────────────────────────────
       # Ref: https://wiki.hypr.land/Configuring/Environment-variables/
       env = [
-        # "XCURSOR_SIZE,24"
-        # "HYPRCURSOR_SIZE,24"
-        # "QT_QPA_PLATFORM,wayland"
-        # "GDK_BACKEND,wayland,x11"
-        # Ref:https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
-        # Maybe these XDG Specifications are not needed setting explicitly for UWSM users,
-        # because the y are setted by uwsm automatically. for details, see under the link below:
-        # https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
-        # Enable native Wayland for Firefox (avoids XWayland freeze/crash issues)
+        # ── XDG Desktop Specifications ──────────────────────────────────────────
+        # Ref: https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
+        # NOTE: UWSM users may not need these — UWSM sets them automatically at session start.
+        #       Keeping them explicit here is harmless and ensures correctness without UWSM.
+        "XDG_CURRENT_DESKTOP,Hyprland" # Tells apps (e.g. portals, tray) which DE is running.
+        "XDG_SESSION_TYPE,wayland" # Marks the session as Wayland (not X11). Required by some apps to opt in.
+        "XDG_SESSION_DESKTOP,Hyprland" # Used by systemd/logind and xdg-desktop-portal to select the right portal backend.
+
+        # ── Wayland native rendering ─────────────────────────────────────────────
+        # Running apps via XWayland (X11 compatibility layer) can cause freezes and
+        # visual glitches on Hyprland. The variables below force each toolkit to use
+        # the native Wayland (Ozone) backend instead.
+
+        # Firefox: enable native Wayland rendering.
+        # Without this, Firefox runs through XWayland and may freeze or crash.
         "MOZ_ENABLE_WAYLAND,1"
-        # Enable native Wayland for Electron apps (Discord, VSCode, etc.)
-        # "auto" falls back to X11 if Wayland is unavailable
+
+        # Electron apps (Discord, VSCode, Obsidian, etc.):
+        # "auto" → use Wayland if available, fall back to X11 otherwise.
+        # This is an app-level hint read by Electron's runtime.
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
+
+        # NixOS-specific: instructs NixOS Electron/Chromium wrappers to inject
+        # --ozone-platform=wayland at launch, enforcing Wayland at the wrapper level.
+        # Works in tandem with ELECTRON_OZONE_PLATFORM_HINT for maximum coverage.
+        "NIXOS_OZONE_WL,1"
       ];
 
       # ── General ───────────────────────────────────────────────────────────────
@@ -93,7 +103,6 @@
         shadow = {
           enabled = true;
           range = 20; # Shadow range (int, default: 4)
-          color = "rgba(70, 130, 180, 0.5)"; # Shadow color (str, default: 0xee1a1a1a)
         };
       };
 
@@ -211,6 +220,8 @@
         # Basic window management
         # Super + Q: close window
         "$mod, Q, killactive"
+        # Super + Shift + Q: force kill window
+        "$mod SHIFT, Q, exec, hyprctl kill"
         # Super + M: logout
         "$mod, M, exit"
         # Super + F: toggle fullscreen

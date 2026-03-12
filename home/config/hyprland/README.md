@@ -44,13 +44,13 @@
 
 Set via Hyprland's `env` block and propagated to the entire systemd user session (via UWSM).
 
-| Variable                      | Value      | Description                                                                    |
-| ----------------------------- | ---------- | ------------------------------------------------------------------------------ |
-| `XDG_CURRENT_DESKTOP`         | `Hyprland` | Advertises the current desktop to apps                                         |
-| `XDG_SESSION_TYPE`            | `wayland`  | Tells apps the session is Wayland                                              |
-| `XDG_SESSION_DESKTOP`         | `Hyprland` | Used by some portals / session managers                                        |
-| `MOZ_ENABLE_WAYLAND`          | `1`        | Firefox runs natively on Wayland (avoids XWayland freeze/crash issues)         |
-| `ELECTRON_OZONE_PLATFORM_HINT`| `auto`     | Electron apps (Discord, VSCode, …) prefer Wayland; falls back to X11 if needed |
+| Variable                       | Value      | Description                                                                    |
+| ------------------------------ | ---------- | ------------------------------------------------------------------------------ |
+| `XDG_CURRENT_DESKTOP`          | `Hyprland` | Advertises the current desktop to apps                                         |
+| `XDG_SESSION_TYPE`             | `wayland`  | Tells apps the session is Wayland                                              |
+| `XDG_SESSION_DESKTOP`          | `Hyprland` | Used by some portals / session managers                                        |
+| `MOZ_ENABLE_WAYLAND`           | `1`        | Firefox runs natively on Wayland (avoids XWayland freeze/crash issues)         |
+| `ELECTRON_OZONE_PLATFORM_HINT` | `auto`     | Electron apps (Discord, VSCode, …) prefer Wayland; falls back to X11 if needed |
 
 > **Note:** The three XDG variables are also set automatically by UWSM, so their presence here is largely redundant but harmless.
 
@@ -58,10 +58,10 @@ Set via Hyprland's `env` block and propagated to the entire systemd user session
 
 ## Misc
 
-| Option                  | Value  | Description                                                                                                |
-| ----------------------- | ------ | ---------------------------------------------------------------------------------------------------------- |
-| `misc.vfr`              | `true` | Variable frame rate — reduces GPU/CPU usage when no animation is running, preventing starvation of other processes |
-| `misc.disable_hyprland_logo` | `true` | Hides the Hyprland logo on the background                                                             |
+| Option                       | Value  | Description                                                                                                        |
+| ---------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------ |
+| `misc.vfr`                   | `true` | Variable frame rate — reduces GPU/CPU usage when no animation is running, preventing starvation of other processes |
+| `misc.disable_hyprland_logo` | `true` | Hides the Hyprland logo on the background                                                                          |
 
 ---
 
@@ -150,16 +150,16 @@ Uses [grimblast](https://github.com/hyprwm/contrib/tree/main/grimblast). `copysa
 
 Both speaker and microphone volume feedback use `pantheon.elementary-sound-theme` (defined in `modules/app.nix`): speaker uses `audio-volume-change.wav`, microphone uses `bell.wav`.
 
-| Key                            | Action                                        |
-| ------------------------------ | --------------------------------------------- |
-| `XF86AudioRaiseVolume`         | Speaker volume +1% (with sound feedback)      |
-| `XF86AudioLowerVolume`         | Speaker volume -1% (with sound feedback)      |
-| `Shift + XF86AudioRaiseVolume` | Microphone volume +1% (with sound feedback + instant waybar refresh) |
-| `Shift + XF86AudioLowerVolume` | Microphone volume -1% (with sound feedback + instant waybar refresh) |
-| `XF86AudioMute`                | Toggle speaker mute (works on lock screen)                           |
+| Key                            | Action                                                                 |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| `XF86AudioRaiseVolume`         | Speaker volume +1% (with sound feedback)                               |
+| `XF86AudioLowerVolume`         | Speaker volume -1% (with sound feedback)                               |
+| `Shift + XF86AudioRaiseVolume` | Microphone volume +1% (with sound feedback + instant waybar refresh)   |
+| `Shift + XF86AudioLowerVolume` | Microphone volume -1% (with sound feedback + instant waybar refresh)   |
+| `XF86AudioMute`                | Toggle speaker mute (works on lock screen)                             |
 | `XF86AudioMicMute`             | Toggle microphone mute + instant waybar refresh (works on lock screen) |
-| `XF86MonBrightnessUp`          | Brightness +5%                                |
-| `XF86MonBrightnessDown`        | Brightness -5%                                |
+| `XF86MonBrightnessUp`          | Brightness +5%                                                         |
+| `XF86MonBrightnessDown`        | Brightness -5%                                                         |
 
 ### Mouse Bindings
 
@@ -262,20 +262,20 @@ A top bar (height: 30px) with the following layout:
 
 ### Module Details
 
-| Module       | Display                                                         | Click Action                                |
-| ------------ | --------------------------------------------------------------- | ------------------------------------------- |
-| Workspaces   | Workspace numbers                                               | Click to switch                             |
-| Window Title | Active window title (max 50 chars)                              | —                                           |
-| Clock        | `YYYY-MM-DD HH:MM:SS`                                           | Hover to show calendar                      |
-| CPU          | `CPU XX%` (updates every 5s)                                    | —                                           |
-| Memory       | `MEM XX%` (updates every 5s)                                    | —                                           |
-| Battery      | `BAT XX%` / `CHG XX%` / `PLG XX%`<br>⚠ ≤30%: yellow, ≤15%: red | —                                           |
-| Network      | `WiFi (XX%)` / `ETH` / `No Network`<br>Hover: SSID + IP         | —                                           |
+| Module       | Display                                                                 | Click Action                                |
+| ------------ | ----------------------------------------------------------------------- | ------------------------------------------- |
+| Workspaces   | Workspace numbers                                                       | Click to switch                             |
+| Window Title | Active window title (max 50 chars)                                      | —                                           |
+| Clock        | `YYYY-MM-DD HH:MM:SS`                                                   | Hover to show calendar                      |
+| CPU          | `CPU XX%` (updates every 5s)                                            | —                                           |
+| Memory       | `MEM XX%` (updates every 5s)                                            | —                                           |
+| Battery      | `BAT XX%` / `CHG XX%` / `PLG XX%`<br>⚠ ≤30%: yellow, ≤15%: red         | —                                           |
+| Network      | `WiFi (XX%)` / `ETH` / `No Network`<br>Hover: SSID + IP                 | —                                           |
 | Mic          | `MIC XX%` / `MIC MUTE` (signal-based instant refresh; 1s poll fallback) | Left: toggle mute / Right: open pavucontrol |
-| Volume       | `VOL XX%` / `VOL MUTE`                                          | Click to open pavucontrol                   |
-| Bluetooth    | `BT` / `BT OFF` / `BT {device}`<br>Connected: blue text         | Click to open blueman-manager               |
-| Power        | `PWR` (red)                                                     | Click to open wlogout (power menu)          |
-| Tray         | System tray icons                                               | —                                           |
+| Volume       | `VOL XX%` / `VOL MUTE`                                                  | Click to open pavucontrol                   |
+| Bluetooth    | `BT` / `BT OFF` / `BT {device}`<br>Connected: blue text                 | Click to open blueman-manager               |
+| Power        | `PWR` (red)                                                             | Click to open wlogout (power menu)          |
+| Tray         | System tray icons                                                       | —                                           |
 
 ### Style
 

@@ -52,35 +52,6 @@
         "waybar"
       ];
 
-      # ── Environment Variables ─────────────────────────────────────────────────
-      # Ref: https://wiki.hypr.land/Configuring/Environment-variables/
-      env = [
-        # Ref: https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
-        # NOTE: UWSM users may not need these — UWSM sets them automatically at session start.
-        #       Keeping them explicit here is harmless and ensures correctness without UWSM.
-        # "XDG_CURRENT_DESKTOP,Hyprland" # Tells apps (e.g. portals, tray) which DE is running.
-        # "XDG_SESSION_TYPE,wayland" # Marks the session as Wayland (not X11). Required by some apps to opt in.
-        # "XDG_SESSION_DESKTOP,Hyprland" # Used by systemd/logind and xdg-desktop-portal to select the right portal backend.
-
-        # ── Wayland native rendering ─────────────────────────────────────────────
-        # Running apps via XWayland (X11 compatibility layer) can cause freezes and
-        # visual glitches on Hyprland. The variables below force each toolkit to use
-        # the native Wayland (Ozone) backend instead.
-
-        # Firefox: enable native Wayland rendering.
-        # Without this, Firefox runs through XWayland and may freeze or crash.
-        # "MOZ_ENABLE_WAYLAND,1"
-
-        # Electron apps (Discord, VSCode, Obsidian, etc.):
-        # "auto" → use Wayland if available, fall back to X11 otherwise.
-        # This is an app-level hint read by Electron's runtime.
-        # "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        # NixOS-specific: instructs NixOS Electron/Chromium wrappers to inject
-        # --ozone-platform=wayland at launch, enforcing Wayland at the wrapper level.
-        # Works in tandem with ELECTRON_OZONE_PLATFORM_HINT for maximum coverage.
-        # "NIXOS_OZONE_WL,1"
-      ];
-
       # ── General ───────────────────────────────────────────────────────────────
       # Ref: https://wiki.hypr.land/Configuring/Variables/#general
       general = {

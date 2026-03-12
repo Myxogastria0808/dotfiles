@@ -26,5 +26,7 @@
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
     # NixOS Electron/Chromium wrappers: inject --ozone-platform=wayland at launch
     NIXOS_OZONE_WL = "1";
+
+    KDE_COLOR_SCHEME_PATH = /run/current-system/sw/share/color-schemes/BreezeDark.color;
   };
 }

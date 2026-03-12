@@ -64,10 +64,10 @@
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         # Enable native Wayland for Firefox (avoids XWayland freeze/crash issues)
-        "MOZ_ENABLE_WAYLAND,1"
+        # "MOZ_ENABLE_WAYLAND,1"
         # Enable native Wayland for Electron apps (Discord, VSCode, etc.)
         # "auto" falls back to X11 if Wayland is unavailable
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        #  "ELECTRON_OZONE_PLATFORM_HINT,auto"
       ];
 
       # ── General ───────────────────────────────────────────────────────────────

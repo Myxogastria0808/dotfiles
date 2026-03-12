@@ -33,6 +33,8 @@
     parted
     # Disk partitioning GUI
     gparted
+    # Terminal-based file manager with Vim-like keybindings
+    yazi
     # Archive tools
     zip
     unzip

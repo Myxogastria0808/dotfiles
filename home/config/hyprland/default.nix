@@ -3,7 +3,6 @@
   imports = [
     ./rofi.nix
     ./waybar.nix
-    ./yazi.nix
   ];
 
   # hyprland family tools
@@ -12,6 +11,8 @@
     grimblast
     # Brightness control
     brightnessctl
+    # Volume change sound
+    sound-theme-freedesktop
   ];
 
   wayland.windowManager.hyprland = {
@@ -268,17 +269,20 @@
         "SHIFT, Print, exec, grimblast screen copy"
       ];
 
-      # Volume / brightness (repeat while held)
+      # bindel:
+      #   e: repeat when the key is held down
+      #   l: also work when an input inhibitor (e.g. lockscreen) is active
       bindel = [
-        # Volume control: up / down by 5%
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        # Volume control: up / down by 5% (with audio feedback)
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && paplay ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && paplay ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
         # Brightness control: up / down by 5%
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
       ];
 
-      # Mute (toggle)
+      # bindel:
+      #   l: also work when an input inhibitor (e.g. lockscreen) is active
       bindl = [
         # Mute audio
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

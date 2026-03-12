@@ -9,7 +9,7 @@
 - [Variables](#variables)
 - [Keybindings](#keybindings)
   - [Window Management](#window-management)
-  - [Application Launchers](#application-launchers)
+  - [Application Launcher](#application-launcher)
   - [Focus Movement](#focus-movement)
   - [Window Movement](#window-movement)
   - [Switch Workspace](#switch-workspace)
@@ -244,7 +244,7 @@ A top bar (height: 30px) with the following layout:
 | Memory       | `MEM XX%` (updates every 5s)                                    | —                                           |
 | Battery      | `BAT XX%` / `CHG XX%` / `PLG XX%`<br>⚠ ≤30%: yellow, ≤15%: red | —                                           |
 | Network      | `WiFi (XX%)` / `ETH` / `No Network`<br>Hover: SSID + IP         | —                                           |
-| Mic          | `MIC XX%` / `MIC MUTE` (updates every 2s)                       | Left: toggle mute / Right: open pavucontrol |
+| Mic          | `MIC XX%` / `MIC MUTE` (signal-based instant refresh; 30s poll)  | Left: toggle mute / Right: open pavucontrol |
 | Volume       | `VOL XX%` / `VOL MUTE`                                          | Click to open pavucontrol                   |
 | Bluetooth    | `BT` / `BT OFF` / `BT {device}`<br>Connected: blue text         | Click to open blueman-manager               |
 | Power        | `PWR` (red)                                                     | Click to open wlogout (power menu)          |

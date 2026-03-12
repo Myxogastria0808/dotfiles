@@ -57,6 +57,8 @@ To change the default session, edit `defaultSession` in `modules/display-manager
 
 - **Hyprland + UWSM** (`withUWSM = true`): When launched through UWSM (Universal Wayland Session Manager), Hyprland runs as a proper systemd user session. This handles session lifecycle, environment variable propagation, and `systemd --user` integration automatically. A standalone Hyprland session (without UWSM) is also registered by the NixOS module and can be selected separately from the SDDM session list.
 
+- **Hyprland is managed as a flake input** (`github:hyprwm/Hyprland`). Both the NixOS module (`inputs.hyprland.nixosModules.default`) and the home-manager module (`inputs.hyprland.homeManagerModules.default`) are wired into the flake outputs, so the compositor and its portal package always come from the same pinned revision.
+
 - **COSMIC Greeter is intentionally left disabled.** `cosmic-greeter` is a greetd-based login screen built specifically for the COSMIC desktop. It does not have proper support for non-COSMIC sessions (KDE, Hyprland). Enabling it would replace SDDM entirely and would likely prevent KDE and Hyprland sessions from appearing or launching correctly. Keep SDDM for a multi-session setup.
 
 > For Hyprland keybindings and detailed settings, see [home/config/hyprland/README.md](home/config/hyprland/README.md).

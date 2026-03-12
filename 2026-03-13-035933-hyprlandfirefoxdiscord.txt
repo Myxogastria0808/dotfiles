@@ -1,0 +1,602 @@
+
+ ▐▛███▜▌   Claude Code v2.1.70
+▝▜█████▛▘  Sonnet 4.6 · Claude Pro
+  ▘▘ ▝▝    ~/dotfiles
+
+  ✻ Voice mode is now available · /voice to enable
+
+❯ hyprland環境でfirefoxやdiscordが安定して動作するようになった。            
+  しかし、全アプリケーションの起動が遅い。原因を探求して                    
+
+● Explore(Explore Hyprland config for slow startup)
+  ⎿  Done (51 tool uses · 55.0k tokens · 4m 19s)
+  (ctrl+o to expand)
+
+● 主要な調査結果を確認します。
+
+● Read 5 files (ctrl+o to expand)
+
+● 調査結果をまとめました。最も有力な原因は XDG Desktop Portal の設定不備です。
+
+  ---
+  原因分析
+
+  1. 最有力: xdg-desktop-portal-gtk の欠如
+
+  modules/display-manager/default.nix:28-30 でコメントアウトされています:
+
+  # extraPortals = with pkgs; [
+  #   xdg-desktop-portal-gtk  # Add this on non-KDE/GNOME desktops
+  # ];
+
+  Hyprland では xdg-desktop-portal-hyprland
+  だけでは不十分で、多くのアプリ（Firefox、Discord、GTKアプリ全般）が起動時に
+  org.freedesktop.portal.FileChooser
+  等のGTKポータルインターフェースに接続しようとしてタイムアウト（通常
+  5〜30秒）を待ちます。これが「全アプリの起動が遅い」の典型的な原因です。
+
+  2. Hyprland Wiki 推奨の portal.config 未設定
+
+  xdg-desktop-portal 1.18+
+  では、どのポータルがどのインターフェースを担当するかを明示しないと resolver
+  がタイムアウトします。
+
+  ---
+  修正
+
+  modules/display-manager/default.nix の portal 設定を以下に変更:
+
+● Update(modules/display-manager/default.nix)
+  ⎿  Added 9 lines, removed 3 lines
+      23    programs.xwayland.enable = true;                             
+      24                                                                 
+      25    # Required by Flatpak for sandboxed file chooser,            
+          screenshot, etc.                                               
+      26 +  # xdg-desktop-portal-gtk is required alongside               
+         +xdg-desktop-portal-hyprland:                                   
+      27 +  # without it, GTK apps and Electron apps block on startup    
+         +waiting for a GTK                                              
+      28 +  # portal timeout (5-30s) when requesting FileChooser and     
+         +other GTK interfaces.                                          
+      29    xdg.portal = {                                               
+      30      enable = true;                                             
+      31 -    # extraPortals = with pkgs; [                              
+      32 -    #   xdg-desktop-portal-gtk  # Add this on non-KDE/GNOME    
+         -desktops                                                       
+      33 -    # ];                                                       
+      31 +    extraPortals = with pkgs; [                                
+      32 +      xdg-desktop-portal-gtk                                   
+      33 +    ];                                                         
+      34 +    # Explicit portal routing to avoid resolver timeout on     
+         +xdg-desktop-portal 1.18+                                       
+      35 +    # hyprland handles Hyprland-specific interfaces; gtk       
+         +handles the rest                                               
+      36 +    config.common.default = "*";                               
+      37    };                                                           
+      38                                                                 
+      39    # US keyboard layout for X11                                 
+
+● これで pkgs が必要なので引数も追加:
+
+● Update(modules/display-manager/default.nix)
+  ⎿  Added 1 line, removed 1 line
+      1 -{ ... }:                                                        
+      1 +{ pkgs, ... }:                                                  
+      2  {                                                               
+      3    imports = [                                                   
+      4      ./kde                                                       
+
+● 確認:
+
+● Read 1 file (ctrl+o to expand)
+
+● nixos コマンドで適用してください。
+
+  ---
+  まとめ
+
+  ┌──────────────────────────────┬───────┬──────────────────────────────────┐
+  │             原因             │ 深刻  │               修正               │
+  │                              │  度   │                                  │
+  ├──────────────────────────────┼───────┼──────────────────────────────────┤
+  │ xdg-desktop-portal-gtk 欠如  │       │                                  │
+  │ → GTKポータルへのタイムアウ  │ 最高  │ 今回修正済み                     │
+  │ ト待機 (5〜30秒)             │       │                                  │
+  ├──────────────────────────────┼───────┼──────────────────────────────────┤
+  │ portal.config 未設定 →       │       │                                  │
+  │ resolver が候補を順番に試し  │ 高    │ 今回修正済み                     │
+  │ てタイムアウト               │       │                                  │
+  ├──────────────────────────────┼───────┼──────────────────────────────────┤
+  │ Mesa バージョン不一致        │       │ GPU描画が不安定な場合は有効化を  │
+  │ (configuration.nix:81-84     │ 中    │ 検討                             │
+  │ コメントアウト)              │       │                                  │
+  ├──────────────────────────────┼───────┼──────────────────────────────────┤
+  │ linux-zen カーネル未使用     │ 低〜  │ スケジューリング改善が必要なら有 │
+  │ (configuration.nix:26        │ 中    │ 効化                             │
+  │ コメントアウト)              │       │                                  │
+  └──────────────────────────────┴───────┴──────────────────────────────────┘
+
+  主犯は XDG Portal です。xdg-desktop-portal-hyprland
+  だけだと、GTKポータルインターフェースを要求するアプリ（Firefox
+  のファイル選択、Discord
+  のファイル共有など）が毎回起動時にタイムアウトを待ってから立ち上がります。
+
+✻ Cogitated for 2m 43s
+
+❯ code .                                                                    
+  Warning: 'ozone-platform-hint' is not in the list of known options, but   
+  still passed to Electron/Chromium.                                        
+  Warning: 'enable-features' is not in the list of known options, but still 
+   passed to Electron/Chromium.                                             
+  Warning: 'enable-wayland-ime' is not in the list of known options, but    
+  still passed to Electron/Chromium.                                        
+  Warning: 'wayland-text-input-version' is not in the list of known         
+  options, but still passed to Electron/Chromium.                           
+
+● Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● これらは 無害な警告です。原因は2つの NixOS の仕組みが VSCode の CLI
+  パーサーに知られていない Chromium フラグを注入しているためです:
+
+  ┌────────────────────────────────┬────────────────────────────────────────┐
+  │           警告フラグ           │                 注入元                 │
+  ├────────────────────────────────┼────────────────────────────────────────┤
+  │ ozone-platform-hint,           │ NIXOS_OZONE_WL = "1" → NixOS の        │
+  │ enable-features                │ Electron ラッパーが                    │
+  │                                │ --ozone-platform-hint=auto 等を追加    │
+  ├────────────────────────────────┼────────────────────────────────────────┤
+  │ enable-wayland-ime,            │ i18n.inputMethod の waylandFrontend =  │
+  │ wayland-text-input-version     │ true → fcitx5 が Wayland IME           │
+  │                                │ フラグを注入                           │
+  └────────────────────────────────┴────────────────────────────────────────┘
+
+  VSCode は自分の CLI パーサーでは認識しないが、そのまま内部の Chromium 
+  エンジンに渡しているので実際には正常に機能しています（Wayland
+  ネイティブ動作、日本語入力ともに有効）。
+
+  ターミナルの出力が邪魔な場合は ~/.zshrc 等でエイリアスを追加できます:
+
+  alias code='code 2>/dev/null'  # 警告を抑制 (全 stderr を捨てる)
+
+  ただし全 stderr
+  が消えるので、本物のエラーも見えなくなります。警告だけ消したい場合:
+
+  alias code='code 2> >(grep -v "is not in the list of known options" >&2)'
+
+  機能的な問題はないので、基本的にはそのまま無視で問題ありません。
+
+✻ Churned for 32s
+
+❯ xdgの設定について、以下の環境変数は関係ある？                             
+  https://www.youtube.com/watch?v=KFj0SCjL1pg                               
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ xdgの設定について、以下の環境変数は関係ある？                             
+          # Ref: https://wiki.hypr.land/Configuring/Environment-variables/# 
+  xdg-specifications                                                        
+          # NOTE: UWSM users may not need these — UWSM sets them            
+  automatically at session start.                                           
+          #       Keeping them explicit here is harmless and ensures        
+  correctness without UWSM.                                                 
+          # "XDG_CURRENT_DESKTOP,Hyprland" # Tells apps (e.g. portals,      
+  tray) which DE is running.                                                
+          # "XDG_SESSION_TYPE,wayland" # Marks the session as Wayland (not  
+  X11). Required by some apps to opt in.                                    
+          # "XDG_SESSION_DESKTOP,Hyprland" # Used by systemd/logind and     
+  xdg-desktop-portal to select the right portal backend.                    
+
+● 関係あります。特に XDG_CURRENT_DESKTOP が最重要です。
+
+  xdg-desktop-portal はポータルバックエンドを選ぶ際に以下の優先順位で判断します:
+
+  1. xdg.portal.config（NixOS設定） ← 今回追加した config.common.default = "*"
+  2. XDG_CURRENT_DESKTOP 環境変数 → Hyprland.portal ファイルを探す
+  3. フォールバック（タイムアウト）
+
+  UWSM使用中は自動設定されるので、コメントアウトのままで問題ありません。
+
+  確認したければ:
+
+  env | grep XDG
+
+  で XDG_CURRENT_DESKTOP=Hyprland、XDG_SESSION_TYPE=wayland が表示されれば UWSM
+  が正しく設定しています。
+
+  今回追加した config.common.default = "*" は「どの XDG_CURRENT_DESKTOP 値でも
+  *（利用可能なポータルを自動選択）を使え」という明示的なルールなので、これらの
+  env vars への依存度をさらに下げています。
+
+❯ https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/        
+  XDPH                                                                      
+
+❯ Tool loaded. 
+
+● Fetch(https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/)
+  ⎿  Received 229.8KB (200 OK)
+
+● Fetch(https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/)
+  ⎿  Received 229.8KB (200 OK)
+
+● 内容が薄いので、関連ページも取得します。
+
+● Fetch(https://wiki.hypr.land/Nix/Hyprland-on-NixOS/)
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/        
+  上記のURLにでてくるXDPHってなに？                                         
+  これがわかれば、 xdg-desktop-portal-gtkが必要な理由がわかる               
+
+● XDPH とは
+
+  XDPH = xdg-desktop-portal-hyprland の略称です。
+
+  xdg-desktop-portal は「アプリ ↔ デスクトップ環境」の橋渡しをする D-Bus
+  サービスですが、インターフェースごとに実装が分かれています:
+
+  ┌─────────────────────────────┬───────────┬────────────────────────┐
+  │      インターフェース       │   XDPH    │ xdg-desktop-portal-gtk │
+  ├─────────────────────────────┼───────────┼────────────────────────┤
+  │ ScreenCopy（画面共有）      │ ✅ 対応   │ ❌                     │
+  ├─────────────────────────────┼───────────┼────────────────────────┤
+  │ GlobalShortcuts             │ ✅ 対応   │ ❌                     │
+  ├─────────────────────────────┼───────────┼────────────────────────┤
+  │ Screenshot                  │ ✅ 対応   │ ❌                     │
+  ├─────────────────────────────┼───────────┼────────────────────────┤
+  │ FileChooser（ファイル選択） │ ❌ 未実装 │ ✅ 対応                │
+  ├─────────────────────────────┼───────────┼────────────────────────┤
+  │ OpenURI                     │ ❌ 未実装 │ ✅ 対応                │
+  ├─────────────────────────────┼───────────┼────────────────────────┤
+  │ Settings（テーマ情報）      │ ❌ 未実装 │ ✅ 対応                │
+  └─────────────────────────────┴───────────┴────────────────────────┘
+
+  なぜ gtk が必要か
+
+  XDPH は Hyprland 固有の機能（画面共有など）しか実装していません。FileChooser（
+  ファイルダイアログ）は XDPH に実装がないため、アプリがそれをリクエストすると:
+
+  アプリ → D-Bus → XDPH に FileChooser を要求
+                  → XDPH: 未実装 → タイムアウト待機 (5〜30秒)
+
+  xdg-desktop-portal-gtk を追加すると:
+
+  アプリ → D-Bus → XDPH: ScreenCopy 等は自分が処理
+                → gtk:  FileChooser 等は自分が処理
+
+  これが今回の修正で xdg-desktop-portal-gtk を extraPortals に追加した理由です。
+
+❯ このリンクや追加で適切なURLをRefとして、そして、これらの説明をコメントア  
+  ウトに英語で追記して詳しく説明してほしい                                  
+
+● Read 1 file (ctrl+o to expand)
+
+● Update(modules/display-manager/default.nix)
+  ⎿  Added 36 lines, removed 6 lines
+      22    # XWayland allows X11 apps to run inside a Wayland session   
+      23    programs.xwayland.enable = true;                             
+      24                                                                 
+      25 -  # Required by Flatpak for sandboxed file chooser,            
+         -screenshot, etc.                                               
+      26 -  # xdg-desktop-portal-gtk is required alongside               
+         -xdg-desktop-portal-hyprland:                                   
+      27 -  # without it, GTK apps and Electron apps block on startup    
+         -waiting for a GTK                                              
+      28 -  # portal timeout (5-30s) when requesting FileChooser and     
+         -other GTK interfaces.                                          
+      25 +  # ── XDG Desktop Portal                                      
+         +────────────────────────────────────────────────────────       
+      26 +  # Ref: https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-por 
+         +tal-hyprland/                                                  
+      27 +  # Ref: https://wiki.archlinux.org/title/XDG_Desktop_Portal   
+      28 +  # Ref: https://flatpak.github.io/xdg-desktop-portal/         
+      29 +  #                                                            
+      30 +  # xdg-desktop-portal (XDP) is a D-Bus service that acts as a 
+         + secure bridge                                                 
+      31 +  # between sandboxed apps (Flatpak, Electron, Firefox, etc.)  
+         +and the desktop                                                
+      32 +  # environment. Apps request system capabilities — file       
+         +pickers, screen sharing,                                       
+      33 +  # notifications, clipboard — through XDP rather than         
+         +accessing them directly.                                       
+      34 +  #                                                            
+      35 +  # Portal implementations are DE-specific. Each one handles a 
+         + subset of                                                     
+      36 +  # D-Bus interfaces defined by the XDG portal spec:           
+      37 +  #                                                            
+      38 +  #   xdg-desktop-portal-hyprland (XDPH)                       
+      39 +  #     Hyprland-specific portal. Implements interfaces that   
+         +require compositor                                             
+      40 +  #     cooperation: ScreenCopy (screen sharing/recording),    
+         +Screenshot,                                                    
+      41 +  #     and GlobalShortcuts. Does NOT implement FileChooser or 
+         + other generic                                                 
+      42 +  #     interfaces that are DE-agnostic.                       
+      43 +  #     Ref: https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop 
+         +-portal-hyprland/                                              
+      44 +  #                                                            
+      45 +  #   xdg-desktop-portal-gtk                                   
+      46 +  #     GTK-based fallback portal. Implements the interfaces   
+         +XDPH does not:                                                 
+      47 +  #     FileChooser (file open/save dialogs), OpenURI (default 
+         + app handling),                                                
+      48 +  #     Settings (system font/theme/color-scheme queries), and 
+         + more.                                                         
+      49 +  #     Required so that any app requesting these interfaces   
+         +gets a response                                                
+      50 +  #     immediately instead of waiting for a timeout.          
+      51 +  #                                                            
+      52 +  # Without xdg-desktop-portal-gtk, apps that request          
+         +FileChooser or other                                           
+      53 +  # GTK-only interfaces will hang for 5–30 seconds on every    
+         +launch while the                                               
+      54 +  # portal resolver exhausts its retry timeout — making ALL    
+         +apps feel slow to                                              
+      55 +  # start, even when the portal request is not user-visible.   
+      56 +  #                                                            
+      57 +  # config.common.default = "*" tells the resolver             
+         +(xdg-desktop-portal 1.18+)                                     
+      58 +  # to auto-select the best available implementation for each  
+         +interface,                                                     
+      59 +  # rather than searching for a portal matching                
+         +XDG_CURRENT_DESKTOP and                                        
+      60 +  # timing out when no single portal covers everything.        
+      61    xdg.portal = {                                               
+      62      enable = true;                                             
+      63      extraPortals = with pkgs; [                                
+      64        xdg-desktop-portal-gtk                                   
+      65      ];                                                         
+      66 -    # Explicit portal routing to avoid resolver timeout on     
+         -xdg-desktop-portal 1.18+                                       
+      67 -    # hyprland handles Hyprland-specific interfaces; gtk       
+         -handles the rest                                               
+      66      config.common.default = "*";                               
+      67    };                                                           
+      68                                                                 
+
+● Read 1 file (ctrl+o to expand)
+
+● 完成です。追加した内容:
+
+  - 3つの Ref リンク — Hyprland Wiki、Arch Wiki、Flatpak 公式ドキュメント
+  - XDP の役割 — D-Bus ブリッジとしての説明
+  - XDPH と gtk の担当インターフェースの対比 — なぜ2つ必要かの根拠
+  - config.common.default = "*" の意味 — resolver タイムアウト回避の説明
+
+✻ Cogitated for 36s
+
+❯ config.common.default = "*" の必要性がよくわかっていない 
+
+● config.common.default = "*" の仕組み
+
+  xdg-desktop-portal 1.18 で「portal resolver」という仕組みが導入されました。
+
+  resolver の動作
+
+  アプリが FileChooser をリクエストしたとき、resolver
+  はどのポータル実装を使うかを決める設定ファイルを探します。
+
+  設定がない場合（デフォルト）:
+
+  1. XDG_CURRENT_DESKTOP=Hyprland を見る
+  2. /usr/share/xdg-desktop-portal/portals/Hyprland.portal を探す
+  3. XDPH の .portal ファイルには FileChooser が書かれていない
+  4. 次の候補を探す... タイムアウト待機
+
+  config.common.default = "*" があると:
+
+  1. 設定を見る → "どの DE でも * (全部自動)" と書いてある
+  2. FileChooser を実装しているポータルを直接選ぶ → gtk が応答
+  3. 即座に解決
+
+  では実際に必要か？
+
+  NixOS で programs.hyprland.enable = true にすると、NixOS の Hyprland
+  モジュールが自動で以下を生成します:
+
+  # /etc/xdg/xdg-desktop-portal/hyprland-portals.conf
+  [preferred]
+  default=hyprland;gtk
+
+  これが XDG_CURRENT_DESKTOP=Hyprland のときに自動適用されるので、UWSM + NixOS 
+  Hyprland モジュール使用中は config.common.default = "*" 
+  はなくても動く可能性が高いです。
+
+  結論
+
+  ┌─────────────────────────────────────────┬────────────────────────────────┐
+  │                  状況                   │             必要性             │
+  ├─────────────────────────────────────────┼────────────────────────────────┤
+  │ NixOS programs.hyprland.enable = true + │ おそらく不要（自動生成される） │
+  │  UWSM                                   │                                │
+  ├─────────────────────────────────────────┼────────────────────────────────┤
+  │ 手動インストール・非NixOS               │ 必要                           │
+  ├─────────────────────────────────────────┼────────────────────────────────┤
+  │ 明示的に動作を保証したい                │ 保険として有効                 │
+  └─────────────────────────────────────────┴────────────────────────────────┘
+
+  現在の設定では冗長だが害はないという状態です。削除してもおそらく動きますが、残
+  しておいても問題はありません。どうしますか？
+
+❯ 削除して                                                                  
+  後、コメントアウトの説明は、hyprlandとApplicationの関係と起動までの手順を 
+  適当な具体例を雑えつつ、きちんとわかりやすく説明してください。            
+  表や図 (ASCIIアート?) なども追加して良い                                  
+
+● Update(modules/display-manager/default.nix)
+  ⎿  Added 47 lines, removed 27 lines
+      27    # Ref: https://wiki.archlinux.org/title/XDG_Desktop_Portal   
+      28    # Ref: https://flatpak.github.io/xdg-desktop-portal/         
+      29    #                                                            
+      30 -  # xdg-desktop-portal (XDP) is a D-Bus service that acts as a 
+         - secure bridge                                                 
+      31 -  # between sandboxed apps (Flatpak, Electron, Firefox, etc.)  
+         -and the desktop                                                
+      32 -  # environment. Apps request system capabilities — file       
+         -pickers, screen sharing,                                       
+      33 -  # notifications, clipboard — through XDP rather than         
+         -accessing them directly.                                       
+      30 +  # Background: Why apps can't talk to the compositor directly 
+      31 +  # ────────────────────────────────────────────────────────── 
+      32 +  # On Wayland, applications are strictly sandboxed — they     
+         +cannot access the                                              
+      33 +  # compositor (Hyprland), the filesystem, or system features  
+         +directly. Instead,                                             
+      34 +  # they make requests through a trusted intermediary:         
+         +xdg-desktop-portal (XDP).                                      
+      35 +  # XDP listens on D-Bus and forwards requests to the          
+         +appropriate backend                                            
+      36 +  # (called a "portal implementation") that actually talks to  
+         +the compositor.                                                
+      37    #                                                            
+      38 -  # Portal implementations are DE-specific. Each one handles a 
+         - subset of                                                     
+      39 -  # D-Bus interfaces defined by the XDG portal spec:           
+      38 +  #   ┌─────────────────────────────────────────────────────── 
+         +──────────────┐                                                
+      39 +  #   │                                                        
+         +              │                                                
+      40 +  #   │  Firefox ──── D-Bus ────► xdg-desktop-portal ──►       
+         +portal backend   │                                             
+      41 +  #   │                                                        
+         +              │                                                
+      42 +  #   │  (sandboxed app)          (trusted broker)             
+         +(talks to DE)    │                                             
+      43 +  #   │                                                        
+         +              │                                                
+      44 +  #   └─────────────────────────────────────────────────────── 
+         +──────────────┘                                                
+      45    #                                                            
+      46 -  #   xdg-desktop-portal-hyprland (XDPH)                       
+      47 -  #     Hyprland-specific portal. Implements interfaces that   
+         -require compositor                                             
+      48 -  #     cooperation: ScreenCopy (screen sharing/recording),    
+         -Screenshot,                                                    
+      49 -  #     and GlobalShortcuts. Does NOT implement FileChooser or 
+         - other generic                                                 
+      50 -  #     interfaces that are DE-agnostic.                       
+      51 -  #     Ref: https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop 
+         --portal-hyprland/                                              
+      46 +  # Portal implementations (backends)                          
+      47 +  # ──────────────────────────────────                         
+      48 +  # Each portal implementation handles a specific set of D-Bus 
+         + interfaces.                                                   
+      49 +  # No single portal covers everything, so multiple backends   
+         +coexist:                                                       
+      50    #                                                            
+      51 -  #   xdg-desktop-portal-gtk                                   
+      52 -  #     GTK-based fallback portal. Implements the interfaces   
+         -XDPH does not:                                                 
+      53 -  #     FileChooser (file open/save dialogs), OpenURI (default 
+         - app handling),                                                
+      54 -  #     Settings (system font/theme/color-scheme queries), and 
+         - more.                                                         
+      55 -  #     Required so that any app requesting these interfaces   
+         -gets a response                                                
+      56 -  #     immediately instead of waiting for a timeout.          
+      51 +  #   ┌──────────────────────────────┬──────────────────────── 
+         +───────────────┐                                               
+      52 +  #   │ Interface                    │ Who handles it          
+         +               │                                               
+      53 +  #   ├──────────────────────────────┼──────────────────────── 
+         +───────────────┤                                               
+      54 +  #   │ ScreenCopy (screen sharing)  │ XDPH  (needs compositor 
+         + access)       │                                               
+      55 +  #   │ Screenshot                   │ XDPH  (needs compositor 
+         + access)       │                                               
+      56 +  #   │ GlobalShortcuts              │ XDPH  (needs compositor 
+         + access)       │                                               
+      57 +  #   │ FileChooser (file dialogs)   │ -gtk  (DE-agnostic, no  
+         +compositor)    │                                               
+      58 +  #   │ OpenURI (open with...)       │ -gtk  (DE-agnostic, no  
+         +compositor)    │                                               
+      59 +  #   │ Settings (theme/font/color)  │ -gtk  (DE-agnostic, no  
+         +compositor)    │                                               
+      60 +  #   └──────────────────────────────┴──────────────────────── 
+         +───────────────┘                                               
+      61    #                                                            
+      62 -  # Without xdg-desktop-portal-gtk, apps that request          
+         -FileChooser or other                                           
+      63 -  # GTK-only interfaces will hang for 5–30 seconds on every    
+         -launch while the                                               
+      64 -  # portal resolver exhausts its retry timeout — making ALL    
+         -apps feel slow to                                              
+      65 -  # start, even when the portal request is not user-visible.   
+      62 +  #   XDPH = xdg-desktop-portal-hyprland                       
+      63 +  #   -gtk  = xdg-desktop-portal-gtk                           
+      64    #                                                            
+      65 -  # config.common.default = "*" tells the resolver             
+         -(xdg-desktop-portal 1.18+)                                     
+      66 -  # to auto-select the best available implementation for each  
+         -interface,                                                     
+      67 -  # rather than searching for a portal matching                
+         -XDG_CURRENT_DESKTOP and                                        
+      68 -  # timing out when no single portal covers everything.        
+      65 +  # Concrete example: "Firefox opens a file dialog"            
+      66 +  # ────────────────────────────────────────────────           
+      67 +  # 1. User clicks "Open File" in Firefox                      
+      68 +  # 2. Firefox sends:                                          
+         +org.freedesktop.portal.FileChooser.OpenFile  via D-Bus         
+      69 +  # 3. XDP resolver checks hyprland-portals.conf               
+         +(auto-generated by NixOS):                                     
+      70 +  #      [preferred]                                           
+      71 +  #      default=hyprland;gtk       ← try XDPH first, then gtk 
+      72 +  # 4. XDPH: "I don't implement FileChooser" → skipped         
+      73 +  # 5. -gtk: "I implement FileChooser" → opens GTK file picker 
+         + dialog ✓                                                      
+      74 +  #                                                            
+      75 +  # What happens WITHOUT xdg-desktop-portal-gtk                
+      76 +  # ────────────────────────────────────────────               
+      77 +  # Step 4 above: XDPH doesn't handle it.                      
+      78 +  # Step 5: no fallback exists → XDP waits for a response that 
+         + never comes.                                                  
+      79 +  # Result: every app that touches FileChooser (or OpenURI,    
+         +Settings, etc.)                                                
+      80 +  # blocks for 5–30 seconds on launch while the request times  
+         +out.                                                           
+      81 +  # This makes ALL apps feel slow to start, even before the    
+         +window appears.                                                
+      82    xdg.portal = {                                               
+      83      enable = true;                                             
+      84      extraPortals = with pkgs; [                                
+      85        xdg-desktop-portal-gtk                                   
+      86      ];                                                         
+      87 -    config.common.default = "*";                               
+      87    };                                                           
+      88                                                                 
+      89    # US keyboard layout for X11                                 
+
+● Read 1 file (ctrl+o to expand)
+
+● 完成です。変更点:
+
+  - config.common.default = "*" を削除
+  - コメントを以下の構成で書き直しました:
+    - Why apps can't talk to the compositor directly — Wayland
+  のサンドボックスと XDP の役割を ASCII 図で説明
+    - Portal implementations テーブル — XDPH と gtk
+  の担当インターフェースを一覧化
+    - 具体例: Firefox がファイルダイアログを開く —
+  ステップごとの処理フロー（hyprland-portals.conf の中身も）
+    - gtk がない場合 — なぜ全アプリの起動が遅くなるかの説明
+
+✻ Crunched for 38s
+
+❯ これで、おそらく早くなるかな？ 
+
+● まだ nixos
+  で適用していないので断言はできませんが、かなり高い確率で改善するはずです。
+
+  理由:
+  - 「全アプリが遅い」という症状が、FileChooser
+  タイムアウトの典型的な挙動と一致している
+  - Firefox・Discord・Electron 系はすべて起動時に Settings や OpenURI
+  を叩くため、毎回タイムアウトを踏む
+
+  ただし、適用後も遅い場合は別の原因が残っている可能性があります。その際は:
+
+  # ポータルの D-Bus ログを確認
+  journalctl --user -u xdg-desktop-portal -f
+
+  # アプリ起動時間を計測
+  time firefox &
+
+  でどこで詰まっているか確認できます。まず nixos で適用して試してみてください。

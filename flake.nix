@@ -58,6 +58,7 @@
           };
           modules = [
             ./home/home.nix
+            # Hyprland module from the official flake
             inputs.hyprland.homeManagerModules.default
           ];
         };
@@ -73,7 +74,9 @@
             baseModules
             ++ nixosModules
             ++ [
+              # Hyprland module from the official flake
               inputs.hyprland.nixosModules.default
+              # NixVim module from the external flake
               (
                 { pkgs, inputs, ... }:
                 {

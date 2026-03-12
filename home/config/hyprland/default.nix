@@ -236,7 +236,7 @@
         # Super + E: open file manager
         "$mod, E, exec, $fileManager"
         # Super + D: open discord
-        "$mod, D, exec, discord --disable-gpu-sandbox"
+        "$mod, D, exec, discord"
 
         # App launcher
         # Super + Space: open app launcher (rofi)

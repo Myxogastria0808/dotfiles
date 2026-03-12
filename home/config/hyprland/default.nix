@@ -199,16 +199,12 @@
 
       # ── Misc ──────────────────────────────────────────────────────────────────
       misc = {
-        # Variable frame rate: reduce GPU/CPU usage when no animation is running.
-        # Prevents unnecessary renders from starving other processes (Discord, Firefox).
-        vfr = true;
+        # VFR disabled: with vfr = true, Hyprland's render loop sleeps when idle.
+        # Electron apps (Discord) send damage events from an unfocused state, and
+        # if Hyprland is slow to wake from VFR sleep, Chromium's render thread stalls
+        # waiting for a buffer ACK — causing a visible freeze.
+        vfr = false;
         disable_hyprland_logo = true;
-        # Disable direct scanout.
-        # When a window fills the screen, Hyprland may bypass its compositor and
-        # write the app's buffer directly to the display (direct scanout).
-        # On Intel iGPU, this can cause a freeze when the buffer is updated
-        # mid-scanout (e.g. Discord receiving a new message or typing indicator).
-        no_direct_scanout = true;
       };
       #
       # ── Layout ────────────────────────────────────────────────────────────────

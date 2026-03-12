@@ -70,7 +70,6 @@
 
     # Chat and communication
     discord
-    vesktop # Unofficial desktop client
     slack
     zulip
     element-desktop # Matrix protocol desktop client

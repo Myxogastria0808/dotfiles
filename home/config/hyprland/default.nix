@@ -216,7 +216,7 @@
       "$terminal" = "ghostty";
       "$browser" = "firefox";
       "$fileManager" = "dolphin";
-      "$discord" = "vesktop";
+      "$discord" = "discord";
 
       bind = [
         # Basic window management
@@ -236,7 +236,7 @@
         "$mod, B, exec, $browser"
         # Super + E: open file manager
         "$mod, E, exec, $fileManager"
-        # Super + D: open discord client (vesktop)
+        # Super + D: open discord
         "$mod, D, exec, $discord"
 
         # App launcher

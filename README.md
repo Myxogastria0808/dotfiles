@@ -6,21 +6,83 @@ This dotfiles makes home-manager independent from NixOS Modules. Therefore, the 
 
 ## Environment
 
-|                   |                        |
-| ----------------- | ---------------------- |
-| Target Hardware   | ThinkPad X1 Carbon 7th |
-| Window Manager    | KDE Plasma 6           |
-| Terminal Emulator | Ghostty                |
-| Shell             | zsh                    |
-| Vim               | NixVim                 |
-| Prompt            | starship               |
-| Fingerprint       | Disable                |
-| Bluetooth         | Enable                 |
-| KDE connect       | Enable                 |
-| Docker            | Enable                 |
-| Japanese Input    | skk                    |
-| TimeZone          | Asia/Tokyo             |
-| i18n              | en_US.UTF-8            |
+|                   |                                  |
+| ----------------- | -------------------------------- |
+| Target Hardware   | ThinkPad X1 Carbon 7th           |
+| Window Manager    | KDE Plasma 6 / Hyprland / COSMIC |
+| Terminal Emulator | Ghostty                          |
+| Shell             | zsh                              |
+| Vim               | NixVim                           |
+| Prompt            | starship                         |
+| Fingerprint       | Disable                          |
+| Bluetooth         | Enable                           |
+| KDE connect       | Enable                           |
+| Docker            | Enable                           |
+| Japanese Input    | skk                              |
+| TimeZone          | Asia/Tokyo                       |
+| i18n              | en_US.UTF-8                      |
+
+## Display Manager
+
+This dotfiles uses **SDDM** as the display manager. All three desktop environments/compositors coexist as independent session choices — enabling one does not conflict with another.
+
+```
+modules/display-manager/
+├── default.nix    # Shared config: SDDM, XWayland, xdg-portal, keyboard layout
+├── kde/           # KDE Plasma 6
+├── cosmic/        # COSMIC Desktop (by System76)
+└── hyprland/      # Hyprland (Wayland compositor)
+```
+
+### Sessions
+
+| Session     | Type    | Description                                               |
+| ----------- | ------- | --------------------------------------------------------- |
+| `plasmax11` | X11     | KDE Plasma 6 on X11 — **default session**                 |
+| KDE Wayland | Wayland | KDE Plasma 6 on Wayland                                   |
+| COSMIC      | Wayland | Wayland-native DE by System76                             |
+| Hyprland    | Wayland | Tiling compositor. Can be launched via UWSM or standalone |
+
+To change the default session, edit `defaultSession` in `modules/display-manager/default.nix`.
+
+### Key Points
+
+- **SDDM runs on X11.** That is why `services.xserver.enable = true` is required even on a Wayland-first setup. SDDM itself starts as an X11 process; the selected session then launches as Wayland independently.
+
+- **All three DEs/compositors are always registered as SDDM sessions.** Adding or removing one does not affect the others. You simply pick the session from the SDDM login screen.
+
+- **XWayland** (`programs.xwayland.enable = true`) allows legacy X11 applications to run inside any Wayland session (KDE Wayland, COSMIC, or Hyprland). Without it, X11-only apps will not start.
+
+- **xdg-portal** is required for sandboxed apps (Flatpak) to access file dialogs, screenshots, screen sharing, and other desktop integration features. KDE and COSMIC configure their own portal backends automatically; Hyprland uses `xdg-desktop-portal-hyprland` (set via the flake input package).
+
+- **Hyprland + UWSM** (`withUWSM = true`): When launched through UWSM (Universal Wayland Session Manager), Hyprland runs as a proper systemd user session. This handles session lifecycle, environment variable propagation, and `systemd --user` integration automatically. A standalone Hyprland session (without UWSM) is also registered by the NixOS module and can be selected separately from the SDDM session list.
+
+- **COSMIC Greeter is intentionally left disabled.** `cosmic-greeter` is a greetd-based login screen built specifically for the COSMIC desktop. It does not have proper support for non-COSMIC sessions (KDE, Hyprland). Enabling it would replace SDDM entirely and would likely prevent KDE and Hyprland sessions from appearing or launching correctly. Keep SDDM for a multi-session setup.
+
+> For Hyprland keybindings and detailed settings, see [home/config/hyprland/README.md](home/config/hyprland/README.md).
+
+## NixVim
+
+Neovim is managed as a standalone NixVim flake maintained in a separate repository and consumed here as a flake input.
+
+- **Flake input:** `github:Myxogastria0808/nix-flakes-nixvim`
+- **Full documentation (plugins, LSP, keybindings):** [nix-flakes-nixvim README](https://github.com/Myxogastria0808/nix-flakes-nixvim#readme)
+
+Key features at a glance: Tokyo Night theme, neo-tree, LSP for 20+ languages, conform.nvim format-on-save, GitHub Copilot, toggleterm, Markdown preview, and Lean 4 support.
+
+### First-time Setup
+
+Some features require a one-time authentication step after the first launch.
+
+#### GitHub Copilot
+
+Run `:Copilot auth` inside Neovim and follow the device-flow prompt to authenticate with your GitHub account.
+
+```
+:Copilot auth
+```
+
+This only needs to be done once. The token is stored in `~/.config/github-copilot/`.
 
 ## Alias
 

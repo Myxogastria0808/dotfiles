@@ -28,7 +28,8 @@
     enable = true;
     # Use the same package as the NixOS module to avoid version mismatch
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     settings = {
       # ── Monitor ───────────────────────────────────────────────────────────────
@@ -215,12 +216,15 @@
         "$mod, D, exec, discord"
 
         # App launcher
+        # Super + Space: open app launcher (rofi)
         "$mod, Space, exec, rofi -show drun"
 
         # Clipboard history
+        # Super + V: open clipboard history (rofi)
         "$mod, V, exec, cliphist list | rofi -dmenu -display-columns 5 | cliphist decode | wl-copy"
 
         # Color picker (result is copied to clipboard)
+        # Super + C: open color picker (hyprpicker)
         "$mod, C, exec, hyprpicker --autocopy"
 
         # Focus windows
@@ -291,10 +295,13 @@
       #   e: repeat when the key is held down
       #   l: also work when an input inhibitor (e.g. lockscreen) is active
       bindel = [
-        # Volume control: up / down by 5% (with audio feedback)
+        # Volume control: up / down by 1% (with audio feedback)
         # The sounds are from the pantheon.elementary-sound-theme package, which is defined NixOS module (path: modules/app.nix).
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+ && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
+        # Microphone volume control: up / down by 1%
+        "SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+"
+        "SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
         # Brightness control: up / down by 5%
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"

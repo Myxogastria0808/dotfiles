@@ -22,71 +22,148 @@
 
     settings = {
       # ── Monitor ───────────────────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Monitors/
       # Format: name, resolution@hz, position, scale
       # "preferred" and "auto" let Hyprland detect the best values
       monitor = [ ",preferred,auto,1" ];
 
       # ── Autostart ─────────────────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Keywords/#executing
+      # exec-onec: execute only on launch
       exec-once = [
         "waybar"
         # "mako"     # notification daemon - uncomment after adding to packages
       ];
 
       # ── Environment Variables ─────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Environment-variables/
       env = [
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
-        "QT_QPA_PLATFORM,wayland"
-        "GDK_BACKEND,wayland,x11"
+        # "XCURSOR_SIZE,24"
+        # "HYPRCURSOR_SIZE,24"
+        # "QT_QPA_PLATFORM,wayland"
+        # "GDK_BACKEND,wayland,x11"
+        # Ref:https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
+        # Maybe these XDG Specifications are not needed setting explicitly for UWSM users,
+        # because the y are setted by uwsm automatically. for details, see under the link below:
+        # https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_TYPE,wayland"
+        "XDG_SESSION_DESKTOP,Hyprland"
       ];
 
       # ── General ───────────────────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Variables/#general
       general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
-        layout = "dwindle";
-        resize_on_border = true;
+        gaps_in = 5; # Gaps between windows (int, default: 5)
+        gaps_out = 10; # Gaps between windows and screen edge (int, default: 20)
+        border_size = 2; # Size of the border around windows (int, default: 1)
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg"; # Border color for focused windows (str, default: 0xffffffff)
+        "col.inactive_border" = "rgba(595959aa)"; # Border color for unfocused windows (str, default: 0xff444444)
+        layout = "dwindle"; # which layout to use (str, default: "dwindle")
+        resize_on_border = true; # Enables resizing windows by clicking and dragging on borders and gaps (bool, default: false)
       };
 
       # ── Decoration ────────────────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Variables/#decoration
       decoration = {
-        rounding = 10;
+        rounding = 10; # Window corner rounding (int, default: 0)
         blur = {
           enabled = true;
-          size = 3;
-          passes = 1;
+          size = 3; # Blur size (int, default: 8)
         };
         shadow = {
           enabled = true;
-          range = 4;
-          render_power = 3;
+          range = 20; # Shadow range (int, default: 4)
+          color = "rgba(70, 130, 180, 0.5)"; # Shadow color (str, default: 0xee1a1a1a)
         };
       };
 
       # ── Animations ────────────────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Monitors/
       animations = {
         enabled = true;
+        # bezier curve for animations:
+        #   Format: name, x1, y1, x2, y2
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
         animation = [
+          # event name:
+          #   windows: appearance a window
+          #   windowsOut: disappearance a window
+          #   border: change border color
+          #   fade: fade in/out when switching workspaces or changing focus
+          #   workspaces: switch between workspaces
+          #
+          # Animation Tree
+          # Ref: https://wiki.hypr.land/Configuring/Animations/
+          #
+          # global
+          #  ↳ windows - styles: slide, popin, gnomed
+          #    ↳ windowsIn - window open - styles: same as windows
+          #    ↳ windowsOut - window close - styles: same as windows
+          #    ↳ windowsMove - everything in between, moving, dragging, resizing.
+          #  ↳ layers - styles: slide, popin, fade
+          #    ↳ layersIn - layer open
+          #    ↳ layersOut - layer close
+          #  ↳ fade
+          #    ↳ fadeIn - fade in for window open
+          #    ↳ fadeOut - fade out for window close
+          #    ↳ fadeSwitch - fade on changing activewindow and its opacity
+          #    ↳ fadeShadow - fade on changing activewindow for shadows
+          #    ↳ fadeDim - the easing of the dimming of inactive windows
+          #    ↳ fadeLayers - for controlling fade on layers
+          #      ↳ fadeLayersIn - fade in for layer open
+          #      ↳ fadeLayersOut - fade out for layer close
+          #    ↳ fadePopups - for controlling fade on wayland popups
+          #      ↳ fadePopupsIn - fade in for wayland popup open
+          #      ↳ fadePopupsOut - fade out for wayland popup close
+          #    ↳ fadeDpms - for controlling fade when dpms is toggled
+          #  ↳ border - for animating the border's color switch speed
+          #  ↳ borderangle - for animating the border's gradient angle - styles: once (default), loop
+          #  ↳ workspaces - styles: slide, slidevert, fade, slidefade, slidefadevert
+          #    ↳ workspacesIn - styles: same as workspaces
+          #    ↳ workspacesOut - styles: same as workspaces
+          #    ↳ specialWorkspace - styles: same as workspaces
+          #      ↳ specialWorkspaceIn - styles: same as workspaces
+          #      ↳ specialWorkspaceOut - styles: same as workspaces
+          #  ↳ zoomFactor - animates the screen zoom
+          #  ↳ monitorAdded - monitor added zoom animation
+          #
+          # on / off: 1 to enable, 0 to disable
+          #
+          # speed: duration of the animation in ds (1ds = 100ms)
+          #
+          # bezier curve name: the name of the bezier curve to use for the animation
+          #   myBezier: a custom bezier curve defined above
+          #   default: the default bezier curve provided by Hyprland
+          #
+          # style: the style of the animation
+
+          # windows: appearance a window
+          #   Format: event name, on / off, speed, bezier curve name, style
           "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
+          # windowsOut: disappearance a window
+          #   Format: event name, on / off, speed, bezier curve name, style
+          "windowsOut, 1, 7, default"
+          # border: change border color
+          #   Format: event name, on / off, speed, bezier curve name, style
           "border, 1, 10, default"
+          # fade: fade in/out when switching workspaces or changing focus
+          #   Format: event name, on / off, speed, bezier curve name, style
           "fade, 1, 7, default"
+          # workspaces: switch between workspaces
+          #   Format: event name, on / off, speed, bezier curve name, style
           "workspaces, 1, 6, default"
         ];
       };
 
       # ── Input ─────────────────────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Variables/#input
       input = {
-        kb_layout = "us";
-        follow_mouse = 1;
-        sensitivity = 0;
+        kb_layout = "us"; # Keyboard layout (str, default: "us")
+        sensitivity = 0; # Mouse sensitivity (-1.0 ~ 1.0, default: 0)
         touchpad = {
-          natural_scroll = true;
-          tap-to-click = true;
+          natural_scroll = true; # Natural scrolling (bool, default: false)
+          tap_button_map = "lrm"; # Map of left, right, middle buttons for tap-to-click ([lrm/lmr], default: "lrm")
         };
       };
 
@@ -97,19 +174,22 @@
       };
 
       # ── Keybindings ───────────────────────────────────────────────────────────
+      # Ref: https://wiki.hypr.land/Configuring/Binds/
       "$mod" = "SUPER";
       "$terminal" = "ghostty";
       "$browser" = "firefox";
-      "$fileManager" = "yazi";
+      "$fileManager" = "Dolphin";
 
       bind = [
-        # Basic
+        # Basic window management
         # Super + Q: close window
         "$mod, Q, killactive"
         # Super + M: logout
         "$mod, M, exit"
         # Super + F: toggle fullscreen
         "$mod, F, fullscreen"
+        # Super + T: toggle floating
+        "$mod, T, togglefloating"
 
         # Applications
         # Super + Enter: open terminal
@@ -124,7 +204,7 @@
         # App launcher
         "$mod, Space, exec, rofi -show drun"
 
-        # Focus
+        # Focus windows
         "$mod, H, movefocus, l"
         "$mod, L, movefocus, r"
         "$mod, K, movefocus, u"
@@ -161,27 +241,57 @@
         "$mod SHIFT, 0, movetoworkspace, 10"
 
         # Screenshot (grimblast)
-        ", Print, exec, grimblast copy area"
-        "SHIFT, Print, exec, grimblast copy screen"
-        "$mod, Print, exec, grimblast copy active"
+        #
+        # grimblast subcommands:
+        #   area: select an area with the mouse
+        #   active: capture the currently focused window
+        #   screen: capture the entire screen
+        #
+        # grimblast action:
+        #   copy: copy the screenshot to the clipboard
+        #   save <path>: save the screenshot to the specified path
+        #   copysave <path>: copy the screenshot to the clipboard and save the screenshot to the specified path
+
+        # Super + Print: capture selected area and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
+        "$mod, Print, exec, grimblast area copysave ~/Pictures/Screenshots/%Y-%m-%d-%H:%M:%S.png"
+        # Print: capture selected area and copy to clipboard
+        ", Print, exec, grimblast area copy"
+
+        # Super + Ctrl + Print: capture active window and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
+        "$mod CTRL, Print, exec, grimblast active copysave ~/Pictures/Screenshots/%Y-%m-%d-%H:%M:%S.png"
+        # Ctrl + Print: capture active window and copy to clipboard
+        "CTRL, Print, exec, grimblast active copy"
+
+        # Super + Shift + Print: capture entire screen and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
+        "$mod SHIFT, Print, exec, grimblast screen copysave ~/Pictures/Screenshots/%Y-%m-%d-%H:%M:%S.png"
+        # Shift + Print: capture entire screen and copy to clipboard
+        "SHIFT, Print, exec, grimblast screen copy"
       ];
 
       # Volume / brightness (repeat while held)
       bindel = [
+        # Volume control: up / down by 5%
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        # Brightness control: up / down by 5%
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
       ];
 
+      # Mute (toggle)
       bindl = [
+        # Mute audio
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        # Mute microphone
         ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ];
 
-      # Mouse bindings (drag to move/resize)
+      # Mouse bindings
+      # Ref: https://wiki.hypr.land/Configuring/Binds/#mouse-binds
       bindm = [
+        # Super + Left Click: move window
         "$mod, mouse:272, movewindow"
+        # Super + Right Click: resize window
         "$mod, mouse:273, resizewindow"
       ];
     };

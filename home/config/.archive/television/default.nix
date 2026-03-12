@@ -26,7 +26,7 @@
     };
     packages = with pkgs; [
       television
-      inputs.nix-search-tv.packages.${pkgs.system}.default
+      inputs.nix-search-tv.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }

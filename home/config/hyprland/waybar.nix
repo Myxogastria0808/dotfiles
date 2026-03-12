@@ -75,8 +75,12 @@
 
         "custom/mic" = {
           exec = "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{if ($3==\"[MUTED]\") print \"MIC MUTE\"; else printf \"MIC %d%%\", $2*100}'";
-          interval = 2;
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+          # signal = 8: listen for SIGRTMIN+8.
+          # Hyprland keybinds send `pkill -RTMIN+8 waybar` on mic volume/mute change,
+          # so waybar refreshes instantly instead of waiting for the polling interval.
+          signal = 8;
+          interval = 30;
+          on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar";
           on-click-right = "pavucontrol";
           tooltip = "Left: mute toggle / Right: open pavucontrol";
         };

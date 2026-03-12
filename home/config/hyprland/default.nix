@@ -63,6 +63,11 @@
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
+        # Enable native Wayland for Firefox (avoids XWayland freeze/crash issues)
+        "MOZ_ENABLE_WAYLAND,1"
+        # Enable native Wayland for Electron apps (Discord, VSCode, etc.)
+        # "auto" falls back to X11 if Wayland is unavailable
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
       ];
 
       # ── General ───────────────────────────────────────────────────────────────
@@ -179,6 +184,14 @@
           natural_scroll = true; # Natural scrolling (bool, default: false)
           tap_button_map = "lrm"; # Map of left, right, middle buttons for tap-to-click ([lrm/lmr], default: "lrm")
         };
+      };
+
+      # ── Misc ──────────────────────────────────────────────────────────────────
+      misc = {
+        # Variable frame rate: reduce GPU/CPU usage when no animation is running.
+        # Prevents unnecessary renders from starving other processes (Discord, Firefox).
+        vfr = true;
+        disable_hyprland_logo = true;
       };
 
       # ── Layout ────────────────────────────────────────────────────────────────
@@ -299,9 +312,13 @@
         # The sounds are from the pantheon.elementary-sound-theme package, which is defined NixOS module (path: modules/app.nix).
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+ && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
-        # Microphone volume control: up / down by 1%
-        "SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+"
-        "SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
+        # Microphone volume control: up / down by 1% (with audio feedback and instant waybar refresh)
+        # Sound: sound-theme-freedesktop package (defined in modules/app.nix)
+        # Execution order: wpctl (sync) → pkill (sync, waybar refreshes with updated value) ; paplay & (async)
+        # NOTE: `cmd1 && paplay & pkill` would background wpctl too, so pkill fires before volume is set.
+        #       Using `;` ensures paplay is detached AFTER pkill has already signalled waybar.
+        "SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+ && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
+        "SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%- && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/freedesktop/stereo/audio-volume-change.oga &"
         # Brightness control: up / down by 5%
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
@@ -312,8 +329,8 @@
       bindl = [
         # Mute audio
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        # Mute microphone
-        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        # Mute microphone (with instant waybar refresh)
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar"
       ];
 
       # Mouse bindings

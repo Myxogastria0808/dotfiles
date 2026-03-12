@@ -22,8 +22,6 @@
     blueman
     # Power menu
     wlogout
-    # Dark mode style for Qt apps (enables -style Adwaita-Dark argument)
-    adwaita-qt6
   ];
 
   wayland.windowManager.hyprland = {
@@ -54,6 +52,8 @@
       # ── Environment Variables ─────────────────────────────────────────────────
       # Ref: https://wiki.hypr.land/Configuring/Environment-variables/
       env = [
+        "KDE_COLOR_SCHEME_PATH,/run/current-system/sw/share/color-schemes/BreezeDark.colors"
+
         # ── XDG Desktop Specifications ──────────────────────────────────────────
         # Ref: https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
         # NOTE: UWSM users may not need these — UWSM sets them automatically at session start.
@@ -215,7 +215,8 @@
       "$mod" = "SUPER";
       "$terminal" = "ghostty";
       "$browser" = "firefox";
-      "$fileManager" = "dolphin -style Adwaita-Dark";
+      "$fileManager" = "dolphin";
+      "$discord" = "vesktop";
 
       bind = [
         # Basic window management
@@ -235,8 +236,8 @@
         "$mod, B, exec, $browser"
         # Super + E: open file manager
         "$mod, E, exec, $fileManager"
-        # Super + D: open discord
-        "$mod, D, exec, discord"
+        # Super + D: open discord client (vesktop)
+        "$mod, D, exec, $discord"
 
         # App launcher
         # Super + Space: open app launcher (rofi)
@@ -301,17 +302,17 @@
         #   screen  capture the entire screen
 
         # Super + Print: capture selected area and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
-        "$mod, Print, exec, grimblast copysave area ~/Pictures/Screenshots/%Y-%m-%d-%H:%M:%S.png"
+        "$mod, Print, exec, grimblast copysave area ~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S%3N.png"
         # Print: capture selected area and copy to clipboard
         ", Print, exec, grimblast copy area"
 
         # Super + Ctrl + Print: capture active window and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
-        "$mod CTRL, Print, exec, grimblast copysave active ~/Pictures/Screenshots/%Y-%m-%d-%H:%M:%S.png"
+        "$mod CTRL, Print, exec, grimblast copysave active ~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S%3N.png"
         # Ctrl + Print: capture active window and copy to clipboard
         "CTRL, Print, exec, grimblast copy active"
 
         # Super + Shift + Print: capture entire screen and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
-        "$mod SHIFT, Print, exec, grimblast copysave screen ~/Pictures/Screenshots/%Y-%m-%d-%H:%M:%S.png"
+        "$mod SHIFT, Print, exec, grimblast copysave screen ~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S%3N.png"
         # Shift + Print: capture entire screen and copy to clipboard
         "SHIFT, Print, exec, grimblast copy screen"
       ];

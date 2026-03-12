@@ -1,0 +1,162 @@
+
+ ▐▛███▜▌   Claude Code v2.1.70
+▝▜█████▛▘  Sonnet 4.6 · Claude Pro
+  ▘▘ ▝▝    ~/dotfiles
+
+❯ 前回のログは、これです。2026-03-12-234551-firefoxdiscordwindows-q-window. 
+  txt                                                                       
+  discordの固まるパターンが判明した。誰かがメッセージを入力したり、送信した 
+  りすると固まってしまう。その後、かなりの時間が経過すると直ったりする。    
+  あえて、miscの設定をコメントアウトしたが、それでもダメだった。            
+
+● Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● 前回の修正内容を踏まえた上で、現在の設定ファイルを確認します。
+
+● Read 2 files (ctrl+o to expand)
+
+● 「誰かがタイプ/送信したときにフリーズ」という新たなパターンはかなり重要な手が
+  かりです。現在の設定を確認した上で追加調査します。
+
+● Searched for 3 patterns (ctrl+o to expand)
+
+● Bash(hyprctl clients 2>/dev/null | grep -A8 -i discord || echo "Hyprland not
+      running or discord not open")
+  ⎿   _____________________
+     < Welcome to NixOS!!! >
+      ---------------------
+     … +25 lines (ctrl+o to expand)
+
+● 重大な発見: xwayland: 0 —
+  DiscordはすでにネイティブWaylandで動作しています。XWaylandが原因ではない。
+
+● Read 1 file (ctrl+o to expand)
+
+● Bash(hyprctl clients 2>/dev/null | grep -E "class:|xwayland:" | head -30)
+  ⎿   _____________________
+     < Welcome to NixOS!!! >
+      ---------------------
+     … +11 lines (ctrl+o to expand)
+
+● 状況が明確になりました。
+
+  重要な確認事項:
+  - Discord: xwayland: 0 → ネイティブWayland動作 ✅
+  - Firefox: xwayland: 0 → ネイティブWayland動作 ✅
+
+  つまりXWayland問題は解決済み。
+
+  新たなフリーズパターンの分析:
+
+  「誰かがタイプ/送信 → フリーズ」はDiscordがWebSocketイベントを受信してWayland
+  バッファを更新する際にIntel 
+  GPUのDRMフェンスタイムアウトが発生している可能性が高い。
+
+  タイピングインジケーターは非常に頻繁（200ms間隔）にUIを更新するため、Electron→
+  Hyprland→Intel iGPUのバッファスワップが詰まります。
+
+  最も効果的な修正2つ：
+
+  修正1: AQ_NO_MODIFIERS=1
+  HyprlandのaqAquamarine バックエンドがIntel
+  GPUとのDRMモディファイア同期に失敗するのを防ぐ。Intel iGPU +
+  Hyprlandの既知のフリーズ対策として最もよく報告されている。
+
+  修正2: misc.no_direct_scanout = true
+  Discordが画面の大部分を占めているとき、Hyprlandがダイレクトスキャンアウトを試
+  みてバッファ同期に失敗することがある。これを無効化する。
+
+  適用します：
+
+● Update(modules/display-manager/hyprland/default.nix)
+  ⎿  Added 5 lines
+      25      ELECTRON_OZONE_PLATFORM_HINT = "auto";                     
+      26      # NixOS Electron/Chromium wrappers: inject                 
+          --ozone-platform=wayland at launch                             
+      27      NIXOS_OZONE_WL = "1";                                      
+      28 +    # Disable DRM format modifiers for Intel iGPU.             
+      29 +    # Hyprland's aquamarine backend can deadlock on DRM        
+         +modifier negotiation                                           
+      30 +    # with Intel i915, causing the compositor to freeze when   
+         +Electron apps                                                  
+      31 +    # (Discord) rapidly submit new Wayland buffers (e.g.       
+         +typing indicators).                                            
+      32 +    AQ_NO_MODIFIERS = "1";                                     
+      33    };                                                           
+      34  }                                                              
+
+● 次に misc セクションを復元（no_direct_scanout = true を追加）：
+
+● Update(home/config/hyprland/default.nix)
+  ⎿  Added 13 lines, removed 7 lines
+      197          };                                                    
+      198        };                                                      
+      199                                                                
+      200 -      # #                                                     
+          -── Misc ──────────────────────────────────────────────────────
+          -────────────                                                  
+      201 -      # misc = {                                              
+      202 -      #   #                                                   
+          - Variable frame rate: reduce GPU/CPU usage when no animation  
+          -is running.                                                   
+      203 -      #   #                                                   
+          - Prevents unnecessary renders from starving other processes   
+          -(Discord, Firefox).                                           
+      204 -      #   vfr = true;                                         
+      205 -      #   disable_hyprland_logo = true;                       
+      206 -      # };                                                    
+      200 +      #                                                       
+          +── Misc ──────────────────────────────────────────────────────
+          +────────────                                                  
+      201 +      misc = {                                                
+      202 +        #                                                     
+          + Variable frame rate: reduce GPU/CPU usage when no animation  
+          +is running.                                                   
+      203 +        #                                                     
+          + Prevents unnecessary renders from starving other processes   
+          +(Discord, Firefox).                                           
+      204 +        vfr = true;                                           
+      205 +        disable_hyprland_logo = true;                         
+      206 +        # Disable direct scanout.                             
+      207 +        # When a window fills the screen, Hyprland may bypass 
+          + its compositor and                                           
+      208 +        # write the app's buffer directly to the display      
+          +(direct scanout).                                             
+      209 +        # On Intel iGPU, this can cause a freeze when the     
+          +buffer is updated                                             
+      210 +        # mid-scanout (e.g. Discord receiving a new message   
+          +or typing indicator).                                         
+      211 +        no_direct_scanout = true;                             
+      212 +      };                                                      
+      213        #                                                       
+      214        # ── Layout ─────────────────────────────────────────── 
+           ─────────────────────                                         
+      215        dwindle = {                                             
+
+● 適用は nixos + hm 両方が必要です：
+
+  nixos && hm
+
+  ---
+  まとめ：
+
+  ┌──────────────┬──────────────────┬──────────────────────────────────────┐
+  │     修正     │       内容       │                 理由                 │
+  ├──────────────┼──────────────────┼──────────────────────────────────────┤
+  │ AQ_NO_MODIFI │ Intel GPU        │ aquamarineバックエンドとi915ドライバ │
+  │ ERS=1        │ DRMモディファイ  │ のフェンス同期デッドロック防止       │
+  │              │ ア無効化         │                                      │
+  ├──────────────┼──────────────────┼──────────────────────────────────────┤
+  │ misc.no_dire │ ダイレクトスキャ │ Discord画面更新時のバッファ同期失敗  │
+  │ ct_scanout = │ ンアウト無効化   │ 防止                                 │
+  │  true        │                  │                                      │
+  ├──────────────┼──────────────────┼──────────────────────────────────────┤
+  │ misc.vfr =   │ 可変フレームレー │ 無駄なGPUレンダリングを削減          │
+  │ true         │ ト               │                                      │
+  └──────────────┴──────────────────┴──────────────────────────────────────┘
+
+  特に AQ_NO_MODIFIERS=1 はIntel iGPU +
+  Hyprlandのフリーズに対する最も報告件数の多い修正です。タイピングインジケーター
+  のような高頻度バッファ更新が引き金になるケースに効きます。
+
+✻ Brewed for 2m 46s

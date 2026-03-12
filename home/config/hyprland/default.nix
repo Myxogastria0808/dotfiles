@@ -197,13 +197,19 @@
         };
       };
 
-      # # ── Misc ──────────────────────────────────────────────────────────────────
-      # misc = {
-      #   # Variable frame rate: reduce GPU/CPU usage when no animation is running.
-      #   # Prevents unnecessary renders from starving other processes (Discord, Firefox).
-      #   vfr = true;
-      #   disable_hyprland_logo = true;
-      # };
+      # ── Misc ──────────────────────────────────────────────────────────────────
+      misc = {
+        # Variable frame rate: reduce GPU/CPU usage when no animation is running.
+        # Prevents unnecessary renders from starving other processes (Discord, Firefox).
+        vfr = true;
+        disable_hyprland_logo = true;
+        # Disable direct scanout.
+        # When a window fills the screen, Hyprland may bypass its compositor and
+        # write the app's buffer directly to the display (direct scanout).
+        # On Intel iGPU, this can cause a freeze when the buffer is updated
+        # mid-scanout (e.g. Discord receiving a new message or typing indicator).
+        no_direct_scanout = true;
+      };
       #
       # ── Layout ────────────────────────────────────────────────────────────────
       dwindle = {

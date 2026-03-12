@@ -26,10 +26,5 @@
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
     # NixOS Electron/Chromium wrappers: inject --ozone-platform=wayland at launch
     NIXOS_OZONE_WL = "1";
-    # Disable DRM format modifiers for Intel iGPU.
-    # Hyprland's aquamarine backend can deadlock on DRM modifier negotiation
-    # with Intel i915, causing the compositor to freeze when Electron apps
-    # (Discord) rapidly submit new Wayland buffers (e.g. typing indicators).
-    # AQ_NO_MODIFIERS = "1";
   };
 }

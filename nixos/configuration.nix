@@ -74,10 +74,11 @@
   # between the compositor and the graphics driver, which causes GPU rendering
   # instability, lag, and XWayland freezes.
   # Ref: https://wiki.hypr.land/Nix/Hyprland-on-NixOS/
-  hardware.graphics = {
-    enable = true;
-    package = (inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa);
-  };
+  hardware.graphics.enable = true;
+  # hardware.graphics = {
+  #   enable = true;
+  #   package = (inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa);
+  # };
 
   # ── Users ─────────────────────────────────────────────────────────────────────
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";

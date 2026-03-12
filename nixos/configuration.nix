@@ -21,9 +21,11 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
+  # NOTE: temporary settings
   # linux-zen: performance-optimized kernel with better scheduling responsiveness
   # Reduces app freezes and input latency compared to the standard kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
+
   # Clear /tmp on every boot for a clean state
   boot.tmp.cleanOnBoot = true;
 
@@ -70,11 +72,13 @@
   };
 
   # Enable GPU acceleration (OpenGL/Vulkan).
+  hardware.graphics.enable = true;
+
+  # NOTE: temporary settings
   # Use mesa from Hyprland flake's own nixpkgs input to avoid version mismatch
   # between the compositor and the graphics driver, which causes GPU rendering
   # instability, lag, and XWayland freezes.
   # Ref: https://wiki.hypr.land/Nix/Hyprland-on-NixOS/
-  hardware.graphics.enable = true;
   # hardware.graphics = {
   #   enable = true;
   #   package = (inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa);

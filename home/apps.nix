@@ -11,7 +11,6 @@
     ./config/skk
     ./config/firefox
     ./config/hyprland
-    ./config/mako
   ];
   # User-level packages managed by home-manager
   home.packages = with pkgs; [

@@ -1,8 +1,9 @@
 { inputs, pkgs, ... }:
 {
   imports = [
-    ./rofi.nix
-    ./waybar.nix
+    ./moka
+    ./rofi
+    ./waybar
   ];
 
   # hyprland family tools
@@ -44,7 +45,7 @@
 
       # ── Autostart ─────────────────────────────────────────────────────────────
       # Ref: https://wiki.hypr.land/Configuring/Keywords/#executing
-      # exec-onec: execute only on launch
+      # exec-once: execute only on launch
       exec-once = [
         "swww-daemon"
         "wl-paste --type text --watch cliphist store" # Stores only text data
@@ -79,7 +80,7 @@
       };
 
       # ── Animations ────────────────────────────────────────────────────────────
-      # Ref: https://wiki.hypr.land/Configuring/Monitors/
+      # Ref: https://wiki.hypr.land/Configuring/Animations/
       animations = {
         enabled = true;
         # bezier curve for animations:
@@ -300,7 +301,7 @@
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
       ];
 
-      # bindel:
+      # bindl:
       #   l: also work when an input inhibitor (e.g. lockscreen) is active
       bindl = [
         # Mute audio

@@ -2,6 +2,9 @@
 
 > **Config files:** `home/config/hyprland/default.nix`, `home/config/hyprland/rofi.nix`, `home/config/hyprland/waybar.nix`
 
+> [!WARNING]
+> Always launch Hyprland via the **`hyprland-uwsm`** session in SDDM. The standalone `hyprland` session (without UWSM) is also registered automatically by the NixOS module and will appear in the SDDM session list, but it bypasses UWSM entirely. **Its stability is not guaranteed and it is not supported by this dotfiles.**
+
 ---
 
 ## Table of Contents
@@ -37,22 +40,21 @@
 | `$terminal`    | `ghostty` | Terminal emulator |
 | `$browser`     | `firefox` | Web browser       |
 | `$fileManager` | `dolphin` | File manager      |
+| `$discord`     | `discord` | Discord client    |
 
 ---
 
 ## Environment Variables
 
-Set via Hyprland's `env` block and propagated to the entire systemd user session (via UWSM).
+Set via NixOS `environment.sessionVariables` in `modules/display-manager/hyprland/default.nix` and propagated to the entire systemd user session (via UWSM).
 
-| Variable                       | Value      | Description                                                                    |
-| ------------------------------ | ---------- | ------------------------------------------------------------------------------ |
-| `XDG_CURRENT_DESKTOP`          | `Hyprland` | Advertises the current desktop to apps                                         |
-| `XDG_SESSION_TYPE`             | `wayland`  | Tells apps the session is Wayland                                              |
-| `XDG_SESSION_DESKTOP`          | `Hyprland` | Used by some portals / session managers                                        |
-| `MOZ_ENABLE_WAYLAND`           | `1`        | Firefox runs natively on Wayland (avoids XWayland freeze/crash issues)         |
-| `ELECTRON_OZONE_PLATFORM_HINT` | `auto`     | Electron apps (Discord, VSCode, …) prefer Wayland; falls back to X11 if needed |
+| Variable                       | Value  | Description                                                                     |
+| ------------------------------ | ------ | ------------------------------------------------------------------------------- |
+| `MOZ_ENABLE_WAYLAND`           | `1`    | Firefox runs natively on Wayland (avoids XWayland freeze/crash issues)          |
+| `ELECTRON_OZONE_PLATFORM_HINT` | `auto` | Electron apps (Discord, VSCode, …) prefer Wayland; falls back to X11 if needed  |
+| `NIXOS_OZONE_WL`               | `1`    | NixOS Electron/Chromium wrappers inject `--ozone-platform=wayland` at launch    |
 
-> **Note:** The three XDG variables are also set automatically by UWSM, so their presence here is largely redundant but harmless.
+> **Note:** `XDG_CURRENT_DESKTOP`, `XDG_SESSION_TYPE`, and `XDG_SESSION_DESKTOP` are set automatically by UWSM and do not need to be configured explicitly.
 
 ---
 

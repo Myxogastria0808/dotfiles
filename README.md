@@ -36,12 +36,13 @@ modules/display-manager/
 
 ### Sessions
 
-| Session     | Type    | Description                                               |
-| ----------- | ------- | --------------------------------------------------------- |
-| `plasmax11` | X11     | KDE Plasma 6 on X11 — **default session**                 |
-| KDE Wayland | Wayland | KDE Plasma 6 on Wayland                                   |
-| COSMIC      | Wayland | Wayland-native DE by System76                             |
-| Hyprland    | Wayland | Tiling compositor. Can be launched via UWSM or standalone |
+| Session         | Type    | Description                                                                   |
+| --------------- | ------- | ----------------------------------------------------------------------------- |
+| `plasmax11`     | X11     | KDE Plasma 6 on X11                                                           |
+| `plasma`        | Wayland | KDE Plasma 6 on Wayland                                                       |
+| COSMIC          | Wayland | Wayland-native DE by System76                                                 |
+| `hyprland-uwsm` | Wayland | Hyprland via UWSM (recommended) — **default session**                         |
+| `hyprland`      | Wayland | Hyprland standalone (no UWSM) — **stability not guaranteed**, avoid if unsure |
 
 To change the default session, edit `defaultSession` in `modules/display-manager/default.nix`.
 
@@ -55,7 +56,7 @@ To change the default session, edit `defaultSession` in `modules/display-manager
 
 - **xdg-portal** is required for sandboxed apps (Flatpak) to access file dialogs, screenshots, screen sharing, and other desktop integration features. KDE and COSMIC configure their own portal backends automatically; Hyprland uses `xdg-desktop-portal-hyprland` (set via the flake input package).
 
-- **Hyprland + UWSM** (`withUWSM = true`): When launched through UWSM (Universal Wayland Session Manager), Hyprland runs as a proper systemd user session. This handles session lifecycle, environment variable propagation, and `systemd --user` integration automatically. A standalone Hyprland session (without UWSM) is also registered by the NixOS module and can be selected separately from the SDDM session list.
+- **Hyprland + UWSM** (`withUWSM = true`): When launched through UWSM (Universal Wayland Session Manager), Hyprland runs as a proper systemd user session. This handles session lifecycle, environment variable propagation, and `systemd --user` integration automatically. **Always use the `hyprland-uwsm` session** from the SDDM login screen. A standalone Hyprland session (`hyprland`) is also registered automatically by the NixOS module and appears in the SDDM session list, but running it **bypasses UWSM entirely** — its stability is not guaranteed and it is not supported by this dotfiles.
 
 - **Hyprland is managed as a flake input** (`github:hyprwm/Hyprland`). Both the NixOS module (`inputs.hyprland.nixosModules.default`) and the home-manager module (`inputs.hyprland.homeManagerModules.default`) are wired into the flake outputs, so the compositor and its portal package always come from the same pinned revision.
 

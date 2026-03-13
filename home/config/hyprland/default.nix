@@ -276,17 +276,6 @@
         "$mod, Print, exec, bash -c 'mkdir -p ~/Pictures/Screenshots && grimblast copysave area ~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d_%H%M%S%3N).png'"
         # Print: capture selected area → copy to clipboard only
         ", Print, exec, grimblast copy area"
-
-        # Super + ALT + Print: capture active window → copy to clipboard + save
-        "$mod ALT, Print, exec, bash -c 'mkdir -p ~/Pictures/Screenshots && grimblast copysave active ~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d_%H%M%S%3N).png'"
-        # ALT + Print: capture active window → copy to clipboard only
-        "ALT, Print, exec, grimblast copy active"
-
-        # Super + Shift + Print: capture entire screen → copy to clipboard + save
-        # (Shift+Print → Sys_Req keysym on Linux)
-        "$mod SHIFT, Sys_Req, exec, bash -c 'mkdir -p ~/Pictures/Screenshots && grimblast copysave screen ~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d_%H%M%S%3N).png'"
-        # Shift + Print: capture entire screen → copy to clipboard only
-        "SHIFT, Sys_Req, exec, grimblast copy screen"
       ];
 
       # bindel:

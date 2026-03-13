@@ -26,11 +26,11 @@
     # Ref: https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
     #
     # Tells apps (e.g. portals, tray) which DE is running.
-    XDG_CURRENT_DESKTOP = "Hyprland";
+    # XDG_CURRENT_DESKTOP = "Hyprland";
     # Marks the session as Wayland (not X11). Required by some apps to opt in.
-    XDG_SESSION_TYPE = "wayland";
+    # XDG_SESSION_TYPE = "wayland";
     # Used by systemd/logind and xdg-desktop-portal to select the right portal backend.
-    XDG_SESSION_DESKTOP = "Hyprland";
+    # XDG_SESSION_DESKTOP = "Hyprland";
 
     # ── Wayland rendering hints ───────────────────────────────────────────────
     # Force Firefox to use native Wayland rendering (prevents XWayland-induced freezes)

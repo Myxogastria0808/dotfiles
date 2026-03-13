@@ -20,7 +20,6 @@
           "memory"
           "battery"
           "network"
-          "custom/mic"
           "pulseaudio"
           "tray"
           "custom/power"
@@ -71,20 +70,6 @@
           format = "VOL {volume}%";
           format-muted = "VOL MUTE";
           on-click = "pavucontrol";
-        };
-
-        "custom/mic" = {
-          exec = "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{if ($3==\"[MUTED]\") print \"MIC MUTE\"; else printf \"MIC %d%%\", $2*100}'";
-          # signal = 8: listen for SIGRTMIN+8.
-          # Hyprland keybinds send `pkill -RTMIN+8 waybar` on mic volume/mute change,
-          # so waybar refreshes instantly instead of waiting for the polling interval.
-          signal = 8;
-          # Short interval as fallback for missed signals (e.g. when keys are held rapidly).
-          # wpctl get-volume is cheap, so 1s polling has negligible overhead.
-          interval = 1;
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar";
-          on-click-right = "pavucontrol";
-          tooltip = "Left: mute toggle / Right: open pavucontrol";
         };
 
         bluetooth = {
@@ -142,7 +127,6 @@
       #network,
       #pulseaudio,
       #bluetooth,
-      #custom-mic,
       #custom-power,
       #tray {
         padding: 0 10px;

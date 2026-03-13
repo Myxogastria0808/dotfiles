@@ -285,17 +285,12 @@
       #   e: repeat when the key is held down
       #   l: also work when an input inhibitor (e.g. lockscreen) is active
       bindel = [
-        # Volume control: up / down by 1% (with audio feedback)
-        # The sounds are from the pantheon.elementary-sound-theme package, which is defined NixOS module (path: modules/app.nix).
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+ && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- && paplay /run/current-system/sw/share/sounds/elementary/stereo/audio-volume-change.wav &"
-        # Microphone volume control: up / down by 1% (with audio feedback and instant waybar refresh)
-        # Sound: sound-theme-freedesktop package (defined in modules/app.nix)
-        # Execution order: wpctl (sync) → pkill (sync, waybar refreshes with updated value) ; paplay & (async)
-        # NOTE: `cmd1 && paplay & pkill` would background wpctl too, so pkill fires before volume is set.
-        #       Using `;` ensures paplay is detached AFTER pkill has already signalled waybar.
-        "SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+ && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/elementary/stereo/bell.wav &"
-        "SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%- && pkill -RTMIN+8 waybar ; paplay /run/current-system/sw/share/sounds/elementary/stereo/bell.wav &"
+        # Volume control: up / down by 1%
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
+        # Microphone volume control: up / down by 1%
+        "SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+"
+        "SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
         # Brightness control: up / down by 5%
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
@@ -306,8 +301,8 @@
       bindl = [
         # Mute audio
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        # Mute microphone (with instant waybar refresh)
-        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar"
+        # Mute microphone
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ];
 
       # Mouse bindings

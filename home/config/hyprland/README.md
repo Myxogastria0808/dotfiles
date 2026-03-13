@@ -1,6 +1,6 @@
 # Hyprland Configuration Reference
 
-> **Config files:** `home/config/hyprland/default.nix`, `home/config/hyprland/rofi.nix`, `home/config/hyprland/waybar.nix`
+> **Config files:** `home/config/hyprland/default.nix`, `home/config/hyprland/rofi/default.nix`, `home/config/hyprland/waybar/default.nix`, `home/config/hyprland/moka/default.nix`
 
 > [!WARNING]
 > Always launch Hyprland via the **`hyprland-uwsm`** session in SDDM. The standalone `hyprland` session (without UWSM) is also registered automatically by the NixOS module and will appear in the SDDM session list, but it bypasses UWSM entirely. **Its stability is not guaranteed and it is not supported by this dotfiles.**
@@ -11,9 +11,9 @@
 
 - [Variables](#variables)
 - [Environment Variables](#environment-variables)
-- [Misc](#misc)
 - [Keybindings](#keybindings)
   - [Window Management](#window-management)
+  - [Utilities](#utilities)
   - [Application Launcher](#application-launcher)
   - [Focus Movement](#focus-movement)
   - [Window Movement](#window-movement)
@@ -27,6 +27,7 @@
 - [Input](#input)
 - [Layout](#layout)
 - [Autostart](#autostart)
+- [Notifications](#notifications)
 - [Waybar](#waybar)
 - [Bundled Tools](#bundled-tools)
 
@@ -58,15 +59,6 @@ Set via NixOS `environment.sessionVariables` in `modules/display-manager/hyprlan
 
 ---
 
-## Misc
-
-| Option                       | Value  | Description                                                                                                        |
-| ---------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------ |
-| `misc.vfr`                   | `true` | Variable frame rate — reduces GPU/CPU usage when no animation is running, preventing starvation of other processes |
-| `misc.disable_hyprland_logo` | `true` | Hides the Hyprland logo on the background                                                                          |
-
----
-
 ## Keybindings
 
 ### Window Management
@@ -78,12 +70,6 @@ Set via NixOS `environment.sessionVariables` in `modules/display-manager/hyprlan
 | `Super + F` | Toggle fullscreen      |
 | `Super + T` | Toggle floating mode   |
 
-### Application Launcher
-
-| Key             | Action                   |
-| --------------- | ------------------------ |
-| `Super + Space` | Open app launcher (rofi) |
-
 ### Utilities
 
 | Key             | Action                                                         |
@@ -94,6 +80,12 @@ Set via NixOS `environment.sessionVariables` in `modules/display-manager/hyprlan
 | `Super + D`     | Open Discord                                                   |
 | `Super + V`     | Open clipboard history picker (cliphist + rofi)                |
 | `Super + C`     | Open color picker (hyprpicker) — result is copied to clipboard |
+
+### Application Launcher
+
+| Key             | Action                   |
+| --------------- | ------------------------ |
+| `Super + Space` | Open app launcher (rofi) |
 
 ### Focus Movement
 
@@ -137,31 +129,27 @@ Sends the active window to the specified workspace.
 
 Uses [grimblast](https://github.com/hyprwm/contrib/tree/main/grimblast). `copysave` copies to clipboard **and** saves to `~/Pictures/Screenshots/` with a timestamp filename.
 
-| Key                     | Target        | Action                                   |
-| ----------------------- | ------------- | ---------------------------------------- |
-| `Print`                 | Selected area | Copy to clipboard                        |
-| `Super + Print`         | Selected area | Copy + save to `~/Pictures/Screenshots/` |
-| `Ctrl + Print`          | Active window | Copy to clipboard                        |
-| `Super + Ctrl + Print`  | Active window | Copy + save                              |
-| `Shift + Print`         | Entire screen | Copy to clipboard                        |
-| `Super + Shift + Print` | Entire screen | Copy + save                              |
+> **Note:** On Linux, `Shift+Print` generates the `Sys_Req` keysym, not `Print`. Bindings involving `Shift+Print` must use `Sys_Req` as the key name.
+
+| Key             | Target        | Action                                   |
+| --------------- | ------------- | ---------------------------------------- |
+| `Print`         | Selected area | Copy to clipboard                        |
+| `Super + Print` | Selected area | Copy + save to `~/Pictures/Screenshots/` |
 
 ### Volume & Brightness
 
 `bindel` keys **repeat while held**. `bindl` keys **work on the lock screen** as well.
 
-Both speaker and microphone volume feedback use `pantheon.elementary-sound-theme` (defined in `modules/app.nix`): speaker uses `audio-volume-change.wav`, microphone uses `bell.wav`.
-
-| Key                            | Action                                                                 |
-| ------------------------------ | ---------------------------------------------------------------------- |
-| `XF86AudioRaiseVolume`         | Speaker volume +1% (with sound feedback)                               |
-| `XF86AudioLowerVolume`         | Speaker volume -1% (with sound feedback)                               |
-| `Shift + XF86AudioRaiseVolume` | Microphone volume +1% (with sound feedback + instant waybar refresh)   |
-| `Shift + XF86AudioLowerVolume` | Microphone volume -1% (with sound feedback + instant waybar refresh)   |
-| `XF86AudioMute`                | Toggle speaker mute (works on lock screen)                             |
-| `XF86AudioMicMute`             | Toggle microphone mute + instant waybar refresh (works on lock screen) |
-| `XF86MonBrightnessUp`          | Brightness +5%                                                         |
-| `XF86MonBrightnessDown`        | Brightness -5%                                                         |
+| Key                            | Action                              |
+| ------------------------------ | ----------------------------------- |
+| `XF86AudioRaiseVolume`         | Speaker volume +1%                  |
+| `XF86AudioLowerVolume`         | Speaker volume -1%                  |
+| `Shift + XF86AudioRaiseVolume` | Microphone volume +1%               |
+| `Shift + XF86AudioLowerVolume` | Microphone volume -1%               |
+| `XF86AudioMute`                | Toggle speaker mute (lock screen)   |
+| `XF86AudioMicMute`             | Toggle microphone mute (lock screen)|
+| `XF86MonBrightnessUp`          | Brightness +5%                      |
+| `XF86MonBrightnessDown`        | Brightness -5%                      |
 
 ### Mouse Bindings
 
@@ -190,14 +178,13 @@ Both speaker and microphone volume feedback use `pantheon.elementary-sound-theme
 
 ### Decoration
 
-| Option           | Value                     | Description               |
-| ---------------- | ------------------------- | ------------------------- |
-| `rounding`       | `10`                      | Window corner radius (px) |
-| `blur.enabled`   | `true`                    | Background blur enabled   |
-| `blur.size`      | `3`                       | Blur radius               |
-| `shadow.enabled` | `true`                    | Drop shadow enabled       |
-| `shadow.range`   | `20`                      | Shadow spread range (px)  |
-| `shadow.color`   | `rgba(70, 130, 180, 0.5)` | Shadow color (steel blue) |
+| Option           | Value  | Description               |
+| ---------------- | ------ | ------------------------- |
+| `rounding`       | `10`   | Window corner radius (px) |
+| `blur.enabled`   | `true` | Background blur enabled   |
+| `blur.size`      | `3`    | Blur radius               |
+| `shadow.enabled` | `true` | Drop shadow enabled       |
+| `shadow.range`   | `20`   | Shadow spread range (px)  |
 
 ---
 
@@ -252,14 +239,28 @@ The following commands run once on Hyprland startup (`exec-once`).
 
 ---
 
+## Notifications
+
+**Config file:** `home/config/hyprland/moka/default.nix`
+
+Uses [Mako](https://github.com/emersion/mako), a Wayland notification daemon compatible with libnotify.
+
+> **Why a notification daemon is required:** Without a daemon listening on D-Bus, any app that calls libnotify (e.g. Discord on message receipt) will hang indefinitely waiting for a response, causing the app to appear frozen.
+
+| Option            | Value  | Description                          |
+| ----------------- | ------ | ------------------------------------ |
+| `default-timeout` | `5000` | Auto-dismiss notifications after 5 s |
+
+---
+
 ## Waybar
 
-**Config file:** `home/config/hyprland/waybar.nix`
+**Config file:** `home/config/hyprland/waybar/default.nix`
 
 A top bar (height: 30px) with the following layout:
 
 ```
-[Workspaces] [Window Title]    [Clock]    [BT] [CPU] [MEM] [BAT] [NET] [MIC] [VOL] [Tray] [PWR]
+[Workspaces] [Window Title]    [Clock]    [BT] [CPU] [MEM] [BAT] [NET] [VOL] [Tray] [PWR]
 ```
 
 ### Module Details
@@ -273,7 +274,6 @@ A top bar (height: 30px) with the following layout:
 | Memory       | `MEM XX%` (updates every 5s)                                            | —                                           |
 | Battery      | `BAT XX%` / `CHG XX%` / `PLG XX%`<br>⚠ ≤30%: yellow, ≤15%: red         | —                                           |
 | Network      | `WiFi (XX%)` / `ETH` / `No Network`<br>Hover: SSID + IP                 | —                                           |
-| Mic          | `MIC XX%` / `MIC MUTE` (signal-based instant refresh; 1s poll fallback) | Left: toggle mute / Right: open pavucontrol |
 | Volume       | `VOL XX%` / `VOL MUTE`                                                  | Click to open pavucontrol                   |
 | Bluetooth    | `BT` / `BT OFF` / `BT {device}`<br>Connected: blue text                 | Click to open blueman-manager               |
 | Power        | `PWR` (red)                                                             | Click to open wlogout (power menu)          |

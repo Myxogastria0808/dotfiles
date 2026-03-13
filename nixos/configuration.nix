@@ -115,6 +115,49 @@
   # OpenSSH - allow remote login via SSH
   services.openssh.enable = true;
 
+  # ── CPU Scheduler (sched_ext / SCX) ───────────────────────────────────────────
+  # sched_ext は Linux 6.12 以降に統合された「拡張可能スケジューラ」フレームワーク。
+  # 通常は C で実装されたカーネル内スケジューラ(CFS など)が CPU 割り当てを管理するが、
+  # sched_ext を使うと BPF プログラムとして書かれたユーザー空間スケジューラに
+  # その役割を委譲できる。
+  #
+  # NixOS の services.scx モジュールは scx_sched systemd サービスとして管理し、
+  # 起動時に指定したスケジューラを自動的に有効化する。
+  #
+  # ── scx_bpfland ──────────────────────────────────────────────────────────────
+  # インタラクティブ/ラップトップワークロード向けに設計されたスケジューラ。
+  # 以下の二軸でタスクを分類し、優先度を動的に調整する：
+  #
+  #   1. インタラクティブ性 (interactivity score)
+  #      タスクが CPU を短時間だけ使って頻繁に眠る(= キー入力やイベント待ちなど)
+  #      ほど高スコアを得る。GUI アプリ・コンポジタ・音声デーモンなどが該当。
+  #
+  #   2. 仮想デッドライン (virtual deadline)
+  #      スコアの低いバックグラウンドタスク(ビルド・Nix 評価など)にも
+  #      公平な CPU 時間を保証するため、待機時間に応じてデッドラインを繰り上げる。
+  #      これにより長時間のバックグラウンド処理が完全にブロックされることを防ぐ。
+  #
+  # この設計により:
+  #   - アプリ起動時の「最初の CPU スロット取得」が早くなる
+  #     (新プロセスはインタラクティブと判定されやすい)
+  #   - Nix ビルドや Docker 等の重い処理中でもデスクトップの応答性が維持される
+  #   - レイテンシに敏感なオーディオ(PipeWire)やコンポジタ(Hyprland)が
+  #     スケジューリング遅延でドロップフレーム・音飛びを起こしにくくなる
+  #
+  # ── scx_lavd との比較 ────────────────────────────────────────────────────────
+  # scx_lavd (Latency-criticality Aware Virtual Deadline) は big.LITTLE 等の
+  # 異種コア構成(高性能コア + 省電力コア)を活用するために設計されており、
+  # ゲーミング向けのチューニングが施されている。
+  # X1 Carbon 7th (Intel 単一アーキテクチャ + HyperThreading のみ) では
+  # scx_bpfland の方が適しているが、比較実験の価値はある。
+  services.scx = {
+    enable = true;
+    # 使用するスケジューラ実装を指定する。
+    # 変更後は `nixos` コマンドで再ビルド&切り替えが必要。
+    # 利用可能な値: "scx_bpfland" | "scx_lavd" | "scx_rusty" | "scx_tickless" など
+    scheduler = "scx_bpfland";
+  };
+
   # Fingerprint reader (disabled - driver compatibility issues on this hardware)
   # services.fprintd = {
   #   enable = true;

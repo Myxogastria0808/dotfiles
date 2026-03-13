@@ -149,5 +149,7 @@
     # Minecraft launcher supporting multiple mod loaders
     prismlauncher
 
+    # Command line benchmarking tool for measuring execution time of commands
+    hyperfine
   ];
 }

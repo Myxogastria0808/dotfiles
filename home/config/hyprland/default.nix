@@ -264,21 +264,29 @@
         #   area    select an area interactively with the mouse
         #   active  capture the currently focused window
         #   screen  capture the entire screen
+        #
+        # NOTE: On Linux, Shift+Print generates the Sys_Req keysym (not Print).
+        #       Bindings involving Shift+Print must use "Sys_Req" as the key name.
+        #
+        # NOTE: grimblast passes the path through strftime(), but %3N (milliseconds)
+        #       is a GNU date extension not supported by strftime(). Use bash -c with
+        #       $(date ...) for timestamp expansion, and mkdir -p to ensure the dir exists.
 
-        # Super + Print: capture selected area and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
-        "$mod, Print, exec, grimblast copysave area ~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S%3N.png"
-        # Print: capture selected area and copy to clipboard
+        # Super + Print: capture selected area → copy to clipboard + save
+        "$mod, Print, exec, bash -c 'mkdir -p ~/Pictures/Screenshots && grimblast copysave area ~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d_%H%M%S%3N).png'"
+        # Print: capture selected area → copy to clipboard only
         ", Print, exec, grimblast copy area"
 
-        # Super + Ctrl + Print: capture active window and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
-        "$mod CTRL, Print, exec, grimblast copysave active ~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S%3N.png"
-        # Ctrl + Print: capture active window and copy to clipboard
-        "CTRL, Print, exec, grimblast copy active"
+        # Super + ALT + Print: capture active window → copy to clipboard + save
+        "$mod ALT, Print, exec, bash -c 'mkdir -p ~/Pictures/Screenshots && grimblast copysave active ~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d_%H%M%S%3N).png'"
+        # ALT + Print: capture active window → copy to clipboard only
+        "ALT, Print, exec, grimblast copy active"
 
-        # Super + Shift + Print: capture entire screen and copy to clipboard and save to ~/Pictures/Screenshots with timestamp
-        "$mod SHIFT, Print, exec, grimblast copysave screen ~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S%3N.png"
-        # Shift + Print: capture entire screen and copy to clipboard
-        "SHIFT, Print, exec, grimblast copy screen"
+        # Super + Shift + Print: capture entire screen → copy to clipboard + save
+        # (Shift+Print → Sys_Req keysym on Linux)
+        "$mod SHIFT, Sys_Req, exec, bash -c 'mkdir -p ~/Pictures/Screenshots && grimblast copysave screen ~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d_%H%M%S%3N).png'"
+        # Shift + Print: capture entire screen → copy to clipboard only
+        "SHIFT, Sys_Req, exec, grimblast copy screen"
       ];
 
       # bindel:

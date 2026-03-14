@@ -30,13 +30,12 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    # NOTE: check performance
     # Disable home-manager's built-in systemd integration: it conflicts with UWSM,
     # which manages the Hyprland session via its own systemd units.
-    # Ref: https://wiki.hypr.land/Nix/Hyprland-on-Home-Manager/
-    # systemd.enable = false;
-    package = pkgs.hyprland;
-    portalPackage = pkgs.xdg-desktop-portal-hyprland;
+    # Ref: https://wiki.nixos.org/wiki/Hyprland/
+    systemd.enable = false;
+    # package = pkgs.hyprland;
+    # portalPackage = pkgs.xdg-desktop-portal-hyprland;
 
     settings = {
       # ── Monitor ───────────────────────────────────────────────────────────────

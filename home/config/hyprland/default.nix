@@ -1,8 +1,11 @@
 { inputs, pkgs, ... }:
 {
   imports = [
-    ./moka
+    # Notification daemon
+    ./swaync
+    # App launcher
     ./rofi
+    # Status bar
     ./waybar
   ];
 

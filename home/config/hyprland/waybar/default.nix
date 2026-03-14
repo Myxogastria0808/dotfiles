@@ -47,7 +47,7 @@ in
         };
 
         clock = {
-          format = "{:%Y-%m-%d %H:%M:%S}";
+          format = "{:%Y-%m-%d %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
         };
 
@@ -87,12 +87,9 @@ in
         "custom/microphone" = {
           exec = "${micScript}";
           return-type = "json";
-          interval = "once";
-          signal = 1;
           on-scroll-up = "pactl set-source-volume @DEFAULT_SOURCE@ +5% && kill -RTMIN+1 $(pgrep -x waybar 2>/dev/null || pgrep waybar)";
           on-scroll-down = "pactl set-source-volume @DEFAULT_SOURCE@ -5% && kill -RTMIN+1 $(pgrep -x waybar 2>/dev/null || pgrep waybar)";
           on-click = "pactl set-source-mute @DEFAULT_SOURCE@ toggle && sleep 0.1 && kill -RTMIN+1 $(pgrep -x waybar 2>/dev/null || pgrep waybar)";
-          tooltip = false;
         };
 
         bluetooth = {
@@ -158,6 +155,10 @@ in
       }
 
       #custom-microphone.muted {
+        color: #f38ba8;
+      }
+
+      #pulseaudio.muted {
         color: #f38ba8;
       }
 

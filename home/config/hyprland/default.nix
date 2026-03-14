@@ -50,6 +50,7 @@
       # Ref: https://wiki.hypr.land/Configuring/Keywords/#executing
       # exec-once: execute only on launch
       exec-once = [
+        "uwsm finalize"
         "swww-daemon"
         "wl-paste --type text --watch cliphist store" # Stores only text data
         "wl-paste --type image --watch cliphist store" # Stores only image data

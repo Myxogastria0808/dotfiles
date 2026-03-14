@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   # ── Qt Wayland Support ────────────────────────────────────────────────────────
   # Required for Qt apps (LibreOffice, QGIS, etc.) to render natively on Wayland
@@ -16,10 +16,8 @@
     enable = true;
     withUWSM = true; # Use UWSM for session management (recommended)
     xwayland.enable = true; # Allow X11 apps to run inside Hyprland
-    # Use the flake input package to get the latest version
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    package = pkgs.hyprland;
+    portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
 
   # ── Wayland environment variables ─────────────────────────────────────────────

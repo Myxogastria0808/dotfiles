@@ -17,12 +17,6 @@
     # Ref: https://github.com/Myxogastria0808/nix-flakes-nixvim
     nixvimConfig.url = "github:Myxogastria0808/nix-flakes-nixvim/main";
 
-    # Hyprland - Wayland compositor
-    # Ref: https://wiki.hypr.land/Nix/
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -58,8 +52,6 @@
           };
           modules = [
             ./home/home.nix
-            # Hyprland module from the official flake
-            inputs.hyprland.homeManagerModules.default
           ];
         };
       };
@@ -74,8 +66,6 @@
             baseModules
             ++ nixosModules
             ++ [
-              # Hyprland module from the official flake
-              inputs.hyprland.nixosModules.default
               # NixVim module from the external flake
               (
                 { pkgs, inputs, ... }:

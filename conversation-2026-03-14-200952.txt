@@ -1,0 +1,771 @@
+
+ ▐▛███▜▌   Claude Code v2.1.70
+▝▜█████▛▘  Sonnet 4.6 · Claude Pro
+  ▘▘ ▝▝    ~/dotfiles
+
+❯ 前回のログです。                                                          
+                                                                            
+   ▐▛███▜▌   Claude Code v2.1.70                                            
+  ▝▜█████▛▘  Sonnet 4.6 · Claude Pro                                        
+    ▘▘ ▝▝    ~/dotfiles                                                     
+                                                                            
+  ❯ 前回の会話ログは、2026-03-14-190733-claudehyprland.txtです。            
+    ログイン速度は改善されましたが、これで問題ないかを精査して              
+                                                                            
+  ● Searched for 2 patterns, read 1 file (ctrl+o to expand)                 
+                                                                            
+  ● ログはそこで終わっています。現在の設定を確認します。                    
+                                                                            
+  ● Read 1 file (ctrl+o to expand)                                          
+                                                                            
+  ● 現在の設定を確認しました。uwsm finalize は exec-once                    
+  の先頭に正しく追加されています（line 53）。                               
+                                                                            
+    修正の妥当性                                                            
+                                                                            
+    uwsm finalize を先頭に置くのは正しいアプローチです。これにより：        
+    - WAYLAND_DISPLAY、HYPRLAND_INSTANCE_SIGNATURE 等の環境変数が即座に     
+  systemd セッションへ伝播                                                  
+    - wayland-session-waitenv.service のタイムアウト待ち（3.8s）が解消      
+                                                                            
+    ただし、ログに気になる点が2つあります                                   
+                                                                            
+    前回の systemd-analyze --user blame の結果に：                          
+                                                                            
+    27ms app-com.system76.CosmicInitialSetup@autostart.service  ← COSMIC    
+  の残骸                                                                    
+    18ms                                                                    
+  app-org.kde.plasma\x2dfallback\x2dsession\x2drestore@autostart.service  ← 
+   KDE の残骸                                                               
+                                                                            
+    これらは Hyprland セッションで不要なサービスが動いている状態です。起動  
+  速度への影響は小さいですが、クリーンではありません。                      
+                                                                            
+    ---                                                                     
+    確認してほしいこと                                                      
+                                                                            
+    修正が効いているか、現在の起動時間を測定してください：                  
+                                                                            
+    systemd-analyze --user blame | head -10                                 
+                                                                            
+    wayland-session-waitenv.service が 3.8s →                               
+  大幅短縮されていれば修正成功です。まだ遅い場合は結果を共有してください。  
+                                                                            
+  ✻ Cooked for 34s                                                          
+                                                                            
+  ❯ λ systemd-analyze --user blame | head -10                               
+    4.857s wayland-session-waitenv.service                                  
+    4.474s wayland-wm@hyprland.desktop.service                              
+     543ms swaync.service                                                   
+     446ms xdg-desktop-portal.service                                       
+     188ms wayland-wm-env@hyprland.desktop.service                          
+     100ms xdg-desktop-portal-gtk.service                                   
+      36ms app-gnome\x2dkeyring\x2dpkcs11@autostart.service                 
+      31ms xdg-desktop-portal-hyprland.service                              
+      29ms app-at\x2dspi\x2ddbus\x2dbus@autostart.service                   
+      28ms app-com.system76.CosmicInitialSetup@autostart.service            
+                                                                            
+  ● むしろ悪化しています（3.8s → 4.8s）。exec-once での uwsm finalize       
+  は効いていません。NixOS 側の設定を確認します。                            
+                                                                            
+  ● Searched for 2 patterns, read 4 files (ctrl+o to expand)                
+                                                                            
+  ● 前回より悪化しています（3.8s → 4.8s）。exec-once の uwsm finalize       
+  は正しい方向ですが、根本原因が別にある可能性があります。                  
+                                                                            
+    まずクリティカルチェーンを確認してください：                            
+                                                                            
+    systemd-analyze --user critical-chain                                   
+  wayland-wm@hyprland.desktop.service                                       
+                                                                            
+    systemctl --user status wayland-wm@hyprland.desktop.service             
+                                                                            
+    ---                                                                     
+    現時点の設定評価                                                        
+                                                                            
+                                                                            
+  ┌───────────────────────────────────────┬──────────────────────────────┐  
+    │                 項目                  │             状態              
+  │                                                                         
+                                                                            
+  ├───────────────────────────────────────┼──────────────────────────────┤  
+    │ withUWSM = true (NixOS)               │ ✓ 正しい                      
+  │                                                                         
+                                                                            
+  ├───────────────────────────────────────┼──────────────────────────────┤  
+    │ systemd.enable = false (home-manager) │ ✓ 正しい                      
+  │                                                                         
+                                                                            
+  ├───────────────────────────────────────┼──────────────────────────────┤  
+    │ exec-once = ["uwsm finalize" ...]     │ 配置は正しいが効果が疑わしい  
+  │                                                                         
+                                                                            
+  └───────────────────────────────────────┴──────────────────────────────┘  
+                                                                            
+    疑問点                                                                  
+                                                                            
+    withUWSM = true を使っている場合、NixOS モジュールが生成する UWSM       
+  ラッパーが READY 通知を自動処理するはず。そのため exec-once の uwsm       
+  finalize が二重になっている可能性があります。                             
+                                                                            
+    また、Hyprland の exec-once で起動した子プロセスが NOTIFY_SOCKET        
+  を正しく継承できているかも不明です（Hyprland                              
+  が環境変数をサニタイズする場合、uwsm finalize が systemd に READY         
+    シグナルを送れない）。                                                  
+                                                                            
+    ---                                                                     
+    critical-chain の結果を見せてもらえれば、実際にどこで時間が使われている 
+  かを特定できます。                                                        
+                                                                            
+  ✻ Worked for 2m 28s                                                       
+                                                                            
+  ❯ ┌──(hello❄ nixos)-[dotfiles]    main                                  
+    └─λ systemd-analyze --user critical-chain                               
+  wayland-wm@hyprland.desktop.service                                       
+    The time when unit became active or started is printed after the "@"    
+  character.                                                                
+    The time the unit took to start is printed after the "+" character.     
+                                                                            
+    wayland-wm@hyprland.desktop.service +4.474s                             
+    └─basic.target @284ms                                                   
+      └─sockets.target @284ms                                               
+        └─gcr-ssh-agent.socket @271ms +12ms                                 
+          └─app.slice @267ms                                                
+            └─-.slice @233ms                                                
+                                                                            
+    ┌──(hello❄ nixos)-[dotfiles]    main                                  
+    └─λ  systemctl --user status wayland-wm@hyprland.desktop.service        
+    ● wayland-wm@hyprland.desktop.service - Main service for Hyprland, An   
+  intelligent dynamic tiling Wayland compositor                             
+         Loaded: loaded (/etc/systemd/user/wayland-wm@.service; static)     
+        Drop-In:                                                            
+  /run/user/1000/systemd/user/wayland-wm@hyprland.desktop.service.d         
+                 └─50_custom.conf                                           
+         Active: active (running) since Sat 2026-03-14 19:10:26 JST; 26min  
+  ago                                                                       
+     Invocation: 32a7e2c3b4034cefa39cf92a97e4d2eb                           
+           Docs: man:uwsm(1)                                                
+       Main PID: 1865 (start-hyprland)                                      
+          Tasks: 1135 (limit: 18771)                                        
+         Memory: 5.2G (peak: 5.4G)                                          
+            CPU: 21min 25.111s                                              
+         CGroup: /user.slice/user-1000.slice/user@1000.service/session.slic 
+  e/wayland-wm@hyprland.desktop.service                                     
+                 ├─1865 /nix/store/mxrp34cn2hnq6xjs0qyylj4b20wy7qb4-hyprlan 
+  d-0.54.0+date=2026-03-13_9bf8fe7/bin/start-hyprland                       
+                 ├─1870 /home/hello/.nix-profile/bin/Hyprland --watchdog-fd 
+   4                                                                        
+                 ├─1892 /home/hello/.nix-profile/bin/swww-daemon            
+                 ├─1893 wl-paste --type text --watch cliphist store         
+                 ├─1895 wl-paste --type image --watch cliphist store        
+                 ├─1896 waybar                                              
+                 ├─1900 Xwayland :0 -rootless -core -listenfd 51 -listenfd  
+  52 -displayfd 95 -wm 92                                                   
+                 ├─2140 ghostty                                             
+                 ├─2259 /run/current-system/sw/bin/discord                  
+  --ozone-platform=wayland --enable-features=WaylandWindowDecorations       
+  --enable-wayland-ime=true --enable-speech-dispatcher                      
+                 ├─2263 /nix/store/ny7iwqbq6mf8rh4w0820mn9xppbwfacy-discord 
+  -0.0.127/opt/Discord/.Discord-wrapped --type=zygote --no-zygote-sandbox   
+                 ├─2264 /nix/store/ny7iwqbq6mf8rh4w0820mn9xppbwfacy-discord 
+  -0.0.127/opt/Discord/.Discord-wrapped --type=zygote                       
+                 ├─2266 /nix/store/ny7iwqbq6mf8rh4w0820mn9xppbwfacy-discord 
+  -0.0.127/opt/Discord/.Discord-wrapped --type=zygote                       
+                 ├─2281 /nix/store/ny7iwqbq6mf8rh4w0820mn9xppbwfacy-discord 
+  -0.0.127/opt/Discord/chrome_crashpad_handler                              
+  --monitor-self-annotation=ptype=crashpad-handler --no-rate-limit          
+    --datab>                                                                
+                 ├─2301 /nix/store/ny7iwqbq6mf8rh4w0820mn9xppbwfacy-discord 
+  -0.0.127/opt/Discord/.Discord-wrapped --type=zygote --no-zygote-sandbox   
+                 ├─2306 /home/hello/.nix-profile/bin/firefox                
+                 ├─2312 /proc/self/exe --type=utility                       
+  --utility-sub-type=network.mojom.NetworkService --lang=en-US              
+  --service-sandbox-type=none --crashpad-handler-pid=2281                   
+    --enable-crash-report>                                                  
+                 ├─2340 /nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefox 
+  -148.0.2/lib/firefox/crashhelper 2306 14 /tmp/ 16                         
+                 ├─2436 /nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefox 
+  -148.0.2/lib/firefox/firefox -contentproc -ipcHandle 0 -signalPipe 1      
+  -initialChannelId                                                         
+    {191862f8-896a-456a-a891-8d5c4>                                         
+                 ├─2441 /proc/self/exe --type=renderer                      
+  --crashpad-handler-pid=2281                                               
+  --enable-crash-reporter=0bb76f1a-082e-4c42-a8d3-d0bec567dfc3,no_channel   
+    --user-data-dir=/home/hello/.config/d>                                  
+                 ├─2458 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -parentBuildID 20260309125808  
+  -prefsHandle 0:43415 -prefMapHandle                                       
+    1:282090>                                                               
+                 ├─2481 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:43549 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─2491 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -parentBuildID 20260309125808  
+  -prefsHandle 0:43549 -prefMapHandle                                       
+    1:282090>                                                               
+                 ├─2565 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:53516 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─2635 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -parentBuildID 20260309125808  
+  -sandboxingKind 0 -prefsHandle 0:54479                                    
+     -pref>                                                                 
+                 ├─2662 /proc/self/exe --type=utility                       
+  --utility-sub-type=audio.mojom.AudioService --lang=en-US                  
+  --service-sandbox-type=none --crashpad-handler-pid=2281                   
+    --enable-crash-reporter=0>                                              
+                 ├─2697 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─2930 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─2931 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─2956 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─4099                                                     
+  /nix/store/qvraj3bncls4g6309aqs1cahyz382vv8-slack-4.47.72/lib/slack/slack 
+   --type=zygote --no-zygote-sandbox                                        
+                 ├─4100                                                     
+  /nix/store/qvraj3bncls4g6309aqs1cahyz382vv8-slack-4.47.72/lib/slack/slack 
+   --type=zygote                                                            
+                 ├─4102                                                     
+  /nix/store/qvraj3bncls4g6309aqs1cahyz382vv8-slack-4.47.72/lib/slack/slack 
+   --type=zygote                                                            
+                 ├─4121 /nix/store/qvraj3bncls4g6309aqs1cahyz382vv8-slack-4 
+  .47.72/lib/slack/chrome_crashpad_handler                                  
+  --monitor-self-annotation=ptype=crashpad-handler --no-upload-gzip         
+    --database>                                                             
+                 ├─4138                                                     
+  /nix/store/qvraj3bncls4g6309aqs1cahyz382vv8-slack-4.47.72/lib/slack/slack 
+   --type=zygote --no-zygote-sandbox                                        
+                 ├─4144 /proc/self/exe --type=utility                       
+  --utility-sub-type=network.mojom.NetworkService --lang=en-US              
+  --service-sandbox-type=none --render-node-override=/dev/dri/renderD128    
+    --cras>                                                                 
+                 ├─4186                                                     
+  /nix/store/qvraj3bncls4g6309aqs1cahyz382vv8-slack-4.47.72/lib/slack/slack 
+   --type=zygote                                                            
+                 ├─4699 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5364 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5465 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5472 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5481 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5584 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5688 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5695 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5778 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5823 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5870 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5873 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5879 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─5981 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─6088 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─6095 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─6103 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─6273 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 ├─6280 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                 └─6373 "/nix/store/p64gfaxszs96zlmhag1ajcq24kk00dvf-firefo 
+  x-148.0.2/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle     
+  0:45678 -prefMapHandle 1:282090                                           
+    -jsInitHandle 2>                                                        
+                                                                            
+    Mar 14 19:10:27 nixos uwsm_hyprland.desktop[1867]:                      
+  HYPRLAND_INSTANCE_SIGNATURE (already set)                                 
+    Mar 14 19:10:27 nixos uwsm_hyprland.desktop[1867]:   PATH (already set) 
+    Mar 14 19:10:27 nixos uwsm_hyprland.desktop[1867]:   WAYLAND_DISPLAY    
+  (already set)                                                             
+    Mar 14 19:10:27 nixos uwsm_hyprland.desktop[1867]: Autoready: Unit for  
+  hyprland.desktop is already active, notification access is restricted.    
+    Mar 14 19:13:09 nixos uwsm_hyprland.desktop[1870]: *** BUG ***          
+    Mar 14 19:13:09 nixos uwsm_hyprland.desktop[1870]: In                   
+  pixman_region32_union_rect: Invalid rectangle passed                      
+    Mar 14 19:13:09 nixos uwsm_hyprland.desktop[1870]: Set a breakpoint on  
+  '_pixman_log_error' to debug                                              
+    Mar 14 19:13:09 nixos uwsm_hyprland.desktop[1870]: *** BUG ***          
+    Mar 14 19:13:09 nixos uwsm_hyprland.desktop[1870]: In                   
+  pixman_region32_union_rect: Invalid rectangle passed                      
+    Mar 14 19:13:09 nixos uwsm_hyprland.desktop[1870]: Set a breakpoint on  
+  '_pixman_log_error' to debug                                              
+                                                                            
+    [1]  + 6633 suspended  systemctl --user status                          
+  wayland-wm@hyprland.desktop.service                                       
+                                                                            
+  ● 重要な発見があります。ログの核心部分：                                  
+                                                                            
+    Autoready: Unit for hyprland.desktop is already active, notification    
+  access is restricted.                                                     
+                                                                            
+    これが全てを説明しています。UWSM は exec-once より前に autoready        
+  機構で自動的に完了を検出していた。uwsm finalize を exec-once              
+  に追加したのは完全に冗長です（already set                                 
+    が3つ並んでいるのも同じ理由）。                                         
+                                                                            
+    つまり withUWSM = true の環境では uwsm finalize を exec-once            
+  に書く必要はなかった。                                                    
+                                                                            
+    ---                                                                     
+    現在の実際の問題                                                        
+                                                                            
+    4.5s はHyprland 自体の起動時間です。critical-chain                      
+  が示すように、依存サービスは 284ms で揃っており、残りの 4.474s は全て     
+  Hyprland の初期化処理（シェーダーコンパイル、GPU                          
+    初期化等）に費やされています。                                          
+                                                                            
+    副次的なバグも1件あります：                                             
+    pixman_region32_union_rect: Invalid rectangle passed                    
+    起動後2分以降に発生しているため起動速度とは無関係ですが、Hyprland       
+  0.54.0（昨日のビルド）固有のバグの可能性があります。                      
+                                                                            
+    ---                                                                     
+    対処すること                                                            
+                                                                            
+    uwsm finalize は冗長なので削除します：                                  
+                                                                            
+  ● Update(home/config/hyprland/default.nix)                                
+    ⎿  Removed 1 line                                                       
+        50        # Ref:                                                    
+  https://wiki.hypr.land/Configuring/Keywords/#executing                    
+        51        # exec-once: execute only on launch                       
+        52        exec-once = [                                             
+        53 -        "uwsm finalize"                                         
+        53          "swww-daemon"                                           
+        54          "wl-paste --type text --watch cliphist store" # Stores  
+  only text data                                                            
+        55          "wl-paste --type image --watch cliphist store" # Stores 
+   only image data                                                          
+                                                                            
+  ● ---                                                                     
+    まとめ                                                                  
+                                                                            
+    ┌───────────────────────────┬────────────────────────────────────────── 
+  ─────────────────────────────┐                                            
+    │           事象            │                                 結論      
+                               │                                            
+    ├───────────────────────────┼────────────────────────────────────────── 
+  ─────────────────────────────┤                                            
+    │ uwsm finalize (exec-once) │ 削除 OK。UWSM autoready が既に自動処理    
+                               │                                            
+    ├───────────────────────────┼────────────────────────────────────────── 
+  ─────────────────────────────┤                                            
+    │ 4.5s 起動時間             │ Hyprland                                  
+  自体の初期化時間。設定の問題ではない                         │            
+    ├───────────────────────────┼────────────────────────────────────────── 
+  ─────────────────────────────┤                                            
+    │ pixman バグ               │ 起動速度と無関係。flake                   
+  の最新ビルド(0.54.0 2026-03-13)のバグの可能性 │                           
+    └───────────────────────────┴────────────────────────────────────────── 
+  ─────────────────────────────┘                                            
+                                                                            
+    感じた「改善」は設定変更の効果ではなく、起動時間の自然なばらつき（3.8s  
+  → 4.8s）だったようです。現在の設定は正しい状態です。                      
+                                                                            
+  ✻ Baked for 47s                                                           
+                                                                            
+  ❯ つまり、根本的には直らない？                                            
+                                                                            
+  ● 完全には直らないとは言えませんが、設定側でできることはほぼやり尽くした  
+  状態です。                                                                
+                                                                            
+    4.5s の正体                                                             
+                                                                            
+    Hyprland が Wayland ソケットを作成するまでの純粋な初期化時間です。GPU   
+  シェーダーコンパイル・バッファ初期化等が含まれます。これは設定ではなく    
+  Hyprland 本体の問題です。                                                 
+                                                                            
+    改善の可能性がある2点                                                   
+                                                                            
+    1. シェーダーキャッシュが温まっていない可能性                           
+    初回起動またはキャッシュクリア後は遅い。数回ログインすると速くなること  
+  があります。今の 4.5s が毎回なのか確認してみてください。                  
+    2. 使用中の Hyprland が非常に新しい（0.54.0、2026-03-13 ビルド）        
+    昨日のビルドでバグがある可能性があります（pixman                        
+  バグも出ています）。もし次のログイン以降も 4s 超が続くなら、flake.lock    
+  を少し古いコミットに固定するのが有効です：                                
+                                                                            
+    # 現在の hyprland input の最新 rev を確認                               
+    nix flake metadata | grep hyprland                                      
+                                                                            
+    2. 改善しないようなら、flake.nix の hyprland input に rev               
+  を指定して安定版に固定することを検討してください。                        
+                                                                            
+    今の設定は正しい状態なので、次回ログイン時の時間を測ってみてください。  
+                                                                            
+  ✻ Cooked for 31s                                                          
+                                                                            
+  ❯ λ  nix flake metadata | grep hyprland                                   
+    warning: Git tree '/home/hello/dotfiles' is dirty                       
+    ├───hyprland: github:hyprwm/Hyprland/9bf8fe7a5278b5f366384d73d87844a165 
+  c16b7a?narHash=sha256-BP8JCxijLBf5Qk83lEN/9qAOeDuAnftfmr92KQM1QOI%3D      
+  (2026-03-13 21:59:28)                                                     
+    │   │   ├───hyprutils follows input 'hyprland/hyprutils'                
+    │   │   ├───hyprwayland-scanner follows input                           
+  'hyprland/hyprwayland-scanner'                                            
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   │   ├───hyprlang follows input 'hyprland/hyprlang'                  
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   │   ├───hyprutils follows input 'hyprland/hyprutils'                
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   ├───hyprland-guiutils:                                              
+  github:hyprwm/hyprland-guiutils/c2e906261142f5dd1ee0bfc44abba23e2754c660? 
+  narHash=sha256-R2HgtVS1G3KSIKAQ77aOZ%2BQ0HituOmPgXW9nBNkpp3Q%3D           
+  (2025-12-29                                                               
+    15:59:20)                                                               
+    │   │   ├───aquamarine follows input 'hyprland/aquamarine'              
+    │   │   ├───hyprgraphics follows input 'hyprland/hyprgraphics'          
+    │   │   ├───hyprlang follows input 'hyprland/hyprlang'                  
+    │   │   │   ├───aquamarine follows input                                
+  'hyprland/hyprland-guiutils/aquamarine'                                   
+    │   │   │   ├───hyprgraphics follows input                              
+  'hyprland/hyprland-guiutils/hyprgraphics'                                 
+    │   │   │   ├───hyprlang follows input                                  
+  'hyprland/hyprland-guiutils/hyprlang'                                     
+    │   │   │   ├───hyprutils follows input                                 
+  'hyprland/hyprland-guiutils/hyprutils'                                    
+    │   │   │   ├───hyprwayland-scanner follows input                       
+  'hyprland/hyprland-guiutils/hyprwayland-scanner'                          
+    │   │   │   ├───nixpkgs follows input                                   
+  'hyprland/hyprland-guiutils/nixpkgs'                                      
+    │   │   │   └───systems follows input                                   
+  'hyprland/hyprland-guiutils/systems'                                      
+    │   │   ├───hyprutils follows input 'hyprland/hyprutils'                
+    │   │   ├───hyprwayland-scanner follows input                           
+  'hyprland/hyprwayland-scanner'                                            
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   ├───hyprland-protocols:                                             
+  github:hyprwm/hyprland-protocols/3f3860b869014c00e8b9e0528c7b4ddc335c21ab 
+  ?narHash=sha256-P9zdGXOzToJJgu5sVjv7oeOGPIIwrd9hAUAP3PsmBBs%3D            
+  (2025-12-08                                                               
+    17:25:53)                                                               
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   │   ├───hyprutils follows input 'hyprland/hyprutils'                
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   │   ├───hyprutils follows input 'hyprland/hyprutils'                
+    │   │   ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   │   └───systems follows input 'hyprland/systems'                    
+    │   │   │   └───nixpkgs follows input                                   
+  'hyprland/pre-commit-hooks/nixpkgs'                                       
+    │   │   └───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │   └───xdph: github:hyprwm/xdg-desktop-portal-hyprland/4b8801228ff958d 
+  028f588f0c2b911dbf32297f9?narHash=sha256-xzjC1CV3%2BwpUQKNF%2BGnadnkeGUCJ 
+  X%2BvgaWIZsnz9tzI%3D (2025-10-25                                          
+    22:26:18)                                                               
+    │       ├───hyprland-protocols follows input                            
+  'hyprland/hyprland-protocols'                                             
+    │       ├───hyprlang follows input 'hyprland/hyprlang'                  
+    │       ├───hyprutils follows input 'hyprland/hyprutils'                
+    │       ├───hyprwayland-scanner follows input                           
+  'hyprland/hyprwayland-scanner'                                            
+    │       ├───nixpkgs follows input 'hyprland/nixpkgs'                    
+    │       └───systems follows input 'hyprland/systems'                    
+                                                                            
+  ● Read 1 file (ctrl+o to expand)                                          
+                                                                            
+  ● 「根本的に直らない」とは言えません。まだ原因が確定していないのが正直な  
+  ところです。                                                              
+                                                                            
+    現在の状況整理                                                          
+                                                                            
+    今使っている Hyprland は v0.54.0+HEAD(2026-03-13) —                     
+  リリースではなく最新 main ブランチの HEADです。リリースではなく開発版を使 
+  っているため、リグレッションの可能性があります。                          
+                                                                            
+    flake.nix の設定：                                                      
+                                                                            
+    hyprland = {                                                            
+      url = "github:hyprwm/Hyprland";  # ← rev 指定なし = 常に HEAD         
+      inputs.nixpkgs.follows = "nixpkgs";                                   
+    };                                                                      
+                                                                            
+    切り分けの方法                                                          
+                                                                            
+                                                                            
+  リリースタグに固定して比較すれば「リグレッションか否か」が判断できます：  
+                                                                            
+  ● Update(flake.nix)                                                       
+    ⎿  Added 1 line, removed 1 line                                         
+        20      # Hyprland - Wayland compositor                             
+        21      # Ref: https://wiki.hypr.land/Nix/                          
+        22      hyprland = {                                                
+        23 -      url = "github:hyprwm/Hyprland";                           
+        23 +      url = "github:hyprwm/Hyprland/v0.47.0";                   
+        24        inputs.nixpkgs.follows = "nixpkgs";                       
+        25      };                                                          
+        26    };                                                            
+                                                                            
+  ● 待ってください。v0.47.0                                                 
+  が実際に存在するタグか確認できていません。先ほどの変更を元に戻します。    
+                                                                            
+  ● Update(flake.nix)                                                       
+    ⎿  Added 1 line, removed 1 line                                         
+        20      # Hyprland - Wayland compositor                             
+        21      # Ref: https://wiki.hypr.land/Nix/                          
+        22      hyprland = {                                                
+        23 -      url = "github:hyprwm/Hyprland/v0.47.0";                   
+        23 +      url = "github:hyprwm/Hyprland";                           
+        24        inputs.nixpkgs.follows = "nixpkgs";                       
+        25      };                                                          
+        26    };                                                            
+                                                                            
+  ● Hyprland の GitHub でリリースタグを確認してください：                   
+                                                                            
+    # 最近のリリースタグ一覧                                                
+    curl -s https://api.github.com/repos/hyprwm/Hyprland/releases | grep    
+  '"tag_name"' | head -10                                                   
+                                                                            
+    確認できたタグ（例: v0.45.2）を教えてもらえれば、flake.nix              
+  を適切に固定します。                                                      
+                                                                            
+    固定後に nixos && hm を再適用 →                                         
+  ログインして起動時間を再測定すれば、「4.5s がバージョン固有のリグレッショ 
+  ンか否か」が確定します。それ次第で対応策が変わります。                    
+                                                                            
+  ✻ Crunched for 52s                                                        
+  hyprlandのflakeではなく、nixpkgsの方を使った方がいい？                    
+
+● Searched for 1 pattern, read 2 files (ctrl+o to expand)
+
+● nixpkgs に切り替えるのはアリです。 メリット・デメリットを整理します。
+
+  nixpkgs vs flake 比較
+
+  ┌────────────┬──────────────────────────────────────┬─────────────────────┐
+  │            │          現在（flake HEAD）          │  nixpkgs-unstable   │
+  ├────────────┼──────────────────────────────────────┼─────────────────────┤
+  │ バージョン │ 0.54.0（2026-03-13 dev）             │ 最新安定リリース    │
+  ├────────────┼──────────────────────────────────────┼─────────────────────┤
+  │ 安定性     │ リグレッションの可能性あり（pixman   │ nixpkgs             │
+  │            │ バグが証拠）                         │ のテスト済み        │
+  ├────────────┼──────────────────────────────────────┼─────────────────────┤
+  │ flake 依存 │ hyprland input が必要                │ 不要（依存がシンプ  │
+  │            │                                      │ ル）                │
+  ├────────────┼──────────────────────────────────────┼─────────────────────┤
+  │ NixOS      │ inputs.hyprland.nixosModules.default │ nixpkgs 組み込み    │
+  │ モジュール │                                      │                     │
+  ├────────────┼──────────────────────────────────────┼─────────────────────┤
+  │ home-manag │ inputs.hyprland.homeManagerModules.d │ home-manager        │
+  │ er         │ efault                               │ 組み込み            │
+  │ モジュール │                                      │                     │
+  └────────────┴──────────────────────────────────────┴─────────────────────┘
+
+  起動速度への影響
+
+  4.5s の根本原因がリリース後の HEAD
+  リグレッションかどうかはまだ不明ですが、nixpkgs
+  に切り替えることで「安定版で計測できる」状態になります。
+
+  切り替えの変更点
+
+  3箇所の変更が必要です。やってみますか？
+
+  1. flake.nix — hyprland input を削除、両モジュールの import を削除
+  2. modules/display-manager/hyprland/default.nix — package/portalPackage を
+  pkgs.hyprland に変更
+  3. home/config/hyprland/default.nix — flake
+  由来のオプションが使われていれば調整
+
+  変更してよければ進めます。
+
+✻ Brewed for 41s
+
+❯ はい、お願いします。 
+
+● Read 1 file (ctrl+o to expand)
+
+● 3箇所を変更します。
+
+● Update(flake.nix)
+  ⎿  Removed 6 lines
+      17      # Ref:                                                     
+          https://github.com/Myxogastria0808/nix-flakes-nixvim           
+      18      nixvimConfig.url =                                         
+          "github:Myxogastria0808/nix-flakes-nixvim/main";               
+      19                                                                 
+      20 -    # Hyprland - Wayland compositor                            
+      21 -    # Ref: https://wiki.hypr.land/Nix/                         
+      22 -    hyprland = {                                               
+      23 -      url = "github:hyprwm/Hyprland";                          
+      24 -      inputs.nixpkgs.follows = "nixpkgs";                      
+      25 -    };                                                         
+      20    };                                                           
+      21                                                                 
+      22    outputs =                                                    
+
+● Read 1 file (ctrl+o to expand)
+
+● Update(flake.nix)
+  ⎿  Removed 2 lines
+      52            };                                                   
+      53            modules = [                                          
+      54              ./home/home.nix                                    
+      55 -            # Hyprland module from the official flake          
+      56 -            inputs.hyprland.homeManagerModules.default         
+      55            ];                                                   
+      56          };                                                     
+      57        };                                                       
+
+● Update(flake.nix)
+  ⎿  Removed 2 lines
+      66              baseModules                                        
+      67              ++ nixosModules                                    
+      68              ++ [                                               
+      69 -              # Hyprland module from the official flake        
+      70 -              inputs.hyprland.nixosModules.default             
+      69                # NixVim module from the external flake          
+      70                (                                                
+      71                  { pkgs, inputs, ... }:                         
+
+● 次に modules/display-manager/hyprland/default.nix の package/portalPackage を
+  nixpkgs に変更します。
+
+● Update(modules/display-manager/hyprland/default.nix)
+  ⎿  Added 1 line, removed 1 line
+      1 -{ inputs, pkgs, ... }:                                          
+      1 +{ pkgs, ... }:                                                  
+      2  {                                                               
+      3    # ── Qt Wayland Support                                       
+         ────────────────────────────────────────────────────────        
+      4    # Required for Qt apps (LibreOffice, QGIS, etc.) to render    
+         natively on Wayland                                             
+
+● Update(modules/display-manager/hyprland/default.nix)
+  ⎿  Added 2 lines, removed 4 lines
+      16      enable = true;                                             
+      17      withUWSM = true; # Use UWSM for session management         
+          (recommended)                                                  
+      18      xwayland.enable = true; # Allow X11 apps to run inside     
+          Hyprland                                                       
+      19 -    # Use the flake input package to get the latest version    
+      20 -    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatf 
+         -orm.system}.hyprland;                                          
+      21 -    portalPackage =                                            
+      22 -      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.syst 
+         -em}.xdg-desktop-portal-hyprland;                               
+      19 +    package = pkgs.hyprland;                                   
+      20 +    portalPackage = pkgs.xdg-desktop-portal-hyprland;          
+      21    };                                                           
+      22                                                                 
+      23    # ── Wayland environment variables                           
+          ─────────────────────────────────────────────                  
+
+● 最後に home/config/hyprland/default.nix の package/portalPackage を nixpkgs
+  に変更します。
+
+● Update(home/config/hyprland/default.nix)
+  ⎿  Added 1 line, removed 1 line
+      1 -{ inputs, pkgs, ... }:                                          
+      1 +{ pkgs, ... }:                                                  
+      2  {                                                               
+      3    imports = [                                                   
+      4      # Notification daemon                                       
+
+● Update(home/config/hyprland/default.nix)
+  ⎿  Added 2 lines, removed 4 lines
+      34      # which manages the Hyprland session via its own systemd   
+          units.                                                         
+      35      # Ref:                                                     
+          https://wiki.hypr.land/Nix/Hyprland-on-Home-Manager/           
+      36      systemd.enable = false;                                    
+      37 -    # Use the same package as the NixOS module to avoid        
+         -version mismatch                                               
+      38 -    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatf 
+         -orm.system}.hyprland;                                          
+      39 -    portalPackage =                                            
+      40 -      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.syst 
+         -em}.xdg-desktop-portal-hyprland;                               
+      37 +    package = pkgs.hyprland;                                   
+      38 +    portalPackage = pkgs.xdg-desktop-portal-hyprland;          
+      39                                                                 
+      40      settings = {                                               
+      41        # ── Monitor ─────────────────────────────────────────── 
+          ────────────────────                                           
+
+● 変更完了です。確認します。
+
+● Read 1 file (ctrl+o to expand)
+
+● 問題ありません。適用してください：
+
+  nixos && hm
+
+  適用後、再ログインして起動時間を測定してください：
+
+  systemd-analyze --user blame | head -10
+
+✻ Churned for 45s

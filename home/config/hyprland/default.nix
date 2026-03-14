@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     # Notification daemon
@@ -34,10 +34,8 @@
     # which manages the Hyprland session via its own systemd units.
     # Ref: https://wiki.hypr.land/Nix/Hyprland-on-Home-Manager/
     systemd.enable = false;
-    # Use the same package as the NixOS module to avoid version mismatch
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    package = pkgs.hyprland;
+    portalPackage = pkgs.xdg-desktop-portal-hyprland;
 
     settings = {
       # ── Monitor ───────────────────────────────────────────────────────────────

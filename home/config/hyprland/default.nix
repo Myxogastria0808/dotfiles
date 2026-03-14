@@ -205,9 +205,13 @@
         # Super + Space: open app launcher (rofi)
         "$mod, Space, exec, rofi -show drun"
 
+        # Window switcher
+        # Super: open window switcher (rofi)``
+        "$mod, , exec, rofi -show window"
+
         # Clipboard history
         # Super + V: open clipboard history (rofi)
-        "$mod, V, exec, cliphist list | rofi -dmenu -display-columns 5 | cliphist decode | wl-copy"
+        "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
         # Color picker (result is copied to clipboard)
         # Super + C: open color picker (hyprpicker)

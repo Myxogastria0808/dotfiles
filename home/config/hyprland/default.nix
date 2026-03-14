@@ -206,8 +206,8 @@
         "$mod, Space, exec, rofi -show drun"
 
         # Window switcher
-        # Super: open window switcher (rofi)``
-        "$mod, , exec, rofi -show window"
+        # Super + Tab: open window switcher (rofi)``
+        "$mod, Tab, exec, rofi -show window"
 
         # Clipboard history
         # Super + V: open clipboard history (rofi)

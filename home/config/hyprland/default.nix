@@ -34,8 +34,6 @@
     # which manages the Hyprland session via its own systemd units.
     # Ref: https://wiki.nixos.org/wiki/Hyprland/
     systemd.enable = false;
-    # package = pkgs.hyprland;
-    # portalPackage = pkgs.xdg-desktop-portal-hyprland;
 
     settings = {
       # ── Monitor ───────────────────────────────────────────────────────────────
@@ -48,11 +46,9 @@
       # Ref: https://wiki.hypr.land/Configuring/Keywords/#executing
       # exec-once: execute only on launch
       exec-once = [
-        "swww-daemon"
         "wl-paste --type text --watch cliphist store" # Stores only text data
         "wl-paste --type image --watch cliphist store" # Stores only image data
         "waybar"
-        "discord --start-minimized" # Start Discord minimized to the tray
       ];
 
       # ── General ───────────────────────────────────────────────────────────────

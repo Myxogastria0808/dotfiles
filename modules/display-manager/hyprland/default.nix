@@ -16,8 +16,6 @@
     enable = true;
     withUWSM = true; # Use UWSM for session management (recommended)
     xwayland.enable = true; # Allow X11 apps to run inside Hyprland
-    # package = pkgs.hyprland;
-    # portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
 
   # ── Wayland environment variables ─────────────────────────────────────────────
@@ -35,10 +33,6 @@
     # XDG_SESSION_DESKTOP = "Hyprland";
 
     # ── Wayland rendering hints ───────────────────────────────────────────────
-    # Force Firefox to use native Wayland rendering (prevents XWayland-induced freezes)
-    # MOZ_ENABLE_WAYLAND = "1";
-    # Electron apps (Discord, VSCode, etc.): prefer Wayland, fall back to X11
-    # ELECTRON_OZONE_PLATFORM_HINT = "auto";
     # NixOS Electron/Chromium wrappers: inject --ozone-platform=wayland at launch
     NIXOS_OZONE_WL = "1";
   };

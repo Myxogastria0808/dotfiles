@@ -1,5 +1,16 @@
 { inputs, pkgs, ... }:
 {
+  # ── Qt Wayland Support ────────────────────────────────────────────────────────
+  # Required for Qt apps (LibreOffice, QGIS, etc.) to render natively on Wayland
+  # instead of falling back to XWayland under Hyprland.
+  # Ref: https://wiki.hypr.land/Useful-Utilities/Must-have/
+  environment.systemPackages = with pkgs; [
+    # libsForQt5.qt5.qtwayland
+    qt5.qtwayland
+    # kdePackages.qtwayland
+    qt6Packages.qtwayland
+  ];
+
   # ── Hyprland ──────────────────────────────────────────────────────────────────
   # Wayland compositor (tiling WM). Appears as a session option in SDDM
   # alongside KDE and COSMIC, so all three can coexist without conflict.

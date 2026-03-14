@@ -1,23 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
-  # ── xdg-desktop-portal-hyprland override ──────────────────────────────────────
-  # v1.3.11 has a destructor bug (SIGSEGV in CCWlOutput::~CCWlOutput) that triggers
-  # on every `hm` switch. Override with latest git until a fix is released.
-  nixpkgs.overlays = [
-    (final: prev: {
-      xdg-desktop-portal-hyprland = prev.xdg-desktop-portal-hyprland.overrideAttrs (old: {
-        src = prev.fetchFromGitHub {
-          owner = "hyprwm";
-          repo = "xdg-desktop-portal-hyprland";
-          rev = "906d0ac159803a7df2dc1f948df9327670380f69";
-          hash = "sha256-XhnY0aRuDo5LT8pmJVPofPOgO2hAR7T+XRoaQxtNPzQ=";
-        };
-        version = "1.3.11-unstable-2026-03-14";
-      });
-    })
-  ];
-
-
   # ── Qt Wayland Support ────────────────────────────────────────────────────────
   # Required for Qt apps (LibreOffice, QGIS, etc.) to render natively on Wayland
   # instead of falling back to XWayland under Hyprland.

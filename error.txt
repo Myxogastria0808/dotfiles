@@ -1,0 +1,49 @@
+λ hm
+Starting Home Manager activation
+Activating checkFilesChanged
+Activating checkLinkTargets
+Activating writeBoundary
+Activating installPackages
+replacing old 'home-manager-path'
+installing 'home-manager-path'
+Activating dconfSettings
+Activating linkGeneration
+Cleaning up orphan links from /home/hello
+Creating home file links in /home/hello
+Activating onFilesChange
+Activating reloadSystemd
+The user systemd session is degraded:
+  UNIT                                                     LOAD   ACTIVE SUB    DESCRIPTION
+● drkonqi-coredump-launcher@0-4097-35255_35256-0.service   loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35255/UID 0)
+● drkonqi-coredump-launcher@1-12289-35299_35300-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35299/UID 0)
+● drkonqi-coredump-launcher@10-16387-35552_35553-0.service loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35552/UID 0)
+● drkonqi-coredump-launcher@11-8199-35568_35569-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35568/UID 0)
+● drkonqi-coredump-launcher@12-16388-35584_35585-0.service loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35584/UID 0)
+● drkonqi-coredump-launcher@13-28677-35600_35601-0.service loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35600/UID 0)
+● drkonqi-coredump-launcher@14-16389-35616_35617-0.service loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35616/UID 0)
+● drkonqi-coredump-launcher@15-8201-35632_35633-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35632/UID 0)
+● drkonqi-coredump-launcher@16-3-35649_35650-0.service     loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35649/UID 0)
+● drkonqi-coredump-launcher@17-4101-35665_35666-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35665/UID 0)
+● drkonqi-coredump-launcher@18-12292-35681_35682-0.service loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35681/UID 0)
+● drkonqi-coredump-launcher@19-24580-35700_35701-0.service loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35700/UID 0)
+● drkonqi-coredump-launcher@2-16385-35333_35334-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35333/UID 0)
+● drkonqi-coredump-launcher@3-8195-35387_35388-0.service   loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35387/UID 0)
+● drkonqi-coredump-launcher@4-20481-35422_35423-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35422/UID 0)
+● drkonqi-coredump-launcher@5-8196-35442_35443-0.service   loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35442/UID 0)
+● drkonqi-coredump-launcher@6-24577-35458_35459-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35458/UID 0)
+● drkonqi-coredump-launcher@7-4100-35480_35481-0.service   loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35480/UID 0)
+● drkonqi-coredump-launcher@8-28673-35510_35511-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35510/UID 0)
+● drkonqi-coredump-launcher@9-28674-35526_35527-0.service  loaded failed failed Launch DrKonqi for a systemd-coredump crash (PID 35526/UID 0)
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+20 loaded units listed.
+Attempting to reload services anyway...
+The service manager is degraded.
+Failed services: drkonqi-coredump-launcher@8-28673-35510_35511-0.service, drkonqi-coredump-launcher@4-20481-35422_35423-0.service, drkonqi-coredump-launcher@12-16388-35584_35585-0.service, drkonqi-coredump-launcher@18-12292-35681_35682-0.service, drkonqi-coredump-launcher@17-4101-35665_35666-0.service, drkonqi-coredump-launcher@3-8195-35387_35388-0.service, drkonqi-coredump-launcher@10-16387-35552_35553-0.service, drkonqi-coredump-launcher@0-4097-35255_35256-0.service, drkonqi-coredump-launcher@16-3-35649_35650-0.service, drkonqi-coredump-launcher@9-28674-35526_35527-0.service, drkonqi-coredump-launcher@19-24580-35700_35701-0.service, drkonqi-coredump-launcher@15-8201-35632_35633-0.service, drkonqi-coredump-launcher@6-24577-35458_35459-0.service, drkonqi-coredump-launcher@1-12289-35299_35300-0.service, drkonqi-coredump-launcher@5-8196-35442_35443-0.service, drkonqi-coredump-launcher@7-4100-35480_35481-0.service, drkonqi-coredump-launcher@11-8199-35568_35569-0.service, drkonqi-coredump-launcher@2-16385-35333_35334-0.service, drkonqi-coredump-launcher@13-28677-35600_35601-0.service, drkonqi-coredump-launcher@14-16389-35616_35617-0.service
+Attempting to continue anyway...
+
+There are 351 unread and relevant news items.
+Read them by running the command "home-manager news".

@@ -1,4 +1,15 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  micScript = pkgs.writeShellScript "waybar-mic" ''
+    MUTE=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}')
+    VOL=$(pactl get-source-volume @DEFAULT_SOURCE@ | awk -F'/' '{print $2}' | tr -d ' ')
+    if [ "$MUTE" = "yes" ]; then
+      echo '{"text": "MIC MUTE", "class": "muted"}'
+    else
+      echo "{\"text\": \"MIC $VOL\", \"class\": \"active\"}"
+    fi
+  '';
+in
 {
   programs.waybar = {
     enable = true;
@@ -20,6 +31,7 @@
           "memory"
           "battery"
           "network"
+          "custom/microphone"
           "pulseaudio"
           "tray"
           "custom/power"
@@ -70,6 +82,16 @@
           format = "VOL {volume}%";
           format-muted = "VOL MUTE";
           on-click = "pavucontrol";
+        };
+
+        "custom/microphone" = {
+          exec = "${micScript}";
+          return-type = "json";
+          interval = 1;
+          on-scroll-up = "pactl set-source-volume @DEFAULT_SOURCE@ +5%";
+          on-scroll-down = "pactl set-source-volume @DEFAULT_SOURCE@ -5%";
+          on-click = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          tooltip = false;
         };
 
         bluetooth = {
@@ -127,10 +149,15 @@
       #network,
       #pulseaudio,
       #bluetooth,
+      #custom-microphone,
       #custom-power,
       #tray {
         padding: 0 10px;
         color: #cdd6f4;
+      }
+
+      #custom-microphone.muted {
+        color: #f38ba8;
       }
 
       #battery.warning {

@@ -87,10 +87,11 @@ in
         "custom/microphone" = {
           exec = "${micScript}";
           return-type = "json";
-          interval = 1;
-          on-scroll-up = "pactl set-source-volume @DEFAULT_SOURCE@ +5%";
-          on-scroll-down = "pactl set-source-volume @DEFAULT_SOURCE@ -5%";
-          on-click = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          interval = "once";
+          signal = 1;
+          on-scroll-up = "pactl set-source-volume @DEFAULT_SOURCE@ +5% && pkill -RTMIN+1 waybar";
+          on-scroll-down = "pactl set-source-volume @DEFAULT_SOURCE@ -5% && pkill -RTMIN+1 waybar";
+          on-click = "pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+1 waybar";
           tooltip = false;
         };
 

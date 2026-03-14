@@ -9,10 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Zen Browser (currently unused - kept for future reference)
-    # Ref: https://github.com/MarceColl/zen-browser-flake
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
-
     # NixVim configuration from a separate external flake
     # Ref: https://github.com/Myxogastria0808/nix-flakes-nixvim
     nixvimConfig.url = "github:Myxogastria0808/nix-flakes-nixvim/main";

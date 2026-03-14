@@ -13,8 +13,5 @@
     ./config/hyprland
   ];
   # User-level packages managed by home-manager
-  home.packages = with pkgs; [
-    # Browser
-    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-  ];
+  home.packages = with pkgs; [ ];
 }

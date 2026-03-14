@@ -21,6 +21,7 @@
       username = "hello";
       githubUsername = "Myxogastria0808";
       githubEmail = "r.rstudio.c@gmail.com";
+      wireGuardVPNConfigFilePath = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
 
       # NixOS base system configuration (boot, hardware, networking, services)
       baseModules = [
@@ -76,6 +77,7 @@
             username = username;
             githubUsername = githubUsername;
             githubEmail = githubEmail;
+            wireGuardVPNConfigFilePath = wireGuardVPNConfigFilePath;
           };
         };
       };

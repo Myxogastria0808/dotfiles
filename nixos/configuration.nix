@@ -5,6 +5,7 @@
   config,
   pkgs,
   username,
+  wireGuardVPNConfigFilePath,
   ...
 }:
 {
@@ -195,7 +196,7 @@
     ];
   };
   # WireGuard VPN config file (contains keys and peer addresses - keep this file private)
-  networking.wg-quick.interfaces.wg0.configFile = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
+  networking.wg-quick.interfaces.wg0.configFile = "${wireGuardVPNConfigFilePath}";
   # nftables is required by Incus (it uses nftables instead of iptables for container networking)
   networking.nftables.enable = true;
 

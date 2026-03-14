@@ -5,10 +5,8 @@
   # instead of falling back to XWayland under Hyprland.
   # Ref: https://wiki.hypr.land/Useful-Utilities/Must-have/
   environment.systemPackages = with pkgs; [
-    # libsForQt5.qt5.qtwayland
     qt5.qtwayland
-    # kdePackages.qtwayland
-    qt6Packages.qtwayland
+    qt6.qtwayland
   ];
 
   # ── Hyprland ──────────────────────────────────────────────────────────────────

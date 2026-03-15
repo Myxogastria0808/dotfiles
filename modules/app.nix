@@ -1,26 +1,31 @@
-{ pkgs, lib, enableTailscale, enableWireGuard, ... }:
 {
-  imports =
-    [
-      ./config/audio.nix # PipeWire audio stack and noise suppression
-      ./config/commands.nix # General CLI utilities and system tools
-      ./config/fonts.nix # Font packages and fontconfig defaults
-      ./config/git.nix # Git, GitHub CLI, and repository management tools
-      ./config/i18n.nix # Locale, fcitx5 input method, and SKK dictionaries
-      ./config/docker.nix # Docker runtime and CLI tools (docker-compose, lazydocker)
-      ./config/incus.nix # Incus container/VM manager, web UI, firewall, nftables
-      ./config/kvm.nix # KVM/QEMU virtualization with virt-manager
-      ./config/language.nix # Programming language compilers and runtimes
-      ./display-manager # Desktop environment (currently: Hyprland — see modules/display-manager/default.nix)
-      ./config/nix-ld.nix # Dynamic linker compatibility for pre-built binaries
-      ./config/starship.nix # Starship cross-shell prompt
-      ./config/steam.nix # Steam gaming platform
-      ./config/zsh.nix # Zsh shell with Oh My Zsh, aliases, and custom functions
-    ]
-    # Optional service modules — toggled via booleans in flake.nix.
-    # When false, the module is not imported at all (no packages, no firewall rules).
-    ++ lib.optionals enableTailscale [ ./config/tailscale.nix ]
-    ++ lib.optionals enableWireGuard [ ./config/wireguard.nix ];
+  pkgs,
+  lib,
+  enableTailscale,
+  enableWireGuard,
+  ...
+}:
+{
+  imports = [
+    ./config/audio.nix # PipeWire audio stack and noise suppression
+    ./config/commands.nix # General CLI utilities and system tools
+    ./config/fonts.nix # Font packages and fontconfig defaults
+    ./config/git.nix # Git, GitHub CLI, and repository management tools
+    ./config/i18n.nix # Locale, fcitx5 input method, and SKK dictionaries
+    ./config/docker.nix # Docker runtime and CLI tools (docker-compose, lazydocker)
+    ./config/incus.nix # Incus container/VM manager, web UI, firewall, nftables
+    ./config/kvm.nix # KVM/QEMU virtualization with virt-manager
+    ./config/language.nix # Programming language compilers and runtimes
+    ./display-manager # Desktop environment (currently: Hyprland — see modules/display-manager/default.nix)
+    ./config/nix-ld.nix # Dynamic linker compatibility for pre-built binaries
+    ./config/starship.nix # Starship cross-shell prompt
+    ./config/steam.nix # Steam gaming platform
+    ./config/zsh.nix # Zsh shell with Oh My Zsh, aliases, and custom functions
+  ]
+  # Optional service modules — toggled via booleans in flake.nix.
+  # When false, the module is not imported at all (no packages, no firewall rules).
+  ++ lib.optionals enableTailscale [ ./config/tailscale.nix ]
+  ++ lib.optionals enableWireGuard [ ./config/wireguard.nix ];
   environment.systemPackages = with pkgs; [
     # TLS/SSL toolkit and certificate management
     openssl
@@ -94,9 +99,6 @@
 
     # Media processing (audio/video/image encoding, decoding, and conversion)
     ffmpeg
-
-    # File manager (also referenced as $fileManager in hyprland keybindings)
-    dolphin
 
     # Video player
     mpv

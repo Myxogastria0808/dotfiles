@@ -30,11 +30,6 @@
     };
   };
 
-  # Expose /share/skk/ into the system environment so dictionary files are
-  # accessible at /run/current-system/sw/share/skk/ — required because NixOS
-  # does not link this path by default, so fcitx5-skk cannot find the dicts.
-  environment.pathsToLink = [ "/share/skk" ];
-
   # SKK dictionary packages for fcitx5-skk
   # The dictionary list file is managed separately in home/config/skk/
   environment.systemPackages = with pkgs.skkDictionaries; [

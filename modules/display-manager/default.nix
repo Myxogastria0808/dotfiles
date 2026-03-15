@@ -21,9 +21,12 @@
     # Run SDDM itself in Wayland mode (avoids X11 greeter crash on Wayland-only setups).
     # Without this, the default SDDM QML greeter segfaults when KDE/Plasma packages
     # (required by the "breeze" theme) are not installed.
+    #
+    # compositor = "kwin" requires KWin (KDE Plasma6). Use "weston" for a KDE-independent
+    # Wayland compositor so SDDM works correctly when KDE is not installed.
     wayland = {
       enable = true;
-      compositor = "kwin";
+      compositor = "weston";
     };
   };
   # Default session is derived automatically from desktopEnvironment (set in flake.nix).

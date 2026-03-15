@@ -26,6 +26,9 @@
     blueman
     # Power menu
     wlogout
+    # Polkit authentication agent — shows GUI dialogs for privilege escalation (sudo prompts).
+    # KDE provided polkit-kde-agent-1 automatically; Hyprland-only setups need this explicitly.
+    hyprpolkitagent
   ];
 
   wayland.windowManager.hyprland = {
@@ -49,6 +52,11 @@
         "wl-paste --type text --watch cliphist store" # Stores only text data
         "wl-paste --type image --watch cliphist store" # Stores only image data
         "waybar"
+        # Polkit authentication agent — started via systemd user service.
+        # Without this, privilege escalation dialogs (e.g. package manager, disk tools)
+        # either fail silently or fall back to a primitive terminal prompt.
+        # Ref: https://wiki.hypr.land/Hypr-Ecosystem/hyprpolkitagent/
+        "systemctl --user start hyprpolkitagent"
       ];
 
       # ── General ───────────────────────────────────────────────────────────────

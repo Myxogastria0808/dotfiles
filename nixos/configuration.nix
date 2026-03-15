@@ -94,6 +94,15 @@
   # Flatpak - sandboxed desktop application installation from Flathub
   services.flatpak.enable = true;
 
+  # ── Secret Service (keyring) ──────────────────────────────────────────────────
+  # gnome-keyring provides a D-Bus secret service (org.freedesktop.secrets) that
+  # stores credentials (OAuth tokens, SSH keys, etc.) in an encrypted keystore.
+  # KDE provided this via kwallet; without KDE, tools like `gh`, `git-credential`,
+  # and many GUI apps cannot persist credentials between sessions without this.
+  # PAM integration unlocks the keyring automatically at login via SDDM.
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+
   # Tailscale and WireGuard VPN are managed in modules/config/tailscale.nix
   # and modules/config/wireguard.nix. Toggle via enableTailscale / enableWireGuard in flake.nix.
 

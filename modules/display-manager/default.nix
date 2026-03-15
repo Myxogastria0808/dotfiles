@@ -21,7 +21,10 @@
     # Run SDDM itself in Wayland mode (avoids X11 greeter crash on Wayland-only setups).
     # Without this, the default SDDM QML greeter segfaults when KDE/Plasma packages
     # (required by the "breeze" theme) are not installed.
-    wayland.enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
   };
   # Default session is derived automatically from desktopEnvironment (set in flake.nix).
   # Hyprland: "hyprland-uwsm" (UWSM-managed — recommended; standalone "hyprland" is

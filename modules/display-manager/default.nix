@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ./kde
-    ./cosmic
+    # ./kde
+    # ./cosmic
     ./hyprland
   ];
 
@@ -25,6 +25,11 @@
 
   # XWayland allows X11 apps to run inside a Wayland session
   programs.xwayland.enable = true;
+  # US keyboard layout for X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
   # ── XDG Desktop Portal ────────────────────────────────────────────────────────
   # Ref: https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/
@@ -142,19 +147,5 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
-  };
-
-  # NOTE: check performance
-  # xdg-document-portal (Flatpak) ignores SIGTERM on logout, causing a 90s
-  # wait before systemd sends SIGKILL. Set TimeoutStopSec to 1 (minimum) so
-  # SIGKILL is sent immediately after SIGTERM with no meaningful delay.
-  # systemd.user.services.xdg-document-portal = {
-  #   serviceConfig.TimeoutStopSec = 1;
-  # };
-
-  # US keyboard layout for X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
   };
 }

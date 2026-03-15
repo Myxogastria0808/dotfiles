@@ -46,9 +46,6 @@
     # Fingerprint reader driver (for ThinkPad fingerprint sensor)
     fprintd-tod
 
-    # KDE Connect - file transfer and notification sync with Android devices
-    kdePackages.kdeconnect-kde
-
     # AppImage launcher - run AppImage binaries without extraction
     appimage-run
 
@@ -118,9 +115,6 @@
     figma-linux # Unofficial Figma desktop client
     krita # Digital painting application
     inkscape # Vector graphics editor
-
-    # Color picker for KDE
-    kdePackages.kcolorchooser
 
     # Typst - modern typesetting system (alternative to LaTeX)
     typst

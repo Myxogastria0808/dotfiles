@@ -9,22 +9,6 @@
     ./waybar
   ];
 
-  # ── drkonqi coredump socket drop-in ──────────────────────────────────────────
-  # Problem: xdg-desktop-portal-hyprland 1.3.11 has a destructor bug (SIGSEGV in
-  # CCWlOutput::~CCWlOutput) that fires whenever hm restarts the service. This
-  # generates a coredump, which triggers drkonqi-coredump-launcher.socket. drkonqi
-  # 6.6.2 then crashes itself (QTextHtmlParser SIGSEGV) in non-KDE sessions, producing
-  # another coredump → another drkonqi → cascade of 20+ failed units per hm run.
-  #
-  # Fix: add a drop-in that restricts the socket to KDE sessions only via
-  # ConditionEnvironment. In Hyprland, XDG_CURRENT_DESKTOP=Hyprland so the condition
-  # fails and the socket never activates. In KDE, XDG_CURRENT_DESKTOP=KDE so drkonqi
-  # works normally. This is session-targeted and does not break KDE crash reporting.
-  home.file.".config/systemd/user/drkonqi-coredump-launcher.socket.d/kde-only.conf".text = ''
-    [Unit]
-    ConditionEnvironment=XDG_CURRENT_DESKTOP=KDE
-  '';
-
   # hyprland family tools
   home.packages = with pkgs; [
     # Screenshot

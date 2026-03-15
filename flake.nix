@@ -22,6 +22,10 @@
       githubUsername = "Myxogastria0808";
       githubEmail = "r.rstudio.c@gmail.com";
       wireGuardVPNConfigFilePath = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
+      # Active desktop environment — change this single value to switch environments.
+      # Valid options: "hyprland" | "kde" | "cosmic"
+      # NOTE: After changing, run both `nixos` and `hm` to apply.
+      desktopEnvironment = "hyprland";
 
       # NixOS base system configuration (boot, hardware, networking, services)
       baseModules = [
@@ -45,6 +49,7 @@
           extraSpecialArgs = {
             inherit inputs;
             username = username;
+            desktopEnvironment = desktopEnvironment;
           };
           modules = [
             ./home/home.nix
@@ -78,6 +83,7 @@
             githubUsername = githubUsername;
             githubEmail = githubEmail;
             wireGuardVPNConfigFilePath = wireGuardVPNConfigFilePath;
+            desktopEnvironment = desktopEnvironment;
           };
         };
       };

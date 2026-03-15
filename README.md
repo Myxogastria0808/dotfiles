@@ -38,37 +38,29 @@ modules/display-manager/
 
 ### Switching Environments
 
-To switch the active desktop environment:
+The active desktop environment is controlled by a **single variable** in `flake.nix`. Changing it automatically selects the correct NixOS module, SDDM default session, and home-manager config — no manual import editing required.
 
-**Step 1 — Edit `modules/display-manager/default.nix`** to import only the desired environment:
-
-```nix
-imports = [
-  # ./kde       # ← uncomment to use KDE
-  # ./cosmic    # ← uncomment to use COSMIC
-  ./hyprland    # ← currently active (comment out when switching away)
-];
-```
-
-**Step 2 — Edit `home/apps.nix`** to comment out the Hyprland home-manager config when not using Hyprland:
+**Edit `flake.nix`** and change `desktopEnvironment`:
 
 ```nix
-imports = [
-  ./config/ghostty
-  ./config/skk
-  ./config/firefox
-  # ./config/hyprland  # ← comment out when not using Hyprland
-];
+# Valid options: "hyprland" | "kde" | "cosmic"
+desktopEnvironment = "hyprland";
 ```
 
-**Step 3 — Update `defaultSession`** in `modules/display-manager/default.nix` to match the new environment (e.g. `"plasmax11"`, `"plasma"`, or `"hyprland-uwsm"`).
-
-**Step 4 — Apply changes:**
+**Then apply:**
 
 ```shell
 nixos
 hm
 ```
+
+| Value        | NixOS module loaded                 | SDDM default session | home-manager hyprland config |
+| ------------ | ----------------------------------- | -------------------- | ---------------------------- |
+| `"hyprland"` | `modules/display-manager/hyprland/` | `hyprland-uwsm`      | loaded                       |
+| `"kde"`      | `modules/display-manager/kde/`      | `plasma`             | not loaded                   |
+| `"cosmic"`   | `modules/display-manager/cosmic/`   | `cosmic`             | not loaded                   |
+
+> For KDE, `defaultSession = "plasma"` selects the Wayland session. To use the X11 session instead, manually set `defaultSession = "plasmax11"` in `modules/display-manager/default.nix`.
 
 ### Sessions
 
@@ -92,7 +84,7 @@ hm
 
 - **Hyprland + UWSM** (`withUWSM = true`): When launched through UWSM (Universal Wayland Session Manager), Hyprland runs as a proper systemd user session. This handles session lifecycle, environment variable propagation, and `systemd --user` integration automatically. **Always use the `hyprland-uwsm` session** from the SDDM login screen. A standalone Hyprland session (`hyprland`) is also registered automatically by the NixOS module and appears in the SDDM session list, but running it **bypasses UWSM entirely** — its stability is not guaranteed and it is not supported by this dotfiles.
 
-- **Hyprland home-manager config must be disabled when not using Hyprland.** The `./config/hyprland` import in `home/apps.nix` sets up Waybar, Hyprland keybindings, and other Hyprland-specific user config. Leaving it active under KDE or COSMIC will cause conflicts and build errors. Comment it out whenever switching away from Hyprland.
+- **Hyprland home-manager config is loaded automatically.** The `./config/hyprland` import in `home/apps.nix` (Waybar, keybindings, Hyprland tools) is included only when `desktopEnvironment = "hyprland"` is set in `flake.nix`. Switching to KDE or COSMIC automatically excludes it — no manual editing required.
 
 - **COSMIC Greeter is intentionally left disabled.** `cosmic-greeter` is a greetd-based login screen built specifically for the COSMIC desktop. It does not have proper support for non-COSMIC sessions (KDE, Hyprland). Enabling it would replace SDDM entirely and would likely prevent other sessions from appearing or launching correctly. Keep SDDM.
 

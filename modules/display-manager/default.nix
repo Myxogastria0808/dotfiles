@@ -1,22 +1,27 @@
-{ pkgs, ... }:
+{ pkgs, desktopEnvironment, ... }:
 {
-  imports = [
-    # ./kde
-    # ./cosmic
-    ./hyprland
-  ];
+  imports =
+    # Select the desktop environment module based on the desktopEnvironment variable
+    # set in flake.nix. Only one module is loaded at a time to avoid conflicts.
+    if desktopEnvironment == "hyprland" then [ ./hyprland ]
+    else if desktopEnvironment == "kde" then [ ./kde ]
+    else if desktopEnvironment == "cosmic" then [ ./cosmic ]
+    else throw "Unknown desktopEnvironment: '${desktopEnvironment}'. Valid options: hyprland, kde, cosmic";
 
   # ── Display Manager ───────────────────────────────────────────────────────────
   # XServer is required to run SDDM even on Wayland sessions
   services.xserver.enable = true;
   # SDDM is the display manager — only one environment should be active at a time
   services.displayManager.sddm.enable = true;
-  # Default session: hyprland-uwsm (UWSM-managed Hyprland — recommended)
-  # NOTE: "hyprland" (standalone, without UWSM) is also registered as a session by the
-  # NixOS Hyprland module and will appear in the SDDM session list, but it is NOT the
-  # default and its stability is not guaranteed. Use "hyprland-uwsm" for reliable operation.
-  # Other options: "plasmax11" (KDE X11), "plasma" (KDE Wayland), "cosmic" (COSMIC Wayland)
-  services.displayManager.defaultSession = "hyprland-uwsm";
+  # Default session is derived automatically from desktopEnvironment (set in flake.nix).
+  # Hyprland: "hyprland-uwsm" (UWSM-managed — recommended; standalone "hyprland" is
+  #   also registered by the NixOS module but bypasses UWSM — NOT supported here)
+  # KDE:      "plasma" (Wayland) — use "plasmax11" for the X11 session instead
+  # COSMIC:   "cosmic"
+  services.displayManager.defaultSession =
+    if desktopEnvironment == "hyprland" then "hyprland-uwsm"
+    else if desktopEnvironment == "kde" then "plasma"
+    else "cosmic";
 
   # To replace SDDM with the COSMIC greeter instead:
   #   1. Set services.displayManager.sddm.enable = false above

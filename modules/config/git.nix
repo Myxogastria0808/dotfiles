@@ -27,9 +27,9 @@
         email = "${githubEmail}";
       };
       # Delegate GitHub HTTPS credential handling to the gh CLI (runs `gh auth git-credential`)
-      credential = {
-        "https://github.com".helper = "!gh auth git-credential";
-      };
+      #credential = {
+      #   "https://github.com".helper = "!gh auth git-credential";
+      #};
       # All repositories cloned via ghq are stored under ~/src
       ghq = {
         root = "~/src";

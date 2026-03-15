@@ -39,7 +39,7 @@
 
     # ── Specialized dictionaries ──────────────────────────────────────────────
     # Ref: https://skk-dev.github.io/dict/
-    jinmei # SKK-JISYO.jinmei - Japanese personal names
+    # jinmei # SKK-JISYO.jinmei - Japanese personal names
     fullname # SKK-JISYO.fullname - full names of individuals in newspapers
     geo # SKK-JISYO.geo - Japanese place names and locations
     propernoun # SKK-JISYO.propernoun - proper nouns (excluding names and places)

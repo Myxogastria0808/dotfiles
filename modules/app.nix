@@ -95,6 +95,9 @@
     # Media processing (audio/video/image encoding, decoding, and conversion)
     ffmpeg
 
+    # File manager (also referenced as $fileManager in hyprland keybindings)
+    dolphin
+
     # Video player
     mpv
 

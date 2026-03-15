@@ -1,0 +1,50 @@
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) ThinkPad Extra Buttons: Applying InputClass "evdev keyboard catchall"
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) ThinkPad Extra Buttons: Applying InputClass "libinput keyboard catchall"
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) Using input driver 'libinput' for 'ThinkPad Extra Buttons'
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) ThinkPad Extra Buttons: always reports core events
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) Option "Device" "/dev/input/event4"
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: is tagged by udev as: Keyboard Switch
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: device is a keyboard
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: device is a switch device
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: device removed
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) Option "config_info" "udev:/sys/devices/platform/thinkpad_acpi/input/input6/event4"
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) XINPUT: Adding extended input device "ThinkPad Extra Buttons" (type: KEYBOARD, id 14)
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) Option "xkb_model" "pc104"
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) Option "xkb_layout" "us"
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (WW) Option "xkb_variant" requires a string value
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (**) Option "xkb_options" "terminate:ctrl_alt_bksp"
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: is tagged by udev as: Keyboard Switch
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: device is a keyboard
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: device is a switch device
+Mar 15 22:44:58 nixos sddm[1049]: Setting default cursor
+Mar 15 22:44:58 nixos sddm[1049]: Could not setup default cursor
+Mar 15 22:44:58 nixos sddm[1049]: Running display setup script  "/nix/store/h4068zvx99d2crlh309863gmcnvrrvx5-Xsetup"
+Mar 15 22:44:58 nixos sddm[1049]: Display server started.
+Mar 15 22:44:58 nixos sddm[1049]: Socket server starting...
+Mar 15 22:44:58 nixos sddm[1049]: Socket server started.
+Mar 15 22:44:58 nixos sddm[1049]: Loaded empty theme configuration
+Mar 15 22:44:58 nixos sddm[1049]: Greeter starting...
+Mar 15 22:44:58 nixos sddm-helper[1155]: [PAM] Starting...
+Mar 15 22:44:58 nixos sddm-helper[1155]: [PAM] Authenticating...
+Mar 15 22:44:58 nixos sddm-helper[1155]: [PAM] returning.
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) modeset(0): EDID vendor "AUO", prod id 22333
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) modeset(0): Printing DDC gathered Modelines:
+Mar 15 22:44:58 nixos xserver-wrapper[1081]: (II) modeset(0): Modeline "1920x1080"x0.0  142.60  1920 1936 1952 2080  1080 1083 1088 1142 -hsync -vsync (68.6 kHz eP)
+Mar 15 22:44:58 nixos sddm[1049]: Greeter session started successfully
+Mar 15 22:44:58 nixos sddm-helper[1155]: [PAM] Closing session
+Mar 15 22:44:58 nixos sddm-helper[1155]: [PAM] Ended.
+Mar 15 22:44:58 nixos sddm[1049]: Auth: sddm-helper exited with 11
+Mar 15 22:44:58 nixos sddm[1049]: Greeter stopped. SDDM::Auth::HelperExitStatus(11)
+Mar 15 22:44:59 nixos xserver-wrapper[1081]: (II) modeset(0): EDID vendor "AUO", prod id 22333
+Mar 15 22:44:59 nixos xserver-wrapper[1081]: (II) modeset(0): Printing DDC gathered Modelines:
+Mar 15 22:44:59 nixos xserver-wrapper[1081]: (II) modeset(0): Modeline "1920x1080"x0.0  142.60  1920 1936 1952 2080  1080 1083 1088 1142 -hsync -vsync (68.6 kHz eP)
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event3  - Power Button: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event8  - Video Bus: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event1  - Sleep Button: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event6  - SYNA8004:00 06CB:CD8B Mouse: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event7  - SYNA8004:00 06CB:CD8B Touchpad: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event10 - sof-hda-dsp Headphone: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event0  - AT Translated Set 2 keyboard: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event5  - TPPS/2 Elan TrackPoint: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) event4  - ThinkPad Extra Buttons: device removed
+Mar 15 22:45:04 nixos xserver-wrapper[1081]: (II) AIGLX: Suspending AIGLX clients for VT switch

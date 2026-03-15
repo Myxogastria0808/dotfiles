@@ -16,7 +16,13 @@
   # XServer is required to run SDDM even on Wayland sessions
   services.xserver.enable = true;
   # SDDM is the display manager — only one environment should be active at a time
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    # Run SDDM itself in Wayland mode (avoids X11 greeter crash on Wayland-only setups).
+    # Without this, the default SDDM QML greeter segfaults when KDE/Plasma packages
+    # (required by the "breeze" theme) are not installed.
+    wayland.enable = true;
+  };
   # Default session is derived automatically from desktopEnvironment (set in flake.nix).
   # Hyprland: "hyprland-uwsm" (UWSM-managed — recommended; standalone "hyprland" is
   #   also registered by the NixOS module but bypasses UWSM — NOT supported here)

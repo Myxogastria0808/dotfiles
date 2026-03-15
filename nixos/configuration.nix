@@ -81,10 +81,11 @@
     # Generate a new hash with: mkpasswd -m sha-512
     initialHashedPassword = "$6$DEgxVwM7CWGRVNK6$f/ATlexID21R3DJ7NfQEbnvZ3dakf1Ejro5yPimllGLg2zUqJ5aCjuBxF4QaXOLnXoPc46n.7WLXZmBnuInZ81";
     extraGroups = [
-      "networkmanager" # manage Wi-Fi/Ethernet
-      "wheel" # sudo access
-      "flatpak" # Flatpak service access
-      "incus-admin" # Incus management socket (daemon enabled in modules/config/incus.nix)
+      "networkmanager"
+      "wheel"
+      "flatpak"
+      "incus-admin" # daemon enabled in modules/config/incus.nix
+      "libvirtd" # daemon enabled in modules/config/libvirt.nix
     ];
     shell = "/run/current-system/sw/bin/zsh";
   };

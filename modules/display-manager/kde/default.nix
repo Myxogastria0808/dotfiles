@@ -3,8 +3,8 @@
   # ── KDE Plasma 6 ──────────────────────────────────────────────────────────────
   # X11/Wayland desktop environment. Intended to run as the sole active environment.
   # Running multiple environments simultaneously may cause conflicts.
-  # To switch environments, edit the imports in modules/display-manager/default.nix,
-  # and comment out ./config/hyprland in home/apps.nix when switching away from Hyprland.
+  # To switch environments, change `desktopEnvironment` in flake.nix and run `nixos && hm`.
+  # The display-manager module selection and home-manager Hyprland config are handled automatically.
   services.desktopManager.plasma6.enable = true;
 
   environment.systemPackages = with pkgs; [

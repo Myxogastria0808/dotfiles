@@ -491,20 +491,6 @@ nixos
 
 ### 8. Finish!
 
-## How to manage repositories with ghq and peco
-
-- clone repository
-
-`clone` is alias of `ghq get`
-
-```shell
-clone <repository URI>
-```
-
-- move repository directory
-
-type `Ctrl + g` on a terminal -> be showed selection menu of repositories.
-
 ## DeepWiki
 
 > [!WARNING]

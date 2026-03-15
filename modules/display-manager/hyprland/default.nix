@@ -4,8 +4,8 @@
   # Wayland compositor (tiling WM). Currently the sole active desktop environment.
   # Each environment (KDE, COSMIC, Hyprland) is intended to run independently.
   # Running multiple environments simultaneously may cause conflicts.
-  # To switch environments, edit the imports in modules/display-manager/default.nix,
-  # and comment out ./config/hyprland in home/apps.nix when not using Hyprland.
+  # To switch environments, change `desktopEnvironment` in flake.nix and run `nixos && hm`.
+  # The display-manager module selection and home-manager Hyprland config are handled automatically.
   programs.hyprland = {
     enable = true;
     withUWSM = true; # Use UWSM for session management (recommended)

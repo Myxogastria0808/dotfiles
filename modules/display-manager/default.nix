@@ -12,40 +12,8 @@
     else
       throw "Unknown desktopEnvironment: '${desktopEnvironment}'. Valid options: hyprland, kde, cosmic";
 
-  # ── Display Manager ───────────────────────────────────────────────────────────
   # XServer is required to run SDDM even on Wayland sessions
   services.xserver.enable = true;
-  # SDDM is the display manager — only one environment should be active at a time
-  services.displayManager.sddm = {
-    enable = true;
-    # Run SDDM itself in Wayland mode (avoids X11 greeter crash on Wayland-only setups).
-    # Without this, the default SDDM QML greeter segfaults when KDE/Plasma packages
-    # (required by the "breeze" theme) are not installed.
-    #
-    # compositor = "kwin" requires KWin (KDE Plasma6). Use "weston" for a KDE-independent
-    # Wayland compositor so SDDM works correctly when KDE is not installed.
-    wayland = {
-      enable = true;
-      compositor = "weston";
-    };
-  };
-  # Default session is derived automatically from desktopEnvironment (set in flake.nix).
-  # Hyprland: "hyprland-uwsm" (UWSM-managed — recommended; standalone "hyprland" is
-  #   also registered by the NixOS module but bypasses UWSM — NOT supported here)
-  # KDE:      "plasma" (Wayland) — use "plasmax11" for the X11 session instead
-  # COSMIC:   "cosmic"
-  services.displayManager.defaultSession =
-    if desktopEnvironment == "hyprland" then
-      "hyprland-uwsm"
-    else if desktopEnvironment == "kde" then
-      "plasma"
-    else
-      "cosmic";
-
-  # To replace SDDM with the COSMIC greeter instead:
-  #   1. Set services.displayManager.sddm.enable = false above
-  #   2. Uncomment the line below
-  # services.displayManager.cosmic-greeter.enable = true;
 
   # XWayland allows X11 apps to run inside a Wayland session
   programs.xwayland.enable = true;

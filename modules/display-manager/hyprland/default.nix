@@ -12,6 +12,18 @@
     xwayland.enable = true; # Allow X11 apps to run inside Hyprland
   };
 
+  # Default session is derived automatically from desktopEnvironment (set in flake.nix).
+  services.displayManager.defaultSession = "hyprland-uwsm";
+
+  # SDDM is the display manager — only one environment should be active at a time
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "weston";
+    };
+  };
+
   # ── Qt Wayland Support ────────────────────────────────────────────────────────
   # Required for Qt apps (LibreOffice, QGIS, etc.) to render natively on Wayland
   # instead of falling back to XWayland under Hyprland.
@@ -20,6 +32,15 @@
     qt5.qtwayland
     qt6.qtwayland
   ];
+
+  # ── Secret Service (keyring) ──────────────────────────────────────────────────
+  # gnome-keyring provides a D-Bus secret service (org.freedesktop.secrets) that
+  # stores credentials (OAuth tokens, SSH keys, etc.) in an encrypted keystore.
+  # KDE provided this via kwallet; without KDE, tools like `gh`, `git-credential`,
+  # and many GUI apps cannot persist credentials between sessions without this.
+  # PAM integration unlocks the keyring automatically at login via SDDM.
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   # ── Wayland environment variables ─────────────────────────────────────────────
   environment.sessionVariables = {

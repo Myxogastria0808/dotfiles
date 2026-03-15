@@ -7,6 +7,18 @@
   # The display-manager module selection and home-manager Hyprland config are handled automatically.
   services.desktopManager.plasma6.enable = true;
 
+  # Default session is derived automatically from desktopEnvironment (set in flake.nix).
+  services.displayManager.defaultSession = "plasma";
+
+  # SDDM is the display manager — only one environment should be active at a time
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     # Color picker for KDE
     kdePackages.kcolorchooser

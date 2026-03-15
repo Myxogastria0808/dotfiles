@@ -29,6 +29,8 @@
     # Polkit authentication agent — shows GUI dialogs for privilege escalation (sudo prompts).
     # KDE provided polkit-kde-agent-1 automatically; Hyprland-only setups need this explicitly.
     hyprpolkitagent
+    # File manager
+    thunar
   ];
 
   wayland.windowManager.hyprland = {
@@ -185,7 +187,7 @@
       "$mod" = "SUPER";
       "$terminal" = "ghostty";
       "$browser" = "firefox";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "thunar";
       "$discord" = "discord";
 
       bind = [

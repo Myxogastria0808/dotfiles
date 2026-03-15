@@ -1,5 +1,6 @@
 { pkgs, desktopEnvironment, ... }:
 {
+  ###########################################
   imports =
     # Select the desktop environment module based on the desktopEnvironment variable
     # set in flake.nix. Only one module is loaded at a time to avoid conflicts.

@@ -3,10 +3,14 @@
   imports =
     # Select the desktop environment module based on the desktopEnvironment variable
     # set in flake.nix. Only one module is loaded at a time to avoid conflicts.
-    if desktopEnvironment == "hyprland" then [ ./hyprland ]
-    else if desktopEnvironment == "kde" then [ ./kde ]
-    else if desktopEnvironment == "cosmic" then [ ./cosmic ]
-    else throw "Unknown desktopEnvironment: '${desktopEnvironment}'. Valid options: hyprland, kde, cosmic";
+    if desktopEnvironment == "hyprland" then
+      [ ./hyprland ]
+    else if desktopEnvironment == "kde" then
+      [ ./kde ]
+    else if desktopEnvironment == "cosmic" then
+      [ ./cosmic ]
+    else
+      throw "Unknown desktopEnvironment: '${desktopEnvironment}'. Valid options: hyprland, kde, cosmic";
 
   # ── Display Manager ───────────────────────────────────────────────────────────
   # XServer is required to run SDDM even on Wayland sessions
@@ -19,9 +23,12 @@
   # KDE:      "plasma" (Wayland) — use "plasmax11" for the X11 session instead
   # COSMIC:   "cosmic"
   services.displayManager.defaultSession =
-    if desktopEnvironment == "hyprland" then "hyprland-uwsm"
-    else if desktopEnvironment == "kde" then "plasma"
-    else "cosmic";
+    if desktopEnvironment == "hyprland" then
+      "hyprland-uwsm"
+    else if desktopEnvironment == "kde" then
+      "plasma"
+    else
+      "cosmic";
 
   # To replace SDDM with the COSMIC greeter instead:
   #   1. Set services.displayManager.sddm.enable = false above
@@ -35,6 +42,9 @@
     layout = "us";
     variant = "";
   };
+
+  # Run Android apps on Linux via a container
+  virtualisation.waydroid.enable = true;
 
   # ── XDG Desktop Portal ────────────────────────────────────────────────────────
   # Ref: https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/

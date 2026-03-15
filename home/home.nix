@@ -14,12 +14,4 @@
 
   # Let home-manager manage itself
   programs.home-manager.enable = true;
-
-  # Auto-connect to the QEMU/KVM system socket on virt-manager startup
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
-    };
-  };
 }

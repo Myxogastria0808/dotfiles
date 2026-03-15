@@ -19,13 +19,23 @@ gc
 
 ## Architecture
 
-This is a NixOS + home-manager dotfiles repo targeting a ThinkPad X1 Carbon 7th running KDE Plasma 6.
+This is a NixOS + home-manager dotfiles repo targeting a ThinkPad X1 Carbon 7th running Hyprland (default; KDE and COSMIC are also supported).
 
 **`flake.nix`** is the root entry point. It defines two outputs:
 - `homeConfigurations.myHomeConfig` — home-manager config entry point at `home/home.nix`
 - `nixosConfigurations.nixos` — NixOS system config entry point at `nixos/configuration.nix`
 
-Top-level variables (`username`, `githubUsername`, `githubEmail`) are set in `flake.nix` and passed via `specialArgs`/`extraSpecialArgs` to all modules.
+Top-level variables are set in `flake.nix` and passed via `specialArgs`/`extraSpecialArgs` to all modules:
+
+| Variable                    | Type    | Description                                                     |
+| --------------------------- | ------- | --------------------------------------------------------------- |
+| `username`                  | string  | Linux username                                                  |
+| `githubUsername`            | string  | GitHub username                                                 |
+| `githubEmail`               | string  | GitHub email                                                    |
+| `desktopEnvironment`        | string  | Active DE: `"hyprland"` \| `"kde"` \| `"cosmic"`                        |
+| `enableTailscale`           | bool    | Import `modules/config/tailscale.nix` (Tailscale mesh VPN)               |
+| `enableWireGuard`           | bool    | Import `modules/config/wireguard.nix` (WireGuard VPN)                    |
+| `wireGuardVPNConfigFilePath`| string  | Path to WireGuard `.conf` file (read only when `enableWireGuard = true`) |
 
 **Key design principle**: home-manager is intentionally kept independent from NixOS. The `home/` directory manages user-level config that works on any Linux, while `modules/` manages NixOS system-level config.
 
@@ -33,15 +43,26 @@ Top-level variables (`username`, `githubUsername`, `githubEmail`) are set in `fl
 
 | Path | Purpose |
 |------|---------|
+| `flake.nix` | Root entry point; all top-level variables defined here |
 | `home/home.nix` | home-manager entry point |
-| `home/apps.nix` | Home packages and imports (ghostty, skk, firefox) |
+| `home/apps.nix` | Home packages and imports (ghostty, skk, firefox, hyprland\*) |
 | `home/config/` | Per-app home-manager configs |
 | `modules/app.nix` | NixOS system packages entry point |
-| `modules/config/` | NixOS system module configs (zsh, git, starship, fonts, audio, virtualisation, etc.) |
-| `modules/desktop-manager/` | Desktop environment configs (display manager, KDE Plasma 6, COSMIC) |
+| `modules/config/` | NixOS system module configs (zsh, git, starship, fonts, audio, tailscale, wireguard, virtualisation, etc.) |
+| `modules/display-manager/` | Desktop environment configs (display manager, KDE Plasma 6, COSMIC, Hyprland) |
 | `nixos/configuration.nix` | Main NixOS system config (bootloader, services, networking, users) |
 | `nixos/hardware-configuration.nix` | Hardware-specific config (auto-generated) |
 | `scripts/` | One-off setup scripts (install, tailscale, waydroid, portainer) |
+
+\* `home/config/hyprland` is imported automatically only when `desktopEnvironment = "hyprland"`.
+
+### Switching Desktop Environments
+
+Change `desktopEnvironment` in `flake.nix`, then run `nixos && hm`. No manual import editing needed — the module selection and home-manager config are automatic.
+
+### Enabling/Disabling Optional Services
+
+Change `enableTailscale` or `enableWireGuard` in `flake.nix`, then run `nixos`. When `false`, the module is not imported at all — no service, no packages, no firewall rules. The boolean controls whether `modules/app.nix` imports the module via `lib.optionals`.
 
 ### Adding Packages
 
@@ -57,7 +78,6 @@ Uses `nixpkgs-unstable`. The home-manager `stateVersion` is set to `"25.11"` wit
 ### External Flake Inputs
 
 - `home-manager` — user environment management
-- `zen-browser` — Zen Browser (currently commented out)
 - `nixvimConfig` — NixVim config from a separate flake (`Myxogastria0808/nix-flakes-nixvim`)
 
 ### Nix Helper: `nl` (nurl wrapper)

@@ -319,7 +319,7 @@
           echo -e "''${DIM}  ──────────────────────────────────────────────────────''${RESET}"
           echo ""
           printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+L" "Clear screen (history preserved)"
-          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+E" "Edit current input in editor"
+          printf "  ''${BOLD}%-16s''${RESET} %s\n" "Ctrl+G" "Edit current input in editor"
           echo ""
         }
 

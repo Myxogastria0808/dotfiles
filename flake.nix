@@ -21,11 +21,19 @@
       username = "hello";
       githubUsername = "Myxogastria0808";
       githubEmail = "r.rstudio.c@gmail.com";
-      wireGuardVPNConfigFilePath = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
       # Active desktop environment — change this single value to switch environments.
       # Valid options: "hyprland" | "kde" | "cosmic"
       # NOTE: After changing, run both `nixos` and `hm` to apply.
       desktopEnvironment = "hyprland";
+
+      # ── Optional services ──────────────────────────────────────────────────────
+      # Set to true/false to enable or disable each service system-wide.
+      # After changing, run `nixos` to apply.
+      enableTailscale = true; # Zero-config mesh VPN (run `sudo tailscale up` after first enable)
+      enableWireGuard = true; # WireGuard VPN — also set wireGuardVPNConfigFilePath below
+      # Path to the WireGuard .conf file (private keys — never commit this file).
+      # Only read when enableWireGuard = true.
+      wireGuardVPNConfigFilePath = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
 
       # NixOS base system configuration (boot, hardware, networking, services)
       baseModules = [
@@ -84,6 +92,8 @@
             githubEmail = githubEmail;
             wireGuardVPNConfigFilePath = wireGuardVPNConfigFilePath;
             desktopEnvironment = desktopEnvironment;
+            enableTailscale = enableTailscale;
+            enableWireGuard = enableWireGuard;
           };
         };
       };

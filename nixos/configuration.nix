@@ -2,10 +2,8 @@
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
 {
-  config,
   pkgs,
   username,
-  wireGuardVPNConfigFilePath,
   ...
 }:
 {
@@ -82,12 +80,11 @@
     description = "${username}";
     # Generate a new hash with: mkpasswd -m sha-512
     initialHashedPassword = "$6$DEgxVwM7CWGRVNK6$f/ATlexID21R3DJ7NfQEbnvZ3dakf1Ejro5yPimllGLg2zUqJ5aCjuBxF4QaXOLnXoPc46n.7WLXZmBnuInZ81";
-    # wheel: sudo access | networkmanager: manage Wi-Fi/Ethernet | flatpak/incus-admin: service access
     extraGroups = [
-      "networkmanager"
-      "wheel"
-      "flatpak"
-      "incus-admin"
+      "networkmanager" # manage Wi-Fi/Ethernet
+      "wheel" # sudo access
+      "flatpak" # Flatpak service access
+      "incus-admin" # Incus management socket (daemon enabled in modules/config/incus.nix)
     ];
     shell = "/run/current-system/sw/bin/zsh";
   };
@@ -96,11 +93,8 @@
   # Flatpak - sandboxed desktop application installation from Flathub
   services.flatpak.enable = true;
 
-  # Tailscale - zero-config mesh VPN
-  services.tailscale.enable = true;
-  environment.systemPackages = with pkgs; [
-    tailscale # CLI tools for managing Tailscale connections
-  ];
+  # Tailscale and WireGuard VPN are managed in modules/config/tailscale.nix
+  # and modules/config/wireguard.nix. Toggle via enableTailscale / enableWireGuard in flake.nix.
 
   # OpenSSH - allow remote login via SSH
   services.openssh.enable = true;
@@ -136,16 +130,16 @@
   #  │   └────────────────────┘        └──────────────┬───────────────┘    │
   #  │           ▲  fallback                          │                    │
   #  │           │  on crash/stall                    ▼                    │
-  #  │           │                    ┌──────────────────────────────┐     │
-  #  │           │                    │   eBPF runtime               │     │
-  #  │           │                    │   • Verifier (safety check)  │     │
-  #  │           │                    │   • JIT compiler             │     │
-  #  │           │                    └──────────────┬───────────────┘     │
-  #  └───────────┼───────────────────────────────────┼─────────────────────┘
-  #              │                                   │ load / unload
-  #  ┌───────────┼───────────────────────────────────┼────────────────────┐
-  #  │           │             USER SPACE            │                    │
-  #  │           │   ┌───────────────────────────────▼──────────────┐     │
+  #  │           │                     ┌──────────────────────────────┐    │
+  #  │           │                     │   eBPF runtime               │    │
+  #  │           │                     │   • Verifier (safety check)  │    │
+  #  │           │                     │   • JIT compiler             │    │
+  #  │           │                     └──────────────┬───────────────┘    │
+  #  └───────────┼────────────────────────────────────┼────────────────────┘
+  #              │                                    │ load / unload
+  #  ┌───────────┼────────────────────────────────────┼───────────────────┐
+  #  │           │             USER SPACE             │                   │
+  #  │           │   ┌────────────────────────────────▼─────────────┐     │
   #  │           │   │  ┌─────────────┐  ┌──────────┐  ┌─────────┐  │     │
   #  │           │   │  │ scx_bpfland │  │ scx_lavd │  │scx_rusty│  │     │
   #  │           │   │  │ Interactive │  │Gaming/HW │  │  Multi- │  │     │
@@ -166,7 +160,7 @@
   #    boosts and risk triggering the watchdog.
   #
   # Verify: cat /sys/kernel/sched_ext/state   ("enabled" = scheduler is live)
-  #   scx_bpfland --monitor 1                 (live per-CPU stats)
+  #         scx_bpfland --monitor 1           (live per-CPU stats)
   #
   services.scx = {
     enable = true;
@@ -184,21 +178,9 @@
   # };
 
   # ── Firewall ──────────────────────────────────────────────────────────────────
-  networking.firewall = {
-    enable = true;
-    trustedInterfaces = [
-      "tailscale0" # Tailscale virtual NIC - fully trusted for mesh VPN traffic
-      "incusbr0" # Incus bridge NIC - trusted for container networking
-    ];
-    allowedUDPPorts = [
-      config.services.tailscale.port # Tailscale (dynamic port, read from service config)
-      51820 # WireGuard VPN
-    ];
-  };
-  # WireGuard VPN config file (contains keys and peer addresses - keep this file private)
-  networking.wg-quick.interfaces.wg0.configFile = "${wireGuardVPNConfigFilePath}";
-  # nftables is required by Incus (it uses nftables instead of iptables for container networking)
-  networking.nftables.enable = true;
+  # Rules for Tailscale, WireGuard, and Incus are each managed by their own modules
+  # (modules/config/{tailscale,wireguard,incus}.nix). nftables is also enabled there.
+  networking.firewall.enable = true;
 
   # ── State Version ─────────────────────────────────────────────────────────────
   # Determines the NixOS release from which default settings for stateful data

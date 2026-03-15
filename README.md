@@ -354,9 +354,9 @@ editing `flake.nix` following
 nano /mnt/etc/nixos/flake.nix
 ```
 
-edit `flake.nix` to set your `username`, `GitHub username`, and `GitHub email`
+Edit `flake.nix` to set your `username`, `GitHub username`, and `GitHub email`. Also configure optional services:
 
-```
+```nix
 {
 ...
 (omitted)
@@ -369,52 +369,22 @@ edit `flake.nix` to set your `username`, `GitHub username`, and `GitHub email`
       githubUsername = "Myxogastria0808";
       # GitHub email
       githubEmail = "r.rstudio.c@gmail.com";
-      # (Optional) WireGuard VPN — comment out if you do not use WireGuard
-      # wireGuardVPNConfigFilePath = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
-      # Base NixOS system configuration entry point
-      baseModules = [
-        ./nixos/configuration.nix
-      ];
-      nixosModules = [
-        ./modules/app.nix
-      ];
+      # Active desktop environment: "hyprland" | "kde" | "cosmic"
+      desktopEnvironment = "hyprland";
+      # Optional services — set to true/false to enable or disable
+      enableTailscale = true;
+      enableWireGuard = false; # ← set false at first install (conf file doesn't exist yet)
+      # Path to WireGuard .conf file — only read when enableWireGuard = true
+      wireGuardVPNConfigFilePath = "/path/to/file/my-vpn.conf";
     in
     {
-...
-(omitted)
-      specialArgs = {
-        inherit inputs;
-        username = username;
-        githubUsername = githubUsername;
-        githubEmail = githubEmail;
-        # (Optional) WireGuard VPN — comment out if you do not use WireGuard
-        # wireGuardVPNConfigFilePath = wireGuardVPNConfigFilePath;
-      };
 ...
 (omitted)
 }
 ```
 
-Before running `nixos-install`, comment out the optional services in `nixos/configuration.nix` as shown below.
-
-If you do not use **Tailscale**, comment out:
-
-```nix
-# services.tailscale.enable = true;
-# tailscale # CLI tools for managing Tailscale connections
-# "tailscale0" # Tailscale virtual NIC - fully trusted for mesh VPN traffic
-# config.services.tailscale.port # Tailscale (dynamic port, read from service config)
-```
-
-**WireGuard must always be commented out at this stage**, even if you plan to use it. The `.conf` file cannot exist yet because the home directory has not been created. Comment out:
-
-```nix
-# networking.wg-quick.interfaces.wg0.configFile = "${wireGuardVPNConfigFilePath}";
-# 51820 # WireGuard VPN
-```
-
 > [!WARNING]
-> Leaving the WireGuard lines active will cause `nixos-install` to fail, because NixOS evaluates the config file path at build time and the file does not exist yet.
+> **Always set `enableWireGuard = false` during the first install** (`nixos-install`). The `.conf` file cannot exist yet because the home directory has not been created, and NixOS evaluates the path at build time. Enable it after step 4.
 >
 > See step 6 for Tailscale setup and step 7 for WireGuard setup after the first boot.
 
@@ -478,16 +448,13 @@ mkdir src
 > [!NOTE]
 > Skip this step if you do not use Tailscale.
 
-**1.** Uncomment the Tailscale lines in `nixos/configuration.nix` that you commented out in step 3:
+**1.** In `flake.nix`, set:
 
 ```nix
-services.tailscale.enable = true;
-tailscale # CLI tools for managing Tailscale connections
-"tailscale0" # Tailscale virtual NIC - fully trusted for mesh VPN traffic
-config.services.tailscale.port # Tailscale (dynamic port, read from service config)
+enableTailscale = true;
 ```
 
-**2.** Apply the change:
+**2.** Apply:
 
 ```shell
 nixos
@@ -499,12 +466,6 @@ nixos
 sudo tailscale up
 ```
 
-**4.** Apply home-manager to pick up any user-level changes:
-
-```shell
-hm
-```
-
 ### 7. Setup WireGuard VPN (Optional)
 
 > [!NOTE]
@@ -513,31 +474,16 @@ hm
 > [!WARNING]
 > A WireGuard `.conf` file contains **private keys and peer secrets**. It is highly sensitive and **must never be committed to this repository or any public repository**. Always keep it outside the dotfiles directory.
 
-**1.** Obtain your WireGuard `.conf` file from your VPN provider or generate one, then place it at a private path on your machine (e.g. `~/Documents/my-vpn.conf`).
+**1.** Obtain your WireGuard `.conf` file from your VPN provider or generate one, then place it at a private path (e.g. `~/Documents/my-vpn.conf`).
 
-**2.** Uncomment and update `wireGuardVPNConfigFilePath` in `flake.nix` to point to that file:
-
-```nix
-wireGuardVPNConfigFilePath = "/home/yourname/Documents/my-vpn.conf";
-```
-
-Also uncomment the `specialArgs` entry in the same file:
+**2.** In `flake.nix`, set:
 
 ```nix
-wireGuardVPNConfigFilePath = wireGuardVPNConfigFilePath;
+enableWireGuard = true;
+wireGuardVPNConfigFilePath = "/path/to/file/my-vpn.conf";
 ```
 
-**3.** Uncomment the corresponding lines in `nixos/configuration.nix`:
-
-```nix
-networking.wg-quick.interfaces.wg0.configFile = "${wireGuardVPNConfigFilePath}";
-```
-
-```nix
-51820 # WireGuard VPN
-```
-
-**4.** Apply the change:
+**3.** Apply:
 
 ```shell
 nixos

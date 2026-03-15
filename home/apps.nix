@@ -16,11 +16,10 @@
     ./config/skk
     ./config/firefox
   ]
-  ++ [ ./config/hyprland ];
   # Hyprland home-manager config (Waybar, keybindings, tools) is only loaded
   # when the active desktop environment is Hyprland. When using KDE or COSMIC,
   # this block is omitted automatically — no manual commenting out required.
-  # ++ (if desktopEnvironment == "hyprland" then [ ./config/hyprland ] else [ ]);
+  ++ (if desktopEnvironment == "hyprland" then [ ./config/hyprland ] else [ ]);
   # User-level packages managed by home-manager
   home.packages = with pkgs; [ ];
 }

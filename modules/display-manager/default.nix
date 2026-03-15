@@ -14,7 +14,6 @@
 
   # XServer is required to run SDDM even on Wayland sessions
   services.xserver.enable = true;
-
   # XWayland allows X11 apps to run inside a Wayland session
   programs.xwayland.enable = true;
   # US keyboard layout for X11

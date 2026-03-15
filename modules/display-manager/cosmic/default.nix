@@ -1,7 +1,7 @@
 { ... }:
 {
   # ── COSMIC Desktop (by System76) ──────────────────────────────────────────────
-  # Wayland-native desktop environment. Appears as a session option in SDDM
-  # alongside KDE, so both can coexist without conflict.
+  # Wayland-native desktop environment. Intended to run as the sole active environment.
+  # Running multiple environments simultaneously may cause conflicts.
   services.desktopManager.cosmic.enable = true;
 }

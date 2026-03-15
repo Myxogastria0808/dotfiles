@@ -9,13 +9,13 @@
   # ── Display Manager ───────────────────────────────────────────────────────────
   # XServer is required to run SDDM even on Wayland sessions
   services.xserver.enable = true;
-  # SDDM is the shared display manager for KDE, COSMIC, and Hyprland sessions
+  # SDDM is the display manager — only one environment should be active at a time
   services.displayManager.sddm.enable = true;
   # Default session: hyprland-uwsm (UWSM-managed Hyprland — recommended)
   # NOTE: "hyprland" (standalone, without UWSM) is also registered as a session by the
   # NixOS Hyprland module and will appear in the SDDM session list, but it is NOT the
   # default and its stability is not guaranteed. Use "hyprland-uwsm" for reliable operation.
-  # Other options: "plasmax11" (KDE X11), "plasma" (KDE Wayland)
+  # Other options: "plasmax11" (KDE X11), "plasma" (KDE Wayland), "cosmic" (COSMIC Wayland)
   services.displayManager.defaultSession = "hyprland-uwsm";
 
   # To replace SDDM with the COSMIC greeter instead:

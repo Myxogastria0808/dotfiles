@@ -1,6 +1,6 @@
 # Hyprland Configuration Reference
 
-> **Config files:** `home/config/hyprland/default.nix`, `home/config/hyprland/rofi/default.nix`, `home/config/hyprland/waybar/default.nix`, `home/config/hyprland/moka/default.nix`
+> **Config files:** `home/config/hyprland/default.nix`, `home/config/hyprland/rofi/default.nix`, `home/config/hyprland/waybar/default.nix`, `home/config/hyprland/swaync/default.nix`
 
 > [!WARNING]
 > Always launch Hyprland via the **`hyprland-uwsm`** session in SDDM. The standalone `hyprland` session (without UWSM) is also registered automatically by the NixOS module and will appear in the SDDM session list, but it bypasses UWSM entirely. **Its stability is not guaranteed and it is not supported by this dotfiles.**
@@ -49,13 +49,14 @@
 
 Set via NixOS `environment.sessionVariables` in `modules/display-manager/hyprland/default.nix` and propagated to the entire systemd user session (via UWSM).
 
-| Variable                       | Value  | Description                                                                     |
-| ------------------------------ | ------ | ------------------------------------------------------------------------------- |
-| `MOZ_ENABLE_WAYLAND`           | `1`    | Firefox runs natively on Wayland (avoids XWayland freeze/crash issues)          |
-| `ELECTRON_OZONE_PLATFORM_HINT` | `auto` | Electron apps (Discord, VSCode, …) prefer Wayland; falls back to X11 if needed  |
-| `NIXOS_OZONE_WL`               | `1`    | NixOS Electron/Chromium wrappers inject `--ozone-platform=wayland` at launch    |
+| Variable              | Value      | Description                                                                  |
+| --------------------- | ---------- | ---------------------------------------------------------------------------- |
+| `XDG_CURRENT_DESKTOP` | `Hyprland` | Tells apps (e.g. portals, tray) which DE is running                          |
+| `XDG_SESSION_TYPE`    | `wayland`  | Marks the session as Wayland; required by some apps to opt in                |
+| `XDG_SESSION_DESKTOP` | `Hyprland` | Used by systemd/logind and xdg-desktop-portal to select the portal backend   |
+| `NIXOS_OZONE_WL`      | `1`        | NixOS Electron/Chromium wrappers inject `--ozone-platform=wayland` at launch |
 
-> **Note:** `XDG_CURRENT_DESKTOP`, `XDG_SESSION_TYPE`, and `XDG_SESSION_DESKTOP` are set automatically by UWSM and do not need to be configured explicitly.
+> **Note:** Although UWSM sets `XDG_CURRENT_DESKTOP`, `XDG_SESSION_TYPE`, and `XDG_SESSION_DESKTOP` automatically at session start, they are also set explicitly here as a belt-and-suspenders measure to ensure correct values even if UWSM is not used.
 
 ---
 
@@ -140,16 +141,16 @@ Uses [grimblast](https://github.com/hyprwm/contrib/tree/main/grimblast). `copysa
 
 `bindel` keys **repeat while held**. `bindl` keys **work on the lock screen** as well.
 
-| Key                            | Action                              |
-| ------------------------------ | ----------------------------------- |
-| `XF86AudioRaiseVolume`         | Speaker volume +1%                  |
-| `XF86AudioLowerVolume`         | Speaker volume -1%                  |
-| `Shift + XF86AudioRaiseVolume` | Microphone volume +1%               |
-| `Shift + XF86AudioLowerVolume` | Microphone volume -1%               |
-| `XF86AudioMute`                | Toggle speaker mute (lock screen)   |
-| `XF86AudioMicMute`             | Toggle microphone mute (lock screen)|
-| `XF86MonBrightnessUp`          | Brightness +5%                      |
-| `XF86MonBrightnessDown`        | Brightness -5%                      |
+| Key                            | Action                               |
+| ------------------------------ | ------------------------------------ |
+| `XF86AudioRaiseVolume`         | Speaker volume +5%                   |
+| `XF86AudioLowerVolume`         | Speaker volume -5%                   |
+| `Shift + XF86AudioRaiseVolume` | Microphone volume +5%                |
+| `Shift + XF86AudioLowerVolume` | Microphone volume -5%                |
+| `XF86AudioMute`                | Toggle speaker mute (lock screen)    |
+| `XF86AudioMicMute`             | Toggle microphone mute (lock screen) |
+| `XF86MonBrightnessUp`          | Brightness +5%                       |
+| `XF86MonBrightnessDown`        | Brightness -5%                       |
 
 ### Mouse Bindings
 
@@ -232,7 +233,6 @@ The following commands run once on Hyprland startup (`exec-once`).
 
 | Command                                        | Description                             |
 | ---------------------------------------------- | --------------------------------------- |
-| `swww-daemon`                                  | Wallpaper daemon                        |
 | `wl-paste --type text --watch cliphist store`  | Watch and store text clipboard entries  |
 | `wl-paste --type image --watch cliphist store` | Watch and store image clipboard entries |
 | `waybar`                                       | Start the status bar                    |
@@ -241,15 +241,11 @@ The following commands run once on Hyprland startup (`exec-once`).
 
 ## Notifications
 
-**Config file:** `home/config/hyprland/moka/default.nix`
+**Config file:** `home/config/hyprland/swaync/default.nix`
 
-Uses [Mako](https://github.com/emersion/mako), a Wayland notification daemon compatible with libnotify.
+Uses [SwayNotificationCenter (swaync)](https://github.com/ErikReider/SwayNotificationCenter), a Wayland notification daemon compatible with libnotify.
 
 > **Why a notification daemon is required:** Without a daemon listening on D-Bus, any app that calls libnotify (e.g. Discord on message receipt) will hang indefinitely waiting for a response, causing the app to appear frozen.
-
-| Option            | Value  | Description                          |
-| ----------------- | ------ | ------------------------------------ |
-| `default-timeout` | `5000` | Auto-dismiss notifications after 5 s |
 
 ---
 
@@ -265,19 +261,19 @@ A top bar (height: 30px) with the following layout:
 
 ### Module Details
 
-| Module       | Display                                                                 | Click Action                                |
-| ------------ | ----------------------------------------------------------------------- | ------------------------------------------- |
-| Workspaces   | Workspace numbers                                                       | Click to switch                             |
-| Window Title | Active window title (max 50 chars)                                      | —                                           |
-| Clock        | `YYYY-MM-DD HH:MM:SS`                                                   | Hover to show calendar                      |
-| CPU          | `CPU XX%` (updates every 5s)                                            | —                                           |
-| Memory       | `MEM XX%` (updates every 5s)                                            | —                                           |
-| Battery      | `BAT XX%` / `CHG XX%` / `PLG XX%`<br>⚠ ≤30%: yellow, ≤15%: red         | —                                           |
-| Network      | `WiFi (XX%)` / `ETH` / `No Network`<br>Hover: SSID + IP                 | —                                           |
-| Volume       | `VOL XX%` / `VOL MUTE`                                                  | Click to open pavucontrol                   |
-| Bluetooth    | `BT` / `BT OFF` / `BT {device}`<br>Connected: blue text                 | Click to open blueman-manager               |
-| Power        | `PWR` (red)                                                             | Click to open wlogout (power menu)          |
-| Tray         | System tray icons                                                       | —                                           |
+| Module       | Display                                                         | Click Action                       |
+| ------------ | --------------------------------------------------------------- | ---------------------------------- |
+| Workspaces   | Workspace numbers                                               | Click to switch                    |
+| Window Title | Active window title (max 50 chars)                              | —                                  |
+| Clock        | `YYYY-MM-DD HH:MM:SS`                                           | Hover to show calendar             |
+| CPU          | `CPU XX%` (updates every 5s)                                    | —                                  |
+| Memory       | `MEM XX%` (updates every 5s)                                    | —                                  |
+| Battery      | `BAT XX%` / `CHG XX%` / `PLG XX%`<br>⚠ ≤30%: yellow, ≤15%: red | —                                  |
+| Network      | `WiFi (XX%)` / `ETH` / `No Network`<br>Hover: SSID + IP         | —                                  |
+| Volume       | `VOL XX%` / `VOL MUTE`                                          | Click to open pavucontrol          |
+| Bluetooth    | `BT` / `BT OFF` / `BT {device}`<br>Connected: blue text         | Click to open blueman-manager      |
+| Power        | `PWR` (red)                                                     | Click to open wlogout (power menu) |
+| Tray         | System tray icons                                               | —                                  |
 
 ### Style
 

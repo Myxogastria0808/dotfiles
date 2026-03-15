@@ -4,61 +4,97 @@ Some NixOS users can make full use of this dotfiles. This dotfiles has been crea
 
 ## Environment
 
-|                   |                                  |
-| ----------------- | -------------------------------- |
-| Target Hardware   | ThinkPad X1 Carbon 7th           |
-| Window Manager    | KDE Plasma 6 / Hyprland / COSMIC |
-| Terminal Emulator | Ghostty                          |
-| Shell             | zsh                              |
-| Vim               | NixVim                           |
-| Prompt            | starship                         |
-| Fingerprint       | Disable                          |
-| Bluetooth         | Enable                           |
-| KDE connect       | Enable                           |
-| Docker            | Enable                           |
-| Japanese Input    | skk                              |
-| TimeZone          | Asia/Tokyo                       |
-| i18n              | en_US.UTF-8                      |
+|                   |                        |
+| ----------------- | ---------------------- |
+| Target Hardware   | ThinkPad X1 Carbon 7th |
+| Window Manager    | Hyprland (default)     |
+| Terminal Emulator | Ghostty                |
+| Shell             | zsh                    |
+| Vim               | NixVim                 |
+| Prompt            | starship               |
+| Fingerprint       | Disable                |
+| Bluetooth         | Enable                 |
+| KDE connect       | Enable                 |
+| Docker            | Enable                 |
+| Japanese Input    | skk                    |
+| TimeZone          | Asia/Tokyo             |
+| i18n              | en_US.UTF-8            |
 
 ## Display Manager
 
-This dotfiles uses **SDDM** as the display manager. All three desktop environments/compositors coexist as independent session choices — enabling one does not conflict with another.
+This dotfiles uses **SDDM** as the display manager. The three desktop environments/compositors (KDE, COSMIC, Hyprland) are designed to run **independently** — only one should be active at a time. **Hyprland is the current default.**
+
+> [!WARNING]
+> Enabling multiple desktop environments simultaneously may cause conflicts (environment variable collisions, portal backend mismatches, session misconfiguration). Activate only one environment at a time.
 
 ```
 modules/display-manager/
 ├── default.nix    # Shared config: SDDM, XWayland, xdg-portal, keyboard layout
+│                  # Controls which environment is active via imports
 ├── kde/           # KDE Plasma 6
 ├── cosmic/        # COSMIC Desktop (by System76)
-└── hyprland/      # Hyprland (Wayland compositor)
+└── hyprland/      # Hyprland (Wayland compositor) ← currently active
+```
+
+### Switching Environments
+
+To switch the active desktop environment:
+
+**Step 1 — Edit `modules/display-manager/default.nix`** to import only the desired environment:
+
+```nix
+imports = [
+  # ./kde       # ← uncomment to use KDE
+  # ./cosmic    # ← uncomment to use COSMIC
+  ./hyprland    # ← currently active (comment out when switching away)
+];
+```
+
+**Step 2 — Edit `home/apps.nix`** to comment out the Hyprland home-manager config when not using Hyprland:
+
+```nix
+imports = [
+  ./config/ghostty
+  ./config/skk
+  ./config/firefox
+  # ./config/hyprland  # ← comment out when not using Hyprland
+];
+```
+
+**Step 3 — Update `defaultSession`** in `modules/display-manager/default.nix` to match the new environment (e.g. `"plasmax11"`, `"plasma"`, or `"hyprland-uwsm"`).
+
+**Step 4 — Apply changes:**
+
+```shell
+nixos
+hm
 ```
 
 ### Sessions
 
-| Session         | Type    | Description                                                                   |
-| --------------- | ------- | ----------------------------------------------------------------------------- |
-| `plasmax11`     | X11     | KDE Plasma 6 on X11                                                           |
-| `plasma`        | Wayland | KDE Plasma 6 on Wayland                                                       |
-| COSMIC          | Wayland | Wayland-native DE by System76                                                 |
-| `hyprland-uwsm` | Wayland | Hyprland via UWSM (recommended) — **default session**                         |
-| `hyprland`      | Wayland | Hyprland standalone (no UWSM) — **stability not guaranteed**, avoid if unsure |
-
-To change the default session, edit `defaultSession` in `modules/display-manager/default.nix`.
+| Session         | Type    | Environment | Description                                                                   |
+| --------------- | ------- | ----------- | ----------------------------------------------------------------------------- |
+| `plasmax11`     | X11     | KDE         | KDE Plasma 6 on X11                                                           |
+| `plasma`        | Wayland | KDE         | KDE Plasma 6 on Wayland                                                       |
+| `cosmic`        | Wayland | COSMIC      | Wayland-native DE by System76                                                 |
+| `hyprland-uwsm` | Wayland | Hyprland    | Hyprland via UWSM (recommended) — **current default session**                 |
+| `hyprland`      | Wayland | Hyprland    | Hyprland standalone (no UWSM) — **stability not guaranteed**, avoid if unsure |
 
 ### Key Points
 
 - **SDDM runs on X11.** That is why `services.xserver.enable = true` is required even on a Wayland-first setup. SDDM itself starts as an X11 process; the selected session then launches as Wayland independently.
 
-- **All three DEs/compositors are always registered as SDDM sessions.** Adding or removing one does not affect the others. You simply pick the session from the SDDM login screen.
+- **Only one environment should be active at a time.** Each environment sets its own `XDG_CURRENT_DESKTOP`, portal backends, and session variables. Enabling multiple simultaneously will produce conflicting system-wide environment variables and unpredictable behavior.
 
 - **XWayland** (`programs.xwayland.enable = true`) allows legacy X11 applications to run inside any Wayland session (KDE Wayland, COSMIC, or Hyprland). Without it, X11-only apps will not start.
 
-- **xdg-portal** is required for sandboxed apps (Flatpak) to access file dialogs, screenshots, screen sharing, and other desktop integration features. KDE and COSMIC configure their own portal backends automatically; Hyprland uses `xdg-desktop-portal-hyprland` (set via the flake input package).
+- **xdg-portal** is required for sandboxed apps (Flatpak) to access file dialogs, screenshots, screen sharing, and other desktop integration features. KDE and COSMIC configure their own portal backends automatically; Hyprland uses `xdg-desktop-portal-hyprland` (provided automatically by the NixOS Hyprland module from nixpkgs).
 
 - **Hyprland + UWSM** (`withUWSM = true`): When launched through UWSM (Universal Wayland Session Manager), Hyprland runs as a proper systemd user session. This handles session lifecycle, environment variable propagation, and `systemd --user` integration automatically. **Always use the `hyprland-uwsm` session** from the SDDM login screen. A standalone Hyprland session (`hyprland`) is also registered automatically by the NixOS module and appears in the SDDM session list, but running it **bypasses UWSM entirely** — its stability is not guaranteed and it is not supported by this dotfiles.
 
-- **Hyprland is managed as a flake input** (`github:hyprwm/Hyprland`). Both the NixOS module (`inputs.hyprland.nixosModules.default`) and the home-manager module (`inputs.hyprland.homeManagerModules.default`) are wired into the flake outputs, so the compositor and its portal package always come from the same pinned revision.
+- **Hyprland home-manager config must be disabled when not using Hyprland.** The `./config/hyprland` import in `home/apps.nix` sets up Waybar, Hyprland keybindings, and other Hyprland-specific user config. Leaving it active under KDE or COSMIC will cause conflicts and build errors. Comment it out whenever switching away from Hyprland.
 
-- **COSMIC Greeter is intentionally left disabled.** `cosmic-greeter` is a greetd-based login screen built specifically for the COSMIC desktop. It does not have proper support for non-COSMIC sessions (KDE, Hyprland). Enabling it would replace SDDM entirely and would likely prevent KDE and Hyprland sessions from appearing or launching correctly. Keep SDDM for a multi-session setup.
+- **COSMIC Greeter is intentionally left disabled.** `cosmic-greeter` is a greetd-based login screen built specifically for the COSMIC desktop. It does not have proper support for non-COSMIC sessions (KDE, Hyprland). Enabling it would replace SDDM entirely and would likely prevent other sessions from appearing or launching correctly. Keep SDDM.
 
 > For Hyprland keybindings and detailed settings, see [home/config/hyprland/README.md](home/config/hyprland/README.md).
 

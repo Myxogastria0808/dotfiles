@@ -1,5 +1,17 @@
 { pkgs, ... }:
 {
+  # ── Hyprland ──────────────────────────────────────────────────────────────────
+  # Wayland compositor (tiling WM). Currently the sole active desktop environment.
+  # Each environment (KDE, COSMIC, Hyprland) is intended to run independently.
+  # Running multiple environments simultaneously may cause conflicts.
+  # To switch environments, edit the imports in modules/display-manager/default.nix,
+  # and comment out ./config/hyprland in home/apps.nix when not using Hyprland.
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true; # Use UWSM for session management (recommended)
+    xwayland.enable = true; # Allow X11 apps to run inside Hyprland
+  };
+
   # ── Qt Wayland Support ────────────────────────────────────────────────────────
   # Required for Qt apps (LibreOffice, QGIS, etc.) to render natively on Wayland
   # instead of falling back to XWayland under Hyprland.
@@ -8,15 +20,6 @@
     qt5.qtwayland
     qt6.qtwayland
   ];
-
-  # ── Hyprland ──────────────────────────────────────────────────────────────────
-  # Wayland compositor (tiling WM). Appears as a session option in SDDM
-  # alongside KDE and COSMIC, so all three can coexist without conflict.
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true; # Use UWSM for session management (recommended)
-    xwayland.enable = true; # Allow X11 apps to run inside Hyprland
-  };
 
   # ── Wayland environment variables ─────────────────────────────────────────────
   environment.sessionVariables = {

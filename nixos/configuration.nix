@@ -85,7 +85,7 @@
       "wheel"
       "flatpak"
       "incus-admin" # daemon enabled in modules/config/incus.nix
-      # "libvirtd" # demon enabled in modules/config/kvm.nix
+      "libvirtd" # demon enabled in modules/config/kvm.nix
     ];
     shell = "/run/current-system/sw/bin/zsh";
   };

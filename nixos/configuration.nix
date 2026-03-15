@@ -163,10 +163,10 @@
   # Verify: cat /sys/kernel/sched_ext/state   ("enabled" = scheduler is live)
   #         scx_bpfland --monitor 1           (live per-CPU stats)
   #
-  services.scx = {
-    enable = true;
-    scheduler = "scx_bpfland";
-  };
+  # services.scx = {
+  #   enable = true;
+  #   scheduler = "scx_bpfland";
+  # };
 
   # Fingerprint reader (disabled - driver compatibility issues on this hardware)
   # services.fprintd = {

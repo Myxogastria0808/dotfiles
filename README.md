@@ -1,6 +1,4 @@
-# About this dotfiles
-
-This dotfiles makes home-manager independent from NixOS Modules. Therefore, the parts managed by home-manager are supposed to be available to all Linux users. In addition, some NixOS users can make full use of this dotfiles. This dotfiles has been created for successful setup on the ThinkPad X1 Carbon 7th. It has not been tested on other generations of the X1 Carbon, but users with other generations of the X1 Carbon may also be able to set it up successfully.
+Some NixOS users can make full use of this dotfiles. This dotfiles has been created for successful setup on the ThinkPad X1 Carbon 7th. It has not been tested on other generations of the X1 Carbon, but users with other generations of the X1 Carbon may also be able to set it up successfully.
 
 # Outline
 
@@ -86,6 +84,20 @@ Run `:Copilot auth` inside Neovim and follow the device-flow prompt to authentic
 ```
 
 This only needs to be done once. The token is stored in `~/.config/github-copilot/`.
+
+## How to manage repositories with ghq and peco
+
+- clone repository
+
+`clone` is alias of `ghq get`
+
+```shell
+clone <repository URI>
+```
+
+- move repository directory
+
+type `Ctrl + g` on a terminal -> be showed selection menu of repositories.
 
 ## Alias
 
@@ -329,6 +341,8 @@ edit `flake.nix` to set your `username`, `GitHub username`, and `GitHub email`
       githubUsername = "Myxogastria0808";
       # GitHub email
       githubEmail = "r.rstudio.c@gmail.com";
+      # (Optional) WireGuard VPN — comment out if you do not use WireGuard
+      # wireGuardVPNConfigFilePath = "/home/hello/Documents/Myxogastria0808-NixOS.conf";
       # Base NixOS system configuration entry point
       baseModules = [
         ./nixos/configuration.nix
@@ -338,11 +352,43 @@ edit `flake.nix` to set your `username`, `GitHub username`, and `GitHub email`
       ];
     in
     {
-      ## home-manager ##
+...
+(omitted)
+      specialArgs = {
+        inherit inputs;
+        username = username;
+        githubUsername = githubUsername;
+        githubEmail = githubEmail;
+        # (Optional) WireGuard VPN — comment out if you do not use WireGuard
+        # wireGuardVPNConfigFilePath = wireGuardVPNConfigFilePath;
+      };
 ...
 (omitted)
 }
 ```
+
+Before running `nixos-install`, comment out the optional services in `nixos/configuration.nix` as shown below.
+
+If you do not use **Tailscale**, comment out:
+
+```nix
+# services.tailscale.enable = true;
+# tailscale # CLI tools for managing Tailscale connections
+# "tailscale0" # Tailscale virtual NIC - fully trusted for mesh VPN traffic
+# config.services.tailscale.port # Tailscale (dynamic port, read from service config)
+```
+
+**WireGuard must always be commented out at this stage**, even if you plan to use it. The `.conf` file cannot exist yet because the home directory has not been created. Comment out:
+
+```nix
+# networking.wg-quick.interfaces.wg0.configFile = "${wireGuardVPNConfigFilePath}";
+# 51820 # WireGuard VPN
+```
+
+> [!WARNING]
+> Leaving the WireGuard lines active will cause `nixos-install` to fail, because NixOS evaluates the config file path at build time and the file does not exist yet.
+>
+> See step 6 for Tailscale setup and step 7 for WireGuard setup after the first boot.
 
 Install NixOS
 
@@ -399,24 +445,77 @@ cd $HOME
 mkdir src
 ```
 
-### 6. Setup Tailscale
+### 6. Setup Tailscale (Optional)
 
-run `tailscale up`
+> [!NOTE]
+> Skip this step if you do not use Tailscale.
 
-> [!WARNING]
-> If you are not tailscale user, you have to comment out `services.tailscale.enable = true;` (`configuration.nix`)
+**1.** Uncomment the Tailscale lines in `nixos/configuration.nix` that you commented out in step 3:
+
+```nix
+services.tailscale.enable = true;
+tailscale # CLI tools for managing Tailscale connections
+"tailscale0" # Tailscale virtual NIC - fully trusted for mesh VPN traffic
+config.services.tailscale.port # Tailscale (dynamic port, read from service config)
+```
+
+**2.** Apply the change:
+
+```shell
+nixos
+```
+
+**3.** Connect to Tailscale:
 
 ```shell
 sudo tailscale up
 ```
 
-run following command
+**4.** Apply home-manager to pick up any user-level changes:
 
 ```shell
 hm
 ```
 
-### 7. Finish!
+### 7. Setup WireGuard VPN (Optional)
+
+> [!NOTE]
+> Skip this step if you do not use WireGuard.
+
+> [!WARNING]
+> A WireGuard `.conf` file contains **private keys and peer secrets**. It is highly sensitive and **must never be committed to this repository or any public repository**. Always keep it outside the dotfiles directory.
+
+**1.** Obtain your WireGuard `.conf` file from your VPN provider or generate one, then place it at a private path on your machine (e.g. `~/Documents/my-vpn.conf`).
+
+**2.** Uncomment and update `wireGuardVPNConfigFilePath` in `flake.nix` to point to that file:
+
+```nix
+wireGuardVPNConfigFilePath = "/home/yourname/Documents/my-vpn.conf";
+```
+
+Also uncomment the `specialArgs` entry in the same file:
+
+```nix
+wireGuardVPNConfigFilePath = wireGuardVPNConfigFilePath;
+```
+
+**3.** Uncomment the corresponding lines in `nixos/configuration.nix`:
+
+```nix
+networking.wg-quick.interfaces.wg0.configFile = "${wireGuardVPNConfigFilePath}";
+```
+
+```nix
+51820 # WireGuard VPN
+```
+
+**4.** Apply the change:
+
+```shell
+nixos
+```
+
+### 8. Finish!
 
 ## How to manage repositories with ghq and peco
 

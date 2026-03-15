@@ -139,19 +139,19 @@
 
           # windows: appearance a window
           #   Format: event name, on / off, speed, bezier curve name, style
-          "windows, 1, 7, myBezier"
+          "windows, 1, 3, myBezier"
           # windowsOut: disappearance a window
           #   Format: event name, on / off, speed, bezier curve name, style
-          "windowsOut, 1, 7, default"
+          "windowsOut, 1, 2, default"
           # border: change border color
           #   Format: event name, on / off, speed, bezier curve name, style
-          "border, 1, 10, default"
+          "border, 1, 3, default"
           # fade: fade in/out when switching workspaces or changing focus
           #   Format: event name, on / off, speed, bezier curve name, style
-          "fade, 1, 7, default"
+          "fade, 1, 3, default"
           # workspaces: switch between workspaces
           #   Format: event name, on / off, speed, bezier curve name, style
-          "workspaces, 1, 6, default"
+          "workspaces, 1, 3, default"
         ];
       };
 

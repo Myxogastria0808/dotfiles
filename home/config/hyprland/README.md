@@ -192,15 +192,15 @@ Uses [grimblast](https://github.com/hyprwm/contrib/tree/main/grimblast). `copysa
 
 Custom bezier curve `myBezier (0.05, 0.9, 0.1, 1.05)` — gives a slight overshoot/bounce feel on window open.
 
-Speed unit is **ds** (1 ds = 100 ms).
+Speed unit is **ds** (1 ds = 100 ms). All values are tuned to be as short as possible while remaining perceptible.
 
-| Event        | Enabled | Speed | Curve    | Description                |
-| ------------ | ------- | ----- | -------- | -------------------------- |
-| `windows`    | ON      | 7     | myBezier | Window open animation      |
-| `windowsOut` | ON      | 7     | default  | Window close animation     |
-| `border`     | ON      | 10    | default  | Border color transition    |
-| `fade`       | ON      | 7     | default  | Focus/workspace fade       |
-| `workspaces` | ON      | 6     | default  | Workspace switch animation |
+| Event        | Enabled | Speed | Duration | Curve    | Description                |
+| ------------ | ------- | ----- | -------- | -------- | -------------------------- |
+| `windows`    | ON      | 3     | 300 ms   | myBezier | Window open animation      |
+| `windowsOut` | ON      | 2     | 200 ms   | default  | Window close animation     |
+| `border`     | ON      | 3     | 300 ms   | default  | Border color transition    |
+| `fade`       | ON      | 3     | 300 ms   | default  | Focus/workspace fade       |
+| `workspaces` | ON      | 3     | 300 ms   | default  | Workspace switch animation |
 
 ---
 
@@ -284,6 +284,12 @@ A top bar (height: 30px) with the following layout:
 - Font: monospace 13px
 - Background: `rgba(26, 27, 38, 0.9)` (semi-transparent dark)
 - Text color: `#cdd6f4` (Catppuccin Mocha text)
+
+---
+
+## Shell Helper
+
+A shell function `hypr` is defined in `a.sh` at the repository root. It is intended to be appended into `.zshrc` (or `zsh.nix` `shellInit`). Once added, run `hypr` in any terminal to display a color-coded keybindings cheatsheet.
 
 ---
 

@@ -172,6 +172,11 @@
         preserve_split = true;
       };
 
+      # ── Misc ──────────────────────────────────────────────────────────────────
+      misc = {
+        disable_hyprland_logo = true;
+      };
+
       # ── Keybindings ───────────────────────────────────────────────────────────
       # Ref: https://wiki.hypr.land/Configuring/Binds/
       "$mod" = "SUPER";

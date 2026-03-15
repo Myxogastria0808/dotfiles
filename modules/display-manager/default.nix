@@ -44,7 +44,7 @@
   };
 
   # Run Android apps on Linux via a container
-  virtualisation.waydroid.enable = true;
+  # virtualisation.waydroid.enable = true;
 
   # ── XDG Desktop Portal ────────────────────────────────────────────────────────
   # Ref: https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/

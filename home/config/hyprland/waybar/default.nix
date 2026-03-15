@@ -27,8 +27,8 @@ in
         modules-center = [ "clock" ];
         modules-right = [
           "bluetooth"
-          # "cpu"
-          # "memory"
+          "cpu"
+          "memory"
           "battery"
           "network"
           "custom/microphone"
